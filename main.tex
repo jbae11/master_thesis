@@ -1,0 +1,107 @@
+%%
+%% This is file `thesis-ex.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uiucthesis2014.dtx  (with options: `example')
+%% 
+\def\fileversion{v2.25b} \def\filedate{2014/05/02}
+%% Package and Class "uiucthesis2014" for use with LaTeX2e.
+\documentclass[edeposit,fullpage]{uiucthesis2014}
+
+\usepackage[acronym,toc]{glossaries}
+\include{acros}
+
+
+\begin{document}
+
+\title{Sustainability Analysis of Thorium Fuel Cycles}
+\author{Jin Whan Bae}
+\department{Nuclear Plasma, Radiological Engineering}
+\schools{B.S., University of Illinois at Urbana-Champaign, 2017}
+\msthesis
+\advisor{Kathryn Huff}
+\degreeyear{2017}
+\committee{Professor Prof Uno, Chair}
+\maketitle
+
+\frontmatter
+
+%% Create an abstract that can also be used for the ProQuest abstract.
+%% Note that ProQuest truncates their abstracts at 350 words.
+\begin{abstract}
+This work measures different sustainability metrics of various
+thorium fuel cycles, through a SERPENT, a high-fidelity reactor analysis
+code, coupled with CYCLUS, an agent-based fuel cycle simulator.
+\end{abstract}
+
+%% Create a dedication in italics with no heading, centered vertically
+%% on the page.
+\begin{dedication}
+To Father and Mother.
+\end{dedication}
+
+%% Create an Acknowledgements page, many departments require you to
+%% include funding support in this.
+\chapter*{Acknowledgments}
+
+
+%% The thesis format requires the Table of Contents to come
+%% before any other major sections, all of these sections after
+%% the Table of Contents must be listed therein (i.e., use \chapter,
+%% not \chapter*).  Common sections to have between the Table of
+%% Contents and the main text are:
+%%
+%% List of Tables
+%% List of Figures
+%% List Symbols and/or Abbreviations
+%% etc.
+
+\tableofcontents
+\listoftables
+\listoffigures
+
+%% Create a List of Abbreviations. The left column
+%% is 1 inch wide and left-justified
+\chapter{List of Abbreviations}
+\printglossaries
+%% Create a List of Symbols. The left column
+%% is 0.7 inch wide and centered
+\chapter{List of Symbols}
+
+
+
+
+\mainmatter
+\chapter{The Thorium Fuel Cycle}
+\section{Background}
+From the early years of nuclear power, thorium has been
+considered as a candidate for an alternative to uranium
+for nuclear fuel. 
+
+
+
+
+\include{1-introduction}
+\include{2-related}
+\include{3-model}
+\include{4-predictions}
+
+\chapter{Conclusions}
+
+We conclude that graduate students like coffee.
+
+\appendix*
+
+\include{Appendix.tex}
+
+\backmatter
+
+\bibliographystyle{apalike}
+\bibliography{thesisbib}
+
+\end{document}
+\endinput
+%%
+%% End of file `thesis-ex.tex'.
