@@ -23,9 +23,12 @@
 \newcolumntype{m}{>{\hsize=.75\hsize}X}
 \usepackage{graphics}
 \newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
-\newcommand{\uthree}{$^{233}_{92}U$}%
+\newcommand{\uthree}{$^{233}_{92}U$}
+\newcommand{\ufive}{$^{235}_{92}U$}%%
 \newcommand{\utwo}{$^{232}_{92}U$}
+\newcommand{\ueight}{$^{238}_{92}U$}
 \newcommand{\pu}{$^{239}_{94}Pu$}
+\newcommand{\th}{$^{232}_{90}Th$}
 \graphicspath{ {images/} }
 \usepackage[affil-it]{authblk}
 \usepackage[numbers]{natbib}
@@ -216,6 +219,7 @@ better neutronic properties (moreso at higher temperatures)
 
 thermal breeding capability
 \cite{robertson_conceptual_1971}
+
 and 
 radiotoxicity of spent fuel
 \cite{croff_comparative_2016}
@@ -241,8 +245,39 @@ there is no comparable dilution method for plutonium \cite{kang_u-232_2001}.
 
 
 \subsection{Availability}
-It is estimated that thorium is three to four times more abundant in
-nature than uranium \cite{iaea_thorium_2005}.
+It is estimated that thorium is about 3.9 times more abundant in
+nature than uranium \cite{herring_uranium_2013}. 
+
+\subsection{Better Neutronic Properties}
+The benefits of thorium can be looked at from a neutronics standpoint.
+First, thorium can be bred relatively efficiently into \uthree in thermal spectrums,
+which allow for breeding reactors with comparable conversion ratios \cite{allibert_introduction_2015}.
+\uthree also has a higher eta($\eta$) ratio of neutron yield per fission to 
+neutrons absorbed than that of \ufive and \pu \cite{lung_perspectives_1998}.
+\uthree maintains good neutronic properties in high temperatures,
+which make it an attractive fuel for high temperature reactors, which
+are the majority of GEN-IV reactors.
+
+\subsection{Radiotoxicity of Spent Fuel}
+Two components contribute to the radiotoxicity of 
+\gls{UNF}: \glspl{FP} and \glspl{MA}.
+Fission products account for the majority of early (\textbackslash 500 years)
+\gls{UNF} radiotoxicity, while \glspl{MA} account for 
+radiotoxicity into geological time.
+Studies claim that thorium fuel cycle produces relatively
+less plutonium and \gls{MA} \cite{boczar_thorium_2002} \cite{david_revisiting_2007},
+which leads to a lower long-term radiotoxicity and repository safety.
+However, some studies show that given the same technology (eg. \gls{PWR} Breed-and-burn),
+\uthree/Th and \pu/\ueight fuels produce similar radiotoxicity \cite{croff_comparative_2016}.
+
+In short, many papers that claim the drastic improvement that the thorium
+fuel cycle will bring assumes a thorium cycle in part of a GEN-IV system,
+not doing complete fairness to the uranium-plutonium fuel cycle. However,
+there is potential merit and a fair reason to pursue the thorium fuel cycle.
+Thus, this paper will compare the two fuel cycles given comparable technology
+advancement. 
+
+
 
 
 \cite{herring_uranium_2013}
