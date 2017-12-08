@@ -1,47 +1,62 @@
-%%
-%% This is file `thesis-ex.tex',
-%% generated with the docstrip utility.
-%%
-%% The original source files were:
-%%
-%% uiucthesis2014.dtx  (with options: `example')
-%% 
-\def\fileversion{v2.25b} \def\filedate{2014/05/02}
+
 %% Package and Class "uiucthesis2014" for use with LaTeX2e.
-\documentclass[edeposit,fullpage]{uiucthesis2014}
+\documentclass{article}
 
 \usepackage[acronym,toc]{glossaries}
 \include{acros}
+\usepackage{placeins}
+\usepackage{booktabs} % nice rules (thick lines) for tables
+\usepackage{microtype} % improves typography for PDF
+\usepackage{xspace}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xspace}
+\usepackage{hhline}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{fourier}
+\usepackage{booktabs}
+\usepackage{threeparttable, tablefootnote}
+
+\usepackage{tabularx}
+\newcolumntype{b}{>{\hsize=1.0\hsize}X}
+\newcolumntype{s}{>{\hsize=.5\hsize}X}
+\newcolumntype{m}{>{\hsize=.75\hsize}X}
+\usepackage{graphics}
+\newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
+\newcommand{\uthree}{$^{233}_{92}U$}%
+\newcommand{\utwo}{$^{232}_{92}U$}
+\newcommand{\pu}{$^{239}_{94}Pu$}
+\graphicspath{ {images/} }
+\usepackage[affil-it]{authblk}
+\usepackage[numbers]{natbib}
+\usepackage{notoccite}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows, decorations, shapes}
+
+\usetikzlibrary{shapes.geometric,arrows}
+\tikzstyle{process} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=blue!30]
+\tikzstyle{object} = [ellipse, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=green!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\usepackage{cleveref}
+\usepackage{datatool}
 
 
 \begin{document}
 
 \title{Sustainability Analysis of Thorium Fuel Cycles}
 \author{Jin Whan Bae}
-\department{Nuclear Plasma, Radiological Engineering}
-\schools{B.S., University of Illinois at Urbana-Champaign, 2017}
-\msthesis
-\advisor{Kathryn Huff}
-\degreeyear{2017}
-\committee{Professor Prof Uno, Chair}
-\maketitle
 
-\frontmatter
 
 %% Create an abstract that can also be used for the ProQuest abstract.
 %% Note that ProQuest truncates their abstracts at 350 words.
 \begin{abstract}
 This work measures different sustainability metrics of various
-thorium fuel cycles, through a SERPENT, a high-fidelity reactor analysis
+thorium fuel cycles, through a SERPENT, a high-fidelity reactor core
 code, coupled with CYCLUS, an agent-based fuel cycle simulator.
 \end{abstract}
 
 %% Create a dedication in italics with no heading, centered vertically
 %% on the page.
-\begin{dedication}
-To Father and Mother.
-\end{dedication}
-
 %% Create an Acknowledgements page, many departments require you to
 %% include funding support in this.
 \chapter*{Acknowledgments}
@@ -73,30 +88,199 @@ To Father and Mother.
 
 
 
-\mainmatter
 \chapter{The Thorium Fuel Cycle}
 \section{Background}
 From the early years of nuclear power, thorium has been
 considered as a candidate for an alternative to uranium
-for nuclear fuel. 
+for nuclear fuel. However, due to restrictions on reprocessing
+and the sole adoption of \glspl{LWR} for commercial nuclear
+power plants suppressed both research and interest in the 
+thorium fuel cycle. 
+
+Recently, however, with the realization of the limited
+uranium resource, and a heightened interest on advanced
+reactors and fuel cycles, the thorium fuel cycle is
+dubbed by the media as the key to make nuclear power
+more sustainable and safe. There is considerable interest
+in nations like China, U.S., and especially India.
+India has a large thorium reserve in it south coastal regions,
+making the adoption of thorium fuel cycle an attractive option
+for India to achieve energy independence.
+
+Thorium is not fissile. Thorium is \textbf{fertile}, meaning
+it only has the possibility to become a fissile isotope after
+series of neutron absorption and decay. The stages of Th-232
+becoming a fissile isotope, U-233, is illustrated in \cref{diag:th_chain}. 
+
+\begin{figure}[h]
+\caption{Th-232 chain to U-233}
+\label{diag:th_chain}
+\begin{tikzpicture}[node distance=3.5cm]
+\node (th232) [process] {neutron + $^{232}_{90}Th$};
+\node (th233) [process, right of=th232] {$^{233}_{90}Th$};
+\node (pa233) [process, right of=th233]{$^{233}_{91}Pa + \beta^{-}$};
+\node (u233) [process, right of=pa233]{$^{233}_{92}U + \beta^{-}$};
+
+\draw [arrow] (th232) -- (th233); 
+\draw [arrow] (th233) -- (pa233);
+\draw [arrow] (pa233) -- (u233);
+
+\end{tikzpicture}
+\end{figure}
+
+
+\section{Introduction}
+
+
+Some of the claims made by papers fail to capture
+the entire picture of the fuel cycle, considering they have different
+technologies used for each fuel cycle. For example, it is difficult
+to compare the `superiority' of a fuel cycle by comparing the 
+\gls{LWR} \gls{UNF} of radiotoxicity, since the technologies
+representing the fuel cycle is different.
+
+%da fa
+The thorium fuel cycle to look at is, namely the EG38
+from the Nuclear Fuel Cycle Evaluation and Screening Study \cite{wigeland_nuclear_2014},
+which is the continuous recycle of $^{233}U/Th$ with new
+Th fuel in both fast and thermal critical reactors.
+The reactors that will be used is the \gls{MSBR} \cite{robertson_conceptual_1971},
+which includes an online reprocessing facility that
+continuously remove \glspl{FP} and \glspl{MA} from the core
+and refuels the bred \uthree to maintain criticality. 
+The neutrons are moderated by graphite for better breeding.
+
+
+The uranium-plutonium fuel cycle to be compared is the 
+EG23, continuous recycle of U/Pu with new natural uranium
+fuel in fast critical reactors. The reactor that will be used
+is the \gls{SFR}, with oxide fuel. The \gls{MOX} fuel will 
+breed plutonium, which will be recycled into the \gls{SFR}.
+The \glspl{FP} and \glspl{MA} will be disposed, and the 
+mass loss will be filled with natural uranium.
+
+For a fair comparison, the breeding ratio of the two
+reactors should be similar.
+
+\section{Method}
+
+The goal of this study is to calculate sustainability
+metrics of the two advanced fuel cycles for comparison.
+First, SERPENT simulations of both the \gls{MSBR} and \gls{SFR}
+are run with varying parameters. These results are run
+through RAVEN \cite{rabiti_mathematical_2013} to generate
+a \gls{ROM}, which is then implemented into a \Cyclus
+archetype. This \Cyclus archetype then acts as a reactor
+module that mimics SERPENT code in executing depletion
+calculations as well as output reactor metrics.
+
+Unlike the E\&S Study, this study looks at the 
+fuel cycle in a transition scenario, and assesses
+the viability and speed of transition as well as
+the sustainability metrics of the fuel cycle at equilibrium.
+
+Sustainability metrics are defined as how less of a requirement
+from outside sources the fuel cycle needs. Traditional fuel cycle
+metrics are: natural resource utilization, natural resource
+usage per energy generation, spent fuel and waste radiotoxicity
+and volumne.  Additionally, for advanced fuel cycles,
+it is necessary to consider all stages of the fuel cycle,
+namely reprocessing. Reprocessing takes a large part of the 
+cost of advanced fuel cycle. A careful analysis of not only
+the economic cost but also the externalities such as the health and societal cost of 
+reprocessing should be analyzed for a fuller picture.
+
+
+\chapter{Literature Review}
+
+Th benefits:
+    thermal breeder
+    abundance
+    non-proliferation
+    lower radiotoxicity
+
+
+Fundamental differences in uranium and thorium fuel
+cycles have been discussed in various literature,
+their topics ranging from 
+non-proliferation
+\cite{iaea_thorium_2005} 
+\cite{moir_recommendations_2008} 
+\cite{kang_u-232_2001} %this guy is skeptical of it
+,
+availability
+\cite{herring_uranium_2013}
+,
+better neutronic properties (moreso at higher temperatures)
+\cite{lung_perspectives_1998}
+
+thermal breeding capability
+\cite{robertson_conceptual_1971}
+and 
+radiotoxicity of spent fuel
+\cite{croff_comparative_2016}
+.
+
+
+\subsection{Proliferation Resistance}
+Thorium is claimed to have a higher proliferation resistance
+due to its diversion barriers. The barriers can be divided into
+two categories - intrinsic and extrinsic. Material barriers
+are qualities that make it difficult to produce a weapon related
+to the composition of the material, along with the difficulty of
+access to the material. The IAEA defines a fissile material's weapon
+quality by the following three properties: critical mass, spontaneous 
+fission yield (weapon degradation), and heat emission \cite{iaea_thoriuim_2005}.
+Although \uthree has a lower spontaneous fission rate and decay heat per kilogram,
+it has a higher critical mass than that of \pu and is harder to separated.
+Thorium breeding leads to a mixture of different uranium isotopes including
+\utwo, which is a 2.6 MeV gamma emitter \cite{moir_recommendations_2008}. This hard gamma emitter provides
+both a diversion and fabrication barrier, as well as increase the material's detectability
+Also, \uthree can be easily diluted by adding abundant natural uranium, while
+there is no comparable dilution method for plutonium \cite{kang_u-232_2001}.
+
+
+\subsection{Availability}
+It is estimated that thorium is three to four times more abundant in
+nature than uranium \cite{iaea_thorium_2005}.
+
+
+\cite{herring_uranium_2013}
+
+Other important fuel cycle benefit metrics
+such as safety usually attribute heavily
+to reactor design, not the fuel. In other words,
+it could be said that thorium-fueled \glspl{MSR} are safer
+than uranium-fueled \glspl{LWR}, but it is hard to claim
+that thorium fuels are inherently `safer' than uranium fuels.
+
+There could be arguments made 
+
+easier to denature \cite{kang_u-232_2001} by adding u238, while
+pu is hard to denature because it can't be found in nature
 
 
 
+such as safety and 
 
-\include{1-introduction}
-\include{2-related}
-\include{3-model}
-\include{4-predictions}
+
+and reactor design.
+
+
+The thorium fuel cycle is known to be proliferation
+resistant, due to its production of \utwo, which
+has daughter products that emit hihg-energy 
+
+
+Thorium cycle must be initiated.
 
 \chapter{Conclusions}
 
-We conclude that graduate students like coffee.
 
 \appendix*
 
 \include{Appendix.tex}
 
-\backmatter
 
 \bibliographystyle{apalike}
 \bibliography{thesisbib}
