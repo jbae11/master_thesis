@@ -17,6 +17,20 @@
 \usepackage{booktabs}
 \usepackage{threeparttable, tablefootnote}
 
+%tikzpicture fit to page width
+\usepackage{environ}
+\makeatletter
+\newsavebox{\measure@tikzpicture}
+\NewEnviron{scaletikzpicturetowidth}[1]{%
+  \def\tikz@width{#1}%
+  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
+  \BODY
+  \end{lrbox}%
+  \pgfmathparse{#1/\wd\measure@tikzpicture}%
+  \edef\tikzscale{\pgfmathresult}%
+  \BODY
+}
+
 \usepackage{tabularx}
 \newcolumntype{b}{>{\hsize=1.0\hsize}X}
 \newcolumntype{s}{>{\hsize=.5\hsize}X}
@@ -28,7 +42,7 @@
 \newcommand{\utwo}{$^{232}_{92}U$}
 \newcommand{\ueight}{$^{238}_{92}U$}
 \newcommand{\pu}{$^{239}_{94}Pu$}
-\newcommand{\th}{$^{232}_{90}Th$}
+\newcommand{\thor}{$^{232}_{90}Th$}
 \graphicspath{ {images/} }
 \usepackage[affil-it]{authblk}
 \usepackage[numbers]{natbib}
@@ -37,8 +51,9 @@
 \usetikzlibrary{positioning, arrows, decorations, shapes}
 
 \usetikzlibrary{shapes.geometric,arrows}
-\tikzstyle{process} = [rectangle, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=blue!30]
+\tikzstyle{process} = [rectangle, rounded corners, minimum width=2.5cm, minimum height=1cm,text centered, draw=black, fill=blue!30]
 \tikzstyle{object} = [ellipse, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=green!30]
+\tikzstyle{empty} =  [rectangle, rounded corners, minimum width=2.5cm, minimum height=0.7cm,text centered, draw=black, fill=white!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
 \usepackage{cleveref}
 \usepackage{datatool}
@@ -89,9 +104,8 @@ code, coupled with CYCLUS, an agent-based fuel cycle simulator.
 \chapter{List of Symbols}
 
 
+\pagebreak
 
-
-\chapter{The Thorium Fuel Cycle}
 \section{Background}
 From the early years of nuclear power, thorium has been
 considered as a candidate for an alternative to uranium
@@ -118,8 +132,9 @@ becoming a fissile isotope, U-233, is illustrated in \cref{diag:th_chain}.
 \begin{figure}[h]
 \caption{Th-232 chain to U-233}
 \label{diag:th_chain}
-\begin{tikzpicture}[node distance=3.5cm]
-\node (th232) [process] {neutron + $^{232}_{90}Th$};
+\begin{scaletikzpicturetowidth}{\textwidth}
+\begin{tikzpicture}[scale=\tikzscale, node distance=3.3cm]
+\node (th232) [process] {n + $^{232}_{90}Th$};
 \node (th233) [process, right of=th232] {$^{233}_{90}Th$};
 \node (pa233) [process, right of=th233]{$^{233}_{91}Pa + \beta^{-}$};
 \node (u233) [process, right of=pa233]{$^{233}_{92}U + \beta^{-}$};
@@ -129,6 +144,7 @@ becoming a fissile isotope, U-233, is illustrated in \cref{diag:th_chain}.
 \draw [arrow] (pa233) -- (u233);
 
 \end{tikzpicture}
+\end{scaletikzpicturetowidth}
 \end{figure}
 
 
@@ -194,7 +210,7 @@ the economic cost but also the externalities such as the health and societal cos
 reprocessing should be analyzed for a fuller picture.
 
 
-\chapter{Literature Review}
+\section{Literature Review}
 
 Th benefits:
     thermal breeder
@@ -216,14 +232,21 @@ availability
 ,
 better neutronic properties (moreso at higher temperatures)
 \cite{lung_perspectives_1998}
-
+,
 thermal breeding capability
 \cite{robertson_conceptual_1971}
-
+,
 and 
 radiotoxicity of spent fuel
 \cite{croff_comparative_2016}
 .
+
+Other important fuel cycle benefit metrics
+such as safety is usually attributed heavily
+to reactor design, not the fuel. In other words,
+it could be said that thorium-fueled \glspl{MSR} are safer
+than uranium-fueled \glspl{LWR}, but it is hard to claim
+that thorium fuels are inherently `safer' than uranium fuels.
 
 
 \subsection{Proliferation Resistance}
@@ -234,14 +257,14 @@ are qualities that make it difficult to produce a weapon related
 to the composition of the material, along with the difficulty of
 access to the material. The IAEA defines a fissile material's weapon
 quality by the following three properties: critical mass, spontaneous 
-fission yield (weapon degradation), and heat emission \cite{iaea_thoriuim_2005}.
+fission yield (weapon degradation), and heat emission \cite{iaea_thorium_2005}.
 Although \uthree has a lower spontaneous fission rate and decay heat per kilogram,
 it has a higher critical mass than that of \pu and is harder to separated.
 Thorium breeding leads to a mixture of different uranium isotopes including
 \utwo, which is a 2.6 MeV gamma emitter \cite{moir_recommendations_2008}. This hard gamma emitter provides
 both a diversion and fabrication barrier, as well as increase the material's detectability
-Also, \uthree can be easily diluted by adding abundant natural uranium, while
-there is no comparable dilution method for plutonium \cite{kang_u-232_2001}.
+Also, \uthree can be easily denatured by adding abundant natural uranium, while
+there is no comparable denaturing method for plutonium \cite{kang_u-232_2001}.
 
 
 \subsection{Availability}
@@ -278,47 +301,17 @@ Thus, this paper will compare the two fuel cycles given comparable technology
 advancement. 
 
 
+%\chapter{Conclusions}
 
 
-\cite{herring_uranium_2013}
-
-Other important fuel cycle benefit metrics
-such as safety usually attribute heavily
-to reactor design, not the fuel. In other words,
-it could be said that thorium-fueled \glspl{MSR} are safer
-than uranium-fueled \glspl{LWR}, but it is hard to claim
-that thorium fuels are inherently `safer' than uranium fuels.
-
-There could be arguments made 
-
-easier to denature \cite{kang_u-232_2001} by adding u238, while
-pu is hard to denature because it can't be found in nature
+%\appendix*
+%\include{Appendix.tex}
 
 
 
-such as safety and 
+\bibliographystyle{unsrtnat}
+\bibliography{bibliography}
 
-
-and reactor design.
-
-
-The thorium fuel cycle is known to be proliferation
-resistant, due to its production of \utwo, which
-has daughter products that emit hihg-energy 
-
-
-Thorium cycle must be initiated.
-
-\chapter{Conclusions}
-
-
-\appendix*
-
-\include{Appendix.tex}
-
-
-\bibliographystyle{apalike}
-\bibliography{thesisbib}
 
 \end{document}
 \endinput
