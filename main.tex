@@ -198,7 +198,7 @@ fuel cycle in a transition scenario, and assesses
 the viability and speed of transition as well as
 the sustainability metrics of the fuel cycle at equilibrium.
 
-Sustainability metrics are defined as how less of a requirement
+Sustainability metrics are defined as how less of an requirement
 from outside sources the fuel cycle needs. Traditional fuel cycle
 metrics are: natural resource utilization, natural resource
 usage per energy generation, spent fuel and waste radiotoxicity
@@ -212,13 +212,85 @@ reprocessing should be analyzed for a fuller picture.
 
 \section{Literature Review}
 
-Th benefits:
-    thermal breeder
-    abundance
-    non-proliferation
-    lower radiotoxicity
+\subsection{Similar Work}
+Similar work to this paper, or papers that quantify
+sustainability metrics of thorium and uranium fuel cycles include:
+\begin{itemize}
+    \item Reactor difference in transmutation \cite{becker_transmutation_2007}
+    \item Thorium fuel cycle with different reactors and spectra (\gls{LWR}, \gls{MSR}, \gls{SFR}) using SCALE/TRITON \cite{brown_sustainable_2015}. This paper concludes that overall, fuel cycle performance is expected to be similar for fast and intermediate spectrum critical reactors in equilibrium.
+    \item Various thorium fuel cycle with different reactor designs and recycle schemes and recycle stream utilization \cite{taiwo_thorium_2016} \cite{krahn_-ne0000735_2017}.
+\end{itemize}
+
+No identified work on comparing U-Pu and Th-U fuel cycles
+in a transition scenario, given similar technology.
 
 
+
+These are the reactor designs used for the analyses in the literature:
+\begin{itemize}
+    \item SFR:
+    \begin{itemize}
+        \item SUPER-PRISM (GE) \cite{carroll_super-prism_2002}
+        \item ASTRID \cite{varaine_pre-conceptual_2012}
+    \end{itemize}
+    \item MSR:
+    \begin{itemize}
+        \item MSR \cite{robertson_conceptual_1971}
+        \item MSFR \cite{fiorina_molten_2013}
+    \end{itemize}
+    \item HWR \cite{boczar_thorium_2002} \cite{bromley_multiregion_2016} \cite{golesorkhi_simulations_2016}
+    \item LWR \cite{ade_analysis_2016}
+\end{itemize}
+
+
+\subsection{Sustainability Metrics in Nuclear Fuel Cycle}
+
+From the nuclear fuel cycle domain, commonly identified sustainability
+metrics include:
+\begin{itemize}
+    \item Availability of Fuel
+    \item Energy per Mass of feed ( Fuel Utilization )
+    \item Proliferation resistance
+    \item Radiotoxicity of spent fuel
+\end{itemize}
+
+
+From the \gls{INL} Evaluation and Screening Report \cite{wigeland_nuclear_2014}:
+\begin{itemize}
+    \item Mass of UNF+HLW Disposed per energy generated
+    \item Activity of UNF+HLW at various times (100 years, 100,000 years)
+    \item Radiological Exposure - Total estimated worker dose per energy
+    \item Natural resource required per energy generated (U, Th)
+    \item Water use per energy generated
+\end{itemize}
+mak
+
+\subsection{Sustainability Metrics in Other Domains}
+
+These are part of the sustainability metrics obtained from the principles
+of green chemistry, from \cite{gonzalez_methodology_2003}:
+\begin{itemize}
+    \item Less hazardous chemical syntehses
+    \item Use of renewable feestocks
+    \item Accident prevention
+    \item Reduce derivatives
+    \item Design for degradation
+    \item Full mass balance
+    \item Conversions
+    \item Exotherms
+    \item Waste emitted to air
+    \item Operator safety
+\end{itemize}
+
+Another sustainability metric for business decision making, from \cite{schwarz_use_2002}:
+\begin{itemize}
+    \item Energy per mass
+    \item Water
+    \item pollutants
+\end{itemize}
+
+
+\subsection{Differences in U and Th Fuel Cycles}
 Fundamental differences in uranium and thorium fuel
 cycles have been discussed in various literature,
 their topics ranging from 
@@ -240,6 +312,7 @@ and
 radiotoxicity of spent fuel
 \cite{croff_comparative_2016}
 .
+
 
 Other important fuel cycle benefit metrics
 such as safety is usually attributed heavily
@@ -307,7 +380,12 @@ advancement.
 %\appendix*
 %\include{Appendix.tex}
 
+\section{Fuel Cycles to Compare}
 
+MSBR Th-U3, with natural Th feed \cite{robertson_conceptual_1971}
+MSBR U8-Pu, with natural U feed
+SFR Th-U3, with natural Th feed
+SFR U8-Pu, with natural U feed
 
 \bibliographystyle{unsrtnat}
 \bibliography{bibliography}
