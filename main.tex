@@ -13,6 +13,7 @@
 \usepackage{hhline}
 \usepackage{amsmath}
 \usepackage{color}
+\usepackage{multirow}
 \usepackage{fourier}
 \usepackage{booktabs}
 \usepackage{threeparttable, tablefootnote}
@@ -37,12 +38,12 @@
 \newcolumntype{m}{>{\hsize=.75\hsize}X}
 \usepackage{graphics}
 \newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
-\newcommand{\uthree}{$^{233}_{92}U$}
-\newcommand{\ufive}{$^{235}_{92}U$}%%
-\newcommand{\utwo}{$^{232}_{92}U$}
-\newcommand{\ueight}{$^{238}_{92}U$}
-\newcommand{\pu}{$^{239}_{94}Pu$}
-\newcommand{\thor}{$^{232}_{90}Th$}
+\newcommand{\uthree}{\xspace $^{233}_{92}U$ \xspace}
+\newcommand{\ufive}{\xspace $^{235}_{92}U$\xspace}%%
+\newcommand{\utwo}{\xspace $^{232}_{92}U$\xspace}
+\newcommand{\ueight}{\xspace $^{238}_{92}U$\xspace}
+\newcommand{\pu}{\xspace$^{239}_{94}Pu$\xspace}
+\newcommand{\thor}{\xspace $^{232}_{90}Th$\xspace}
 \graphicspath{ {images/} }
 \usepackage[affil-it]{authblk}
 \usepackage[numbers]{natbib}
@@ -150,6 +151,31 @@ becoming a fissile isotope, U-233, is illustrated in \cref{diag:th_chain}.
 
 \section{Introduction}
 
+Nuclear fuel cycles are defined by various parameters. The more important
+parameters are: fuel type, reactor type, spectrum, breeding ratio, and stages, and goal
+(organized in table \ref{tab:fc_param}).
+
+\begin{table}[h]
+    \centering
+                \begin{tabularx}{\textwidth}{lbb}
+                    \hline 
+                    \textbf{Fuel Cycle Parameters} & \textbf{Detail} & \textbf{Example}\\
+                    \hline
+                    \hline
+                    Isotope & Natural feed and fissile material & \ueight + Pu , \thor + \uthree \\
+                    Reactor Type & Type of coolant, fuel form & \gls{MSR}, \gls{SFR}, \gls{PWR} \\ 
+                    Spectrum & Neutron spectrum in reactor. Moderator. &  Fast, thermal, epithermal \\
+                    Breeding Ratio & Fissile isotope composition after irradiation & >1 (breeder) , <1 (burner) \\
+                    Stages & How many reactors and phases it involves & Multi-stage (\gls{SFR} \& MOX LWR (EG30)), Single-stage (Closed \gls{SFR}) \\
+                    Goal & What the fuel cycle aims to do & Reduce \gls{MA} discharge, eliminate enrichment need\\
+                    \hline
+                \end{tabularx}
+    \caption { Fuel Cycles are defined by the following parameters.}
+    \label{tab:fc_param}
+
+\end{table}
+
+
 
 Some of the claims made by papers fail to capture
 the entire picture of the fuel cycle, considering they have different
@@ -202,7 +228,7 @@ Sustainability metrics are defined as how less of an requirement
 from outside sources the fuel cycle needs. Traditional fuel cycle
 metrics are: natural resource utilization, natural resource
 usage per energy generation, spent fuel and waste radiotoxicity
-and volumne.  Additionally, for advanced fuel cycles,
+and volume.  Additionally, for advanced fuel cycles,
 it is necessary to consider all stages of the fuel cycle,
 namely reprocessing. Reprocessing takes a large part of the 
 cost of advanced fuel cycle. A careful analysis of not only
@@ -216,62 +242,115 @@ reprocessing should be analyzed for a fuller picture.
 Similar work to this paper, or papers that quantify
 sustainability metrics of thorium and uranium fuel cycles include:
 \begin{itemize}
-    \item Reactor difference in transmutation \cite{becker_transmutation_2007}
+\item Transmutation difference in \gls{PWR}, \gls{MSR}, \gls{SFR}, \gls{LFR} \cite{becker_transmutation_2007}
     \item Thorium fuel cycle with different reactors and spectra (\gls{LWR}, \gls{MSR}, \gls{SFR}) using SCALE/TRITON \cite{brown_sustainable_2015}. This paper concludes that overall, fuel cycle performance is expected to be similar for fast and intermediate spectrum critical reactors in equilibrium.
     \item Various thorium fuel cycle with different reactor designs and recycle schemes and recycle stream utilization \cite{taiwo_thorium_2016} \cite{krahn_-ne0000735_2017}.
+    \item Evaluation and Screening of 40 evaluation groups \cite{wigeland_nuclear_2014} in an equilibrium fuel cycle.
 \end{itemize}
 
 No identified work on comparing U-Pu and Th-U fuel cycles
-in a transition scenario, given similar technology.
+in a transition scenario, given similar technology, was found. Most papers
+offer short-term metrics (e.g. spent fuel radiotoxicity, feed rate) 
+for different fuel cycles but not the entire picture.
+
+\subsection{Reactors for Thorium Fuel Cycles}
+
+Thorium's ability to breed \uthree in the thermal spectrum allows
+it to used in almost all types of reactors, including \gls{LWR} reactors
+such as \glspl{PWR} (listed in table \ref{tab:reactors}.
+ Many papers claim the benefit of using thorium
+in the current fleet of \glspl{LWR} to reduce radiotoxicity of used fuel
+and enrichment demand.
+
+\begin{table}[h]
+    \centering
+                \begin{tabularx}{\textwidth}{sb}
+                    \hline 
+                    \textbf{Reactor Type} & \textbf{References} \\
+
+                    \hline
+                    \hline
+                    
+                    \multirow{ 2}{*}{\gls{SFR}} & SUPER-PRISM (GE) \cite{carroll_super-prism_2002} \\
+                     & \gls{ASTRID} \cite{varaine_pre-conceptual_2012} \\ 
+                     
+                    \hline
+                    
+                    \multirow{2}{*}{\gls{MSR}} & \gls{MSBR} \cite{robertson_conceptual_1971} \\
+                     & MSFR \cite{fiorina_molten_2013} \\
+                    
+                    \hline
+                    
+                    \gls{HWR} & CANDU-type\cite{boczar_thorium_2002} \cite{bromley_multiregion_2016} \cite{golesorkhi_simulations_2016} \\
+
+                    \hline
+
+                    \gls{LWR} & \gls{PWR} \cite{ade_analysis_2016}\\
+                    \hline
+                \end{tabularx}
+    \caption {Table of reactors used in thorium fuel cycle studies. The ability of thorium
+             to breed in the thermal spectrum allows the utilization of various various reactor types.}
+    \label{tab:reactors}
+\end{table}
 
 
+\subsection{Sustainability Metrics from Nuclear Fuel Cycle Studies}
 
-These are the reactor designs used for the analyses in the literature:
-\begin{itemize}
-    \item SFR:
-    \begin{itemize}
-        \item SUPER-PRISM (GE) \cite{carroll_super-prism_2002}
-        \item ASTRID \cite{varaine_pre-conceptual_2012}
-    \end{itemize}
-    \item MSR:
-    \begin{itemize}
-        \item MSR \cite{robertson_conceptual_1971}
-        \item MSFR \cite{fiorina_molten_2013}
-    \end{itemize}
-    \item HWR \cite{boczar_thorium_2002} \cite{bromley_multiregion_2016} \cite{golesorkhi_simulations_2016}
-    \item LWR \cite{ade_analysis_2016}
-\end{itemize}
+From the nuclear fuel cycle domain, sustainability metrics can be
+divided into four categories: fuel, back-end, fuel cycle, and 
+economic sustainability. The metrics are mostly quantitative,
+but some are qualitative (organized in table \ref{tab:sus_met}).
 
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{lb}
 
-\subsection{Sustainability Metrics in Nuclear Fuel Cycle}
+    \hline
 
-From the nuclear fuel cycle domain, commonly identified sustainability
-metrics include:
-\begin{itemize}
-    \item Availability of Fuel
-    \item Energy per Mass of feed ( Fuel Utilization )
-    \item Proliferation resistance
-    \item Radiotoxicity of spent fuel
-\end{itemize}
+    \textbf{Category} & \textbf{Metrics [unit]} \\
 
+    \hline
+    \hline
 
-From the \gls{INL} Evaluation and Screening Report \cite{wigeland_nuclear_2014}:
-\begin{itemize}
-    \item Mass of UNF+HLW Disposed per energy generated
-    \item Activity of UNF+HLW at various times (100 years, 100,000 years)
-    \item Radiological Exposure - Total estimated worker dose per energy
-    \item Natural resource required per energy generated (U, Th)
-    \item Water use per energy generated
-\end{itemize}
-mak
+    \multirow{2}{*}{Fuel Sustainability} 
+     & Availability in nature [t] \\
+     & Energy per mass of feed [MW/t] \\
+    
+    \hline
+
+    \multirow{6}{*}{Back End Sustainability} 
+     & Proliferation resistance \\
+     & \gls{UNF} mass disposed per energy [t/MW] \\
+     & \gls{HLW} mass disposed per energy [t/MW] \\
+     & \gls{LLW} mass disposed per energy [t/MW] \\
+     & Radiotoxicity of \gls{UNF} per mass [Ci/t] \\
+     & Decay heat of \gls{UNF} per mass [W/t] \\
+
+    \hline
+
+    \multirow{4}{*}{Fuel Cycle Sustainability}
+     & Worker does per energy [Ci/MW] \\
+     & Enrichment requirement per energy [SWU/MW] \\
+     & Reprocessing requirement per energy [?] \\
+     & Water use per energy generated [t/MW] \\
+    \hline
+
+    Economic Sustainability
+     & \gls{LCOE} [\$/MW] \\
+
+    \hline
+    \end{tabularx}
+    \caption {Table of sustainability metrics obtained from literature \cite{wigeland_nuclear_2014} \cite{gonzalez_methodology_2003} \cite{allibert_introduction_2015}}
+    \label{tab:sus_met}
+\end{table}
 
 \subsection{Sustainability Metrics in Other Domains}
 
 These are part of the sustainability metrics obtained from the principles
 of green chemistry, from \cite{gonzalez_methodology_2003}:
 \begin{itemize}
-    \item Less hazardous chemical syntehses
-    \item Use of renewable feestocks
+    \item Less hazardous chemical syntheses
+    \item Use of renewable feedstocks
     \item Accident prevention
     \item Reduce derivatives
     \item Design for degradation
@@ -282,7 +361,7 @@ of green chemistry, from \cite{gonzalez_methodology_2003}:
     \item Operator safety
 \end{itemize}
 
-Another sustainability metric for business decision making, from \cite{schwarz_use_2002}:
+\noindent Another sustainability metric for business decision making, from \cite{schwarz_use_2002}:
 \begin{itemize}
     \item Energy per mass
     \item Water
@@ -342,7 +421,12 @@ there is no comparable denaturing method for plutonium \cite{kang_u-232_2001}.
 
 \subsection{Availability}
 It is estimated that thorium is about 3.9 times more abundant in
-nature than uranium \cite{herring_uranium_2013}. 
+nature than uranium \cite{herring_uranium_2013} in land reserves. However, there
+is an estimated 4.6 billion tons of uranium, which is about a thousand
+times larger than the identified land reserve \cite{agency_uranium_2010}.
+However, uranium extraction from seawater is currently not economical \cite{tamada_cost_2006}.
+There are thorium in seawater as well, but its concentration is four orders of magnitude
+lower than that of uranium \cite{bardi_extracting_2010}. 
 
 \subsection{Better Neutronic Properties}
 The benefits of thorium can be looked at from a neutronics standpoint.
@@ -357,14 +441,14 @@ are the majority of GEN-IV reactors.
 \subsection{Radiotoxicity of Spent Fuel}
 Two components contribute to the radiotoxicity of 
 \gls{UNF}: \glspl{FP} and \glspl{MA}.
-Fission products account for the majority of early (\textbackslash 500 years)
+Fission products account for the majority of early (\textasciitilde 500 years)
 \gls{UNF} radiotoxicity, while \glspl{MA} account for 
 radiotoxicity into geological time.
 Studies claim that thorium fuel cycle produces relatively
 less plutonium and \gls{MA} \cite{boczar_thorium_2002} \cite{david_revisiting_2007},
 which leads to a lower long-term radiotoxicity and repository safety.
 However, some studies show that given the same technology (eg. \gls{PWR} Breed-and-burn),
-\uthree/Th and \pu/\ueight fuels produce similar radiotoxicity \cite{croff_comparative_2016}.
+\uthree - Th and \pu - \ueight fuels produce similar radiotoxicity \cite{croff_comparative_2016}.
 
 In short, many papers that claim the drastic improvement that the thorium
 fuel cycle will bring assumes a thorium cycle in part of a GEN-IV system,
@@ -381,11 +465,12 @@ advancement.
 %\include{Appendix.tex}
 
 \section{Fuel Cycles to Compare}
-
-MSBR Th-U3, with natural Th feed \cite{robertson_conceptual_1971}
-MSBR U8-Pu, with natural U feed
-SFR Th-U3, with natural Th feed
-SFR U8-Pu, with natural U feed
+\begin{itemize}
+\item MSBR Th-U3, with natural Th feed \cite{robertson_conceptual_1971}
+\item MSBR U8-Pu, with natural U feed
+\item SFR Th-U3, with natural Th feed
+\item SFR U8-Pu, with natural U feed
+\end{itemize}
 
 \bibliographystyle{unsrtnat}
 \bibliography{bibliography}
