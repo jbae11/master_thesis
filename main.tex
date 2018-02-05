@@ -472,6 +472,38 @@ advancement.
 \item SFR U8-Pu, with natural U feed
 \end{itemize}
 
+
+\section{Flow Chart of \gls{CORRM}}
+
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=15em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, text centered, ellipse,fill=red!20, node distance=3cm, text width=15em,
+    minimum height=2em]
+    
+\begin{tikzpicture}[node distance = 3cm, auto]
+    % Place nodes
+    \node [block] (enternotify) {Enternotify - set buy policy to accept fuel (to core) and fill (to fill\_tank)};
+    \node [block, below of=enternotify] (tick1) {Empty tick?};
+    \node [block, below of=tick1] (dre) {\gls{DRE} - receive fuel and fill};
+    \node [decision, below of=dre] (core?) {Is core Loaded?};
+    \node [decision, below of=core?] (crit1) {Critical?};
+    \node [cloud, below of=crit1] (dep) {Deplete using ROM};
+    % Draw edges
+    \path [line] (enternotify) -- (tick1);
+    \path [line] (tick1) -- (dre);
+    \path [line] (dre) -- (core?);
+    \path [line] (core?) -- (crit1);
+    \path [line] (crit1) -- (dep);
+
+    %\path [line] (decide) -| node [near start] {yes} (update);
+    %\path [line] (update) |- (identify);
+    %\path [line] (decide) -- node {no}(stop);
+    \end{tikzpicture}
+
+
 \bibliographystyle{unsrtnat}
 \bibliography{bibliography}
 
