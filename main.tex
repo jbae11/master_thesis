@@ -476,33 +476,75 @@ advancement.
 \section{Flow Chart of \gls{CORRM}}
 
 \tikzstyle{decision} = [diamond, draw, fill=blue!20, 
-    text width=5em, text badly centered, node distance=3cm, inner sep=0pt]
+    text width=5em, text badly centered,  inner sep=0pt]
 \tikzstyle{block} = [rectangle, draw, fill=blue!20, 
-    text width=15em, text centered, rounded corners, minimum height=3em]
+    text width=8em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{buff} = [rectangle, draw, fill=green!20, 
+    text width=8em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{kernal} = [rectangle, draw, fill=red!20, 
+    text width=8em, text centered, rounded corners, minimum height=3em]
 \tikzstyle{line} = [draw, -latex']
-\tikzstyle{cloud} = [draw, text centered, ellipse,fill=red!20, node distance=3cm, text width=15em,
+\tikzstyle{dummy} = [rectangle]
+\tikzstyle{cloud} = [draw, text centered, ellipse,fill=red!20, text width=15em,
     minimum height=2em]
-    
-\begin{tikzpicture}[node distance = 3cm, auto]
+
+\usetikzlibrary{calc}
+
+\begin{figure}[!ht]
+\begin{tikzpicture}[node distance = 2.5cm and 2cm, auto]
     % Place nodes
-    \node [block] (enternotify) {Enternotify - set buy policy to accept fuel (to core) and fill (to fill\_tank)};
+    \node [kernal] (enternotify) {Set buy policy};
     \node [block, below of=enternotify] (tick1) {Empty tick?};
-    \node [block, below of=tick1] (dre) {\gls{DRE} - receive fuel and fill};
+    \node [kernal, below of=tick1] (dre) {DRE - receive fuel and fill};
     \node [decision, below of=dre] (core?) {Is core Loaded?};
+    \node [block, right = of dre] (tock) {Shutdown State - Do nothing};
     \node [decision, below of=core?] (crit1) {Critical?};
-    \node [cloud, below of=crit1] (dep) {Deplete using ROM};
+    \node [block, left = of crit1] (fiss) {Ask for more fissile?};
+    \node [block, below of=crit1] (dep) {Deplete using ROM};
+    \node [buff, below of=dep] (torep) {Core to Rep};
+    \node [block, right = of torep] (rep) {Separate};
+    \node [buff, below of=torep] (refill) {Refill Core from fill tank};
+    \node [buff, right = of dep] (waste) {Add separated waste to waste for market};
+    \node [buff, right = of refill] (backto) {Send fuel isotope back into core};
+    \node [buff, right = of rep] (patank) {Pa tank for decay};
+    \node [block, right = of backto] (decay) {Decay until Useful};
+    \node [decision, below of=refill] (crit2) {Critical?};
+    \node [buff, below of=decay] (backto2) {Send fuel isotope back into core};
+
+
     % Draw edges
     \path [line] (enternotify) -- (tick1);
     \path [line] (tick1) -- (dre);
+    \path [line] (core?) -| node [near start] {no} (tock);
+    \path [line] (tock) |- (tick1);
     \path [line] (dre) -- (core?);
-    \path [line] (core?) -- (crit1);
-    \path [line] (crit1) -- (dep);
+    \path [line] (core?) -- node {yes} (crit1);
+    \path [line] (crit1) -- node {yes} (dep);
+    \path [line] (crit1) -- node {no} (fiss);
+    \path [line] (dep) -- (torep);
+    \path [line] (torep) -- (refill);
+    \path [line] (refill) -- (crit2);
+    \path [line] (torep) -- (rep);
+    \path [line] (rep) -- (waste);
+    \path [line] (rep) -- (patank);
+    \path [line] (rep) -- (backto);
+    \path [line] (backto) -- (crit2);
+    \path [line] (patank) -- (decay);
+    \path [line] (decay) -- (backto2);
+    \path [line] (backto2) -- (crit2);
+    \path [line] (crit2.south) |- node {no} ($(crit2.south) - (0,5mm)$) -|  (fiss);
+    \path [line] (crit2.west) -| node {yes} ($(crit2.west) - (10mm, 0)$) |-  (dep);
+    
+
+    
 
     %\path [line] (decide) -| node [near start] {yes} (update);
     %\path [line] (update) |- (identify);
     %\path [line] (decide) -- node {no}(stop);
     \end{tikzpicture}
-
+\caption{\color{red}{Kernal Interactions}, \color{blue}{In-agent functions}, 
+         \color{green}{Buffer Transactions}.}
+\end{figure}
 
 \bibliographystyle{unsrtnat}
 \bibliography{bibliography}
