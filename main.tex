@@ -62,17 +62,19 @@
 
 \begin{document}
 
-\title{Sustainability Analysis of Thorium Fuel Cycles}
+\title{Nuclear Fuel Cycle Transition Scenarios based upon current inventory}
 \author{Jin Whan Bae}
 
 
 %% Create an abstract that can also be used for the ProQuest abstract.
 %% Note that ProQuest truncates their abstracts at 350 words.
 \begin{abstract}
-This work measures different sustainability metrics of various
-thorium fuel cycles, through a SERPENT, a high-fidelity reactor core
-code, coupled with CYCLUS, an agent-based fuel cycle simulator.
-\end{abstract}
+This work analyses the historic operation of nuclear energy and the \gls{UNF} inventory.
+With the calculated inventory, we suggest different
+directions of fuel cycle transition scenarios that will maximize the currently
+available resource. Several case studies of this includes the European region,
+and the United States.
+\end{abstract} 
 
 %% Create a dedication in italics with no heading, centered vertically
 %% on the page.
@@ -108,355 +110,61 @@ code, coupled with CYCLUS, an agent-based fuel cycle simulator.
 \pagebreak
 
 \section{Background}
-From the early years of nuclear power, thorium has been
-considered as a candidate for an alternative to uranium
-for nuclear fuel. However, due to restrictions on reprocessing
-and the sole adoption of \glspl{LWR} for commercial nuclear
-power plants suppressed both research and interest in the 
-thorium fuel cycle. 
+Nuclear energy is the largest provider of carbon-free energy
+in the United States. However, several problems remain with nuclear
+energy, with one of the biggest one being the problem of nuclear waste.
+From the 1950s, the United States have been trying to commission a 
+geological waste disposal site for its `spent' fuel. However, even
+after 60 years, this endeavor has yet to accomplish of substantial value.
 
-Recently, however, with the realization of the limited
-uranium resource, and a heightened interest on advanced
-reactors and fuel cycles, the thorium fuel cycle is
-dubbed by the media as the key to make nuclear power
-more sustainable and safe. There is considerable interest
-in nations like China, U.S., and especially India.
-India has a large thorium reserve in it south coastal regions,
-making the adoption of thorium fuel cycle an attractive option
-for India to achieve energy independence.
+On the other hand, the recent advances in nuclear technology produced
+a multitude of new reactor designs. The new reactors designs also 
+experiment with new forms of fuel that deviate from an enriched uranium
+oxide fuel. (why? fast spectrum and molten salt) These advances in new
+technology has fueled the dream of a `closed' fuel cycle, where little to no
+supply of natural material is required, that `used' fuel from one reactor,
+after processing, could fuel another reactor.
 
-Thorium is not fissile. Thorium is \textbf{fertile}, meaning
-it only has the possibility to become a fissile isotope after
-series of neutron absorption and decay. The stages of Th-232
-becoming a fissile isotope, U-233, is illustrated in \cref{diag:th_chain}. 
+This rather noble thought is not without challenges, such as the 
+cost of new reprocessing and fuel fabrication sites, as well as
+security implications of processing \gls{UNF} rather than disposing them.
 
-\begin{figure}[h]
-\caption{Th-232 chain to U-233}
-\label{diag:th_chain}
-\begin{scaletikzpicturetowidth}{\textwidth}
-\begin{tikzpicture}[scale=\tikzscale, node distance=3.3cm]
-\node (th232) [process] {n + $^{232}_{90}Th$};
-\node (th233) [process, right of=th232] {$^{233}_{90}Th$};
-\node (pa233) [process, right of=th233]{$^{233}_{91}Pa + \beta^{-}$};
-\node (u233) [process, right of=pa233]{$^{233}_{92}U + \beta^{-}$};
+Thus, this analysis serves to provide a metric where the benefits and
+the costs are weighed upon each other. A benefit of `closing' the fuel cycle
+is a lowered repository requirement, both in volume and rigor (timescale).
+The cost of transition is the fuel processing facilities and new reactor
+deployment.
 
-\draw [arrow] (th232) -- (th233); 
-\draw [arrow] (th233) -- (pa233);
-\draw [arrow] (pa233) -- (u233);
-
-\end{tikzpicture}
-\end{scaletikzpicturetowidth}
-\end{figure}
 
 
 \section{Introduction}
+This paper analyzes a real scenario, where the fuel cycle
+simulation of the historical nuclear operation of a region is run,
+while tracking the inventory. This simulation will provide insight into
+the available resources (e.g. plutonium) and the required repository
+capacity if the region maintains the status quo.
 
-Nuclear fuel cycles are defined by various parameters. The more important
-parameters are: fuel type, reactor type, spectrum, breeding ratio, and stages, and goal
-(organized in table \ref{tab:fc_param}).
-
-\begin{table}[h]
-    \centering
-                \begin{tabularx}{\textwidth}{lbb}
-                    \hline 
-                    \textbf{Fuel Cycle Parameters} & \textbf{Detail} & \textbf{Example}\\
-                    \hline
-                    \hline
-                    Isotope & Natural feed and fissile material & \ueight + Pu , \thor + \uthree \\
-                    Reactor Type & Type of coolant, fuel form & \gls{MSR}, \gls{SFR}, \gls{PWR} \\ 
-                    Spectrum & Neutron spectrum in reactor. Moderator. &  Fast, thermal, epithermal \\
-                    Breeding Ratio & Fissile isotope composition after irradiation & >1 (breeder) , <1 (burner) \\
-                    Stages & How many reactors and phases it involves & Multi-stage (\gls{SFR} \& MOX LWR (EG30)), Single-stage (Closed \gls{SFR}) \\
-                    Goal & What the fuel cycle aims to do & Reduce \gls{MA} discharge, eliminate enrichment need\\
-                    \hline
-                \end{tabularx}
-    \caption { Fuel Cycles are defined by the following parameters.}
-    \label{tab:fc_param}
-
-\end{table}
+After the historical operation to the current date, two different 
+scenarios are run, one with transition into a `closed' fuel cycle
+and another the status quo. Various metrics of the nuclear fuel cycle,
+like accumulated \gls{UNF} mass, decay heat, natural resources used, etc.
 
 
 
-Some of the claims made by papers fail to capture
-the entire picture of the fuel cycle, considering they have different
-technologies used for each fuel cycle. For example, it is difficult
-to compare the `superiority' of a fuel cycle by comparing the 
-\gls{LWR} \gls{UNF} of radiotoxicity, since the technologies
-representing the fuel cycle is different.
-
-%da fa
-The thorium fuel cycle to look at is, namely the EG38
-from the Nuclear Fuel Cycle Evaluation and Screening Study \cite{wigeland_nuclear_2014},
-which is the continuous recycle of $^{233}U/Th$ with new
-Th fuel in both fast and thermal critical reactors.
-The reactors that will be used is the \gls{MSBR} \cite{robertson_conceptual_1971},
-which includes an online reprocessing facility that
-continuously remove \glspl{FP} and \glspl{MA} from the core
-and refuels the bred \uthree to maintain criticality. 
-The neutrons are moderated by graphite for better breeding.
 
 
-The uranium-plutonium fuel cycle to be compared is the 
-EG23, continuous recycle of U/Pu with new natural uranium
-fuel in fast critical reactors. The reactor that will be used
-is the \gls{SFR}, with oxide fuel. The \gls{MOX} fuel will 
-breed plutonium, which will be recycled into the \gls{SFR}.
-The \glspl{FP} and \glspl{MA} will be disposed, and the 
-mass loss will be filled with natural uranium.
-
-For a fair comparison, the breeding ratio of the two
-reactors should be similar.
 
 \section{Method}
 
-The goal of this study is to calculate sustainability
-metrics of the two advanced fuel cycles for comparison.
-First, SERPENT simulations of both the \gls{MSBR} and \gls{SFR}
-are run with varying parameters. These results are run
-through RAVEN \cite{rabiti_mathematical_2013} to generate
-a \gls{ROM}, which is then implemented into a \Cyclus
-archetype. This \Cyclus archetype then acts as a reactor
-module that mimics SERPENT code in executing depletion
-calculations as well as output reactor metrics.
-
-Unlike the E\&S Study, this study looks at the 
-fuel cycle in a transition scenario, and assesses
-the viability and speed of transition as well as
-the sustainability metrics of the fuel cycle at equilibrium.
-
-Sustainability metrics are defined as how less of an requirement
-from outside sources the fuel cycle needs. Traditional fuel cycle
-metrics are: natural resource utilization, natural resource
-usage per energy generation, spent fuel and waste radiotoxicity
-and volume.  Additionally, for advanced fuel cycles,
-it is necessary to consider all stages of the fuel cycle,
-namely reprocessing. Reprocessing takes a large part of the 
-cost of advanced fuel cycle. A careful analysis of not only
-the economic cost but also the externalities such as the health and societal cost of 
-reprocessing should be analyzed for a fuller picture.
 
 
 \section{Literature Review}
 
-\subsection{Similar Work}
-Similar work to this paper, or papers that quantify
-sustainability metrics of thorium and uranium fuel cycles include:
-\begin{itemize}
-\item Transmutation difference in \gls{PWR}, \gls{MSR}, \gls{SFR}, \gls{LFR} \cite{becker_transmutation_2007}
-    \item Thorium fuel cycle with different reactors and spectra (\gls{LWR}, \gls{MSR}, \gls{SFR}) using SCALE/TRITON \cite{brown_sustainable_2015}. This paper concludes that overall, fuel cycle performance is expected to be similar for fast and intermediate spectrum critical reactors in equilibrium.
-    \item Various thorium fuel cycle with different reactor designs and recycle schemes and recycle stream utilization \cite{taiwo_thorium_2016} \cite{krahn_-ne0000735_2017}.
-    \item Evaluation and Screening of 40 evaluation groups \cite{wigeland_nuclear_2014} in an equilibrium fuel cycle.
-\end{itemize}
-
-No identified work on comparing U-Pu and Th-U fuel cycles
-in a transition scenario, given similar technology, was found. Most papers
-offer short-term metrics (e.g. spent fuel radiotoxicity, feed rate) 
-for different fuel cycles but not the entire picture.
-
-\subsection{Reactors for Thorium Fuel Cycles}
-
-Thorium's ability to breed \uthree in the thermal spectrum allows
-it to used in almost all types of reactors, including \gls{LWR} reactors
-such as \glspl{PWR} (listed in table \ref{tab:reactors}.
- Many papers claim the benefit of using thorium
-in the current fleet of \glspl{LWR} to reduce radiotoxicity of used fuel
-and enrichment demand.
-
-\begin{table}[h]
-    \centering
-                \begin{tabularx}{\textwidth}{sb}
-                    \hline 
-                    \textbf{Reactor Type} & \textbf{References} \\
-
-                    \hline
-                    \hline
-                    
-                    \multirow{ 2}{*}{\gls{SFR}} & SUPER-PRISM (GE) \cite{carroll_super-prism_2002} \\
-                     & \gls{ASTRID} \cite{varaine_pre-conceptual_2012} \\ 
-                     
-                    \hline
-                    
-                    \multirow{2}{*}{\gls{MSR}} & \gls{MSBR} \cite{robertson_conceptual_1971} \\
-                     & MSFR \cite{fiorina_molten_2013} \\
-                    
-                    \hline
-                    
-                    \gls{HWR} & CANDU-type\cite{boczar_thorium_2002} \cite{bromley_multiregion_2016} \cite{golesorkhi_simulations_2016} \\
-
-                    \hline
-
-                    \gls{LWR} & \gls{PWR} \cite{ade_analysis_2016}\\
-                    \hline
-                \end{tabularx}
-    \caption {Table of reactors used in thorium fuel cycle studies. The ability of thorium
-             to breed in the thermal spectrum allows the utilization of various various reactor types.}
-    \label{tab:reactors}
-\end{table}
-
-
 \subsection{Sustainability Metrics from Nuclear Fuel Cycle Studies}
-
-From the nuclear fuel cycle domain, sustainability metrics can be
-divided into four categories: fuel, back-end, fuel cycle, and 
-economic sustainability. The metrics are mostly quantitative,
-but some are qualitative (organized in table \ref{tab:sus_met}).
-
-\begin{table}[h]
-    \centering
-    \begin{tabularx}{\textwidth}{lb}
-
-    \hline
-
-    \textbf{Category} & \textbf{Metrics [unit]} \\
-
-    \hline
-    \hline
-
-    \multirow{2}{*}{Fuel Sustainability} 
-     & Availability in nature [t] \\
-     & Energy per mass of feed [MW/t] \\
-    
-    \hline
-
-    \multirow{6}{*}{Back End Sustainability} 
-     & Proliferation resistance \\
-     & \gls{UNF} mass disposed per energy [t/MW] \\
-     & \gls{HLW} mass disposed per energy [t/MW] \\
-     & \gls{LLW} mass disposed per energy [t/MW] \\
-     & Radiotoxicity of \gls{UNF} per mass [Ci/t] \\
-     & Decay heat of \gls{UNF} per mass [W/t] \\
-
-    \hline
-
-    \multirow{4}{*}{Fuel Cycle Sustainability}
-     & Worker does per energy [Ci/MW] \\
-     & Enrichment requirement per energy [SWU/MW] \\
-     & Reprocessing requirement per energy [?] \\
-     & Water use per energy generated [t/MW] \\
-    \hline
-
-    Economic Sustainability
-     & \gls{LCOE} [\$/MW] \\
-
-    \hline
-    \end{tabularx}
-    \caption {Table of sustainability metrics obtained from literature \cite{wigeland_nuclear_2014} \cite{gonzalez_methodology_2003} \cite{allibert_introduction_2015}}
-    \label{tab:sus_met}
-\end{table}
 
 \subsection{Sustainability Metrics in Other Domains}
 
-These are part of the sustainability metrics obtained from the principles
-of green chemistry, from \cite{gonzalez_methodology_2003}:
-\begin{itemize}
-    \item Less hazardous chemical syntheses
-    \item Use of renewable feedstocks
-    \item Accident prevention
-    \item Reduce derivatives
-    \item Design for degradation
-    \item Full mass balance
-    \item Conversions
-    \item Exotherms
-    \item Waste emitted to air
-    \item Operator safety
-\end{itemize}
-
-\noindent Another sustainability metric for business decision making, from \cite{schwarz_use_2002}:
-\begin{itemize}
-    \item Energy per mass
-    \item Water
-    \item pollutants
-\end{itemize}
-
-
 \subsection{Differences in U and Th Fuel Cycles}
-Fundamental differences in uranium and thorium fuel
-cycles have been discussed in various literature,
-their topics ranging from 
-non-proliferation
-\cite{iaea_thorium_2005} 
-\cite{moir_recommendations_2008} 
-\cite{kang_u-232_2001} %this guy is skeptical of it
-,
-availability
-\cite{herring_uranium_2013}
-,
-better neutronic properties (moreso at higher temperatures)
-\cite{lung_perspectives_1998}
-,
-thermal breeding capability
-\cite{robertson_conceptual_1971}
-,
-and 
-radiotoxicity of spent fuel
-\cite{croff_comparative_2016}
-.
-
-
-Other important fuel cycle benefit metrics
-such as safety is usually attributed heavily
-to reactor design, not the fuel. In other words,
-it could be said that thorium-fueled \glspl{MSR} are safer
-than uranium-fueled \glspl{LWR}, but it is hard to claim
-that thorium fuels are inherently `safer' than uranium fuels.
-
-
-\subsection{Proliferation Resistance}
-Thorium is claimed to have a higher proliferation resistance
-due to its diversion barriers. The barriers can be divided into
-two categories - intrinsic and extrinsic. Material barriers
-are qualities that make it difficult to produce a weapon related
-to the composition of the material, along with the difficulty of
-access to the material. The IAEA defines a fissile material's weapon
-quality by the following three properties: critical mass, spontaneous 
-fission yield (weapon degradation), and heat emission \cite{iaea_thorium_2005}.
-Although \uthree has a lower spontaneous fission rate and decay heat per kilogram,
-it has a higher critical mass than that of \pu and is harder to separated.
-Thorium breeding leads to a mixture of different uranium isotopes including
-\utwo, which is a 2.6 MeV gamma emitter \cite{moir_recommendations_2008}. This hard gamma emitter provides
-both a diversion and fabrication barrier, as well as increase the material's detectability
-Also, \uthree can be easily denatured by adding abundant natural uranium, while
-there is no comparable denaturing method for plutonium \cite{kang_u-232_2001}.
-
-
-\subsection{Availability}
-It is estimated that thorium is about 3.9 times more abundant in
-nature than uranium \cite{herring_uranium_2013} in land reserves. However, there
-is an estimated 4.6 billion tons of uranium, which is about a thousand
-times larger than the identified land reserve \cite{agency_uranium_2010}.
-However, uranium extraction from seawater is currently not economical \cite{tamada_cost_2006}.
-There are thorium in seawater as well, but its concentration is four orders of magnitude
-lower than that of uranium \cite{bardi_extracting_2010}. 
-
-\subsection{Better Neutronic Properties}
-The benefits of thorium can be looked at from a neutronics standpoint.
-First, thorium can be bred relatively efficiently into \uthree in thermal spectrums,
-which allow for breeding reactors with comparable conversion ratios \cite{allibert_introduction_2015}.
-\uthree also has a higher eta($\eta$) ratio of neutron yield per fission to 
-neutrons absorbed than that of \ufive and \pu \cite{lung_perspectives_1998}.
-\uthree maintains good neutronic properties in high temperatures,
-which make it an attractive fuel for high temperature reactors, which
-are the majority of GEN-IV reactors.
-
-\subsection{Radiotoxicity of Spent Fuel}
-Two components contribute to the radiotoxicity of 
-\gls{UNF}: \glspl{FP} and \glspl{MA}.
-Fission products account for the majority of early (\textasciitilde 500 years)
-\gls{UNF} radiotoxicity, while \glspl{MA} account for 
-radiotoxicity into geological time.
-Studies claim that thorium fuel cycle produces relatively
-less plutonium and \gls{MA} \cite{boczar_thorium_2002} \cite{david_revisiting_2007},
-which leads to a lower long-term radiotoxicity and repository safety.
-However, some studies show that given the same technology (eg. \gls{PWR} Breed-and-burn),
-\uthree - Th and \pu - \ueight fuels produce similar radiotoxicity \cite{croff_comparative_2016}.
-
-In short, many papers that claim the drastic improvement that the thorium
-fuel cycle will bring assumes a thorium cycle in part of a GEN-IV system,
-not doing complete fairness to the uranium-plutonium fuel cycle. However,
-there is potential merit and a fair reason to pursue the thorium fuel cycle.
-Thus, this paper will compare the two fuel cycles given comparable technology
-advancement. 
-
 
 %\chapter{Conclusions}
 
@@ -465,86 +173,6 @@ advancement.
 %\include{Appendix.tex}
 
 \section{Fuel Cycles to Compare}
-\begin{itemize}
-\item MSBR Th-U3, with natural Th feed \cite{robertson_conceptual_1971}
-\item MSBR U8-Pu, with natural U feed
-\item SFR Th-U3, with natural Th feed
-\item SFR U8-Pu, with natural U feed
-\end{itemize}
-
-
-\section{Flow Chart of \gls{CORRM}}
-
-\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
-    text width=5em, text badly centered,  inner sep=0pt]
-\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
-    text width=8em, text centered, rounded corners, minimum height=3em]
-\tikzstyle{buff} = [rectangle, draw, fill=green!20, 
-    text width=8em, text centered, rounded corners, minimum height=3em]
-\tikzstyle{kernal} = [rectangle, draw, fill=red!20, 
-    text width=8em, text centered, rounded corners, minimum height=3em]
-\tikzstyle{line} = [draw, -latex']
-\tikzstyle{dummy} = [rectangle]
-\tikzstyle{cloud} = [draw, text centered, ellipse,fill=red!20, text width=15em,
-    minimum height=2em]
-
-\usetikzlibrary{calc}
-
-\begin{figure}[!ht]
-\begin{tikzpicture}[node distance = 2.5cm and 2cm, auto]
-    % Place nodes
-    \node [kernal] (enternotify) {Set buy policy};
-    \node [block, below of=enternotify] (tick1) {Empty tick?};
-    \node [kernal, below of=tick1] (dre) {DRE - receive fuel and fill};
-    \node [decision, below of=dre] (core?) {Is core Loaded?};
-    \node [block, right = of dre] (tock) {Shutdown State - Do nothing};
-    \node [decision, below of=core?] (crit1) {Critical?};
-    \node [block, left = of crit1] (fiss) {Ask for more fissile?};
-    \node [block, below of=crit1] (dep) {Deplete using ROM};
-    \node [buff, below of=dep] (torep) {Core to Rep};
-    \node [block, right = of torep] (rep) {Separate};
-    \node [buff, below of=torep] (refill) {Refill Core from fill tank};
-    \node [buff, right = of dep] (waste) {Add separated waste to waste for market};
-    \node [buff, right = of refill] (backto) {Send fuel isotope back into core};
-    \node [buff, right = of rep] (patank) {Pa tank for decay};
-    \node [block, right = of backto] (decay) {Decay until Useful};
-    \node [decision, below of=refill] (crit2) {Critical?};
-    \node [buff, below of=decay] (backto2) {Send fuel isotope back into core};
-
-
-    % Draw edges
-    \path [line] (enternotify) -- (tick1);
-    \path [line] (tick1) -- (dre);
-    \path [line] (core?) -| node [near start] {no} (tock);
-    \path [line] (tock) |- (tick1);
-    \path [line] (dre) -- (core?);
-    \path [line] (core?) -- node {yes} (crit1);
-    \path [line] (crit1) -- node {yes} (dep);
-    \path [line] (crit1) -- node {no} (fiss);
-    \path [line] (dep) -- (torep);
-    \path [line] (torep) -- (refill);
-    \path [line] (refill) -- (crit2);
-    \path [line] (torep) -- (rep);
-    \path [line] (rep) -- (waste);
-    \path [line] (rep) -- (patank);
-    \path [line] (rep) -- (backto);
-    \path [line] (backto) -- (crit2);
-    \path [line] (patank) -- (decay);
-    \path [line] (decay) -- (backto2);
-    \path [line] (backto2) -- (crit2);
-    \path [line] (crit2.south) |- node {no} ($(crit2.south) - (0,5mm)$) -|  (fiss);
-    \path [line] (crit2.west) -| node {yes} ($(crit2.west) - (10mm, 0)$) |-  (dep);
-    
-
-    
-
-    %\path [line] (decide) -| node [near start] {yes} (update);
-    %\path [line] (update) |- (identify);
-    %\path [line] (decide) -- node {no}(stop);
-    \end{tikzpicture}
-\caption{\color{red}{Kernal Interactions}, \color{blue}{In-agent functions}, 
-         \color{green}{Buffer Transactions}.}
-\end{figure}
 
 \bibliographystyle{unsrtnat}
 \bibliography{bibliography}
