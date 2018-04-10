@@ -139,15 +139,27 @@ deployment.
 
 \section{Introduction}
 This paper analyzes a real scenario, where the fuel cycle
-simulation of the historical nuclear operation of a region is run,
+simulation of the historical nuclear operation of a nation is run,
 while tracking the inventory. This simulation will provide insight into
 the available resources (e.g. plutonium) and the required repository
-capacity if the region maintains the status quo.
+capacity if the nation maintains the status quo.
 
 After the historical operation to the current date, two different 
 scenarios are run, one with transition into a `closed' fuel cycle
 and another the status quo. Various metrics of the nuclear fuel cycle,
 like accumulated \gls{UNF} mass, decay heat, natural resources used, etc.
+
+Fuel cycle transition scenarios are very uncertain, and these uncertainties
+are needed to be taken into account, like done in \cite{nuclear_phathanapirom_2016}. Key uncertainties, such as energy demand growth
+rate, technology availability, and costs, should be modeled with uncertainty
+in mind. Thus, the basic scenarios are varied with the key parameters
+swept over a reasonable parameter range and visualized. 
+
+To do the parameter sweep of fuel cycle transition scenarios without
+treacherous labor, we need a demand-driven deployment algorithm,
+an algorithm to runs multiple simulations while sweeping over
+variables, and an algorithm that allows visualization of 
+the parameter sweep simulations. Luckily, 
 
 
 
@@ -156,6 +168,13 @@ like accumulated \gls{UNF} mass, decay heat, natural resources used, etc.
 
 \section{Method}
 
+\begin{enumerate}
+\item Construct basic scenario
+\item Do a `base case' of transition scenario of three countries, using published parameters (breeding ratio, reactor specifications, lifetime etc)
+\item Parameter sweep on key uncertainties (cost, advanced reactor availability,
+energy demand growth rate etc)
+\item visualization and discussion
+\end{enumerate}
 
 
 \section{Literature Review}
