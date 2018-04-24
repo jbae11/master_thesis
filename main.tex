@@ -125,19 +125,70 @@ technology has fueled the dream of a `closed' fuel cycle, where little to no
 supply of natural material is required, that `used' fuel from one reactor,
 after processing, could fuel another reactor.
 
-This rather noble thought is not without challenges, such as the 
-cost of new reprocessing and fuel fabrication sites, as well as
-security implications of processing \gls{UNF} rather than disposing them.
+However, transitioning the nuclear fuel cycle requires great effort,
+from constructing new reactors to new fuel processing infrastructure.
+Thus, it seems highly unlikely that, given the current circumstances
+such as the economic competitiveness of nuclear, uprising of natural
+gas, an administration unenthusiastic towards sustainability, that 
+this transition will happen soon.
+However, the question remains as to what is important when considering
+a nuclear fuel cycle transition - what will `nudge' the public to 
+support such a great effort \cite{leonard_richard_2008}? What do we
+need to focus on to `close' the fuel cycle? What parameters are
+important?
 
-Thus, this analysis serves to provide a metric where the benefits and
-the costs are weighed upon each other. A benefit of `closing' the fuel cycle
-is a lowered repository requirement, both in volume and rigor (timescale).
-The cost of transition is the fuel processing facilities and new reactor
-deployment.
+There have been many honest efforts by expert groups 
+to identify and quantify the key metrics of fuel cycles,
+ such as the Evaluation and Screening Study
+\cite{wigeland_nuclear_2014} and the OECD-NEA study on uncertainty
+\cite{hyland_effects_2015}.
+
+
+
+\begin{table}[h]
+    \centering
+    \caption{Parameters considered in uncertainties study 
+             in OECD-NEA study \cite{hyland_effects_2015}.}
+    \begin{tabular}{cc}
+        \hline
+        \textbf{Category} & \textbf{Parameter} \\ \hline
+        \multirow{4}{*}{Fissile Inventory and Consumption} & Fissile Burnup \\ 
+         & Fresh fuel composition \\ 
+         & Cycle length \\ 
+         & Breeding Grain\\ \hline
+        \multirow{4}{*}{Waste} & Initial \gls{MA} content in fuel \\
+         & Recuperation Rate (MA) \\
+         & Reprocessing Efficiency \\
+         & Enrichment Tail \\ \hline
+        \multirow{4}{*}{Fabrication and Reprocessing} & Minimum cooling time \\
+        & Fabrication Time\\
+        & Reprocessing begin time\\
+        & Reprocessing capacity\\ \hline
+        \multirow{4}{*}{General} & Reactor Lifetime\\
+        & Nuclear Energy Demand \\
+        & FR introduction time \\
+        & Rate of transition \\ \hline
+        
+    \end{tabular}
+\end{table}
+
 
 
 
 \section{Introduction}
+
+The goal of this paper is to identify and quantify the 
+importance of key parameters in fuel cycle transition scenarios.
+To accomplish this goal, several steps are followed.
+
+First, \Cyclus, the code that is used for this study, is benchmarked
+against ORION \cite{gregg_analysis_2012} and the UNF-ST\&DARDS database
+\cite{peterson_used_2013}. The UNF-ST\&DARDS database contains detailed
+data on the U.S. legacy nuclear fuel assemblies, and contains the
+assemblies' burnup and composition.
+
+
+
 This paper analyzes a real scenario, where the fuel cycle
 simulation of the historical nuclear operation of a nation is run,
 while tracking the inventory. This simulation will provide insight into
