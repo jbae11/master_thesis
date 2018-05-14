@@ -62,7 +62,7 @@
 
 \begin{document}
 
-\title{Nuclear Fuel Cycle Transition Scenarios based upon current inventory}
+\title{Key Parameters and Metrics of Fuel Cycle Transitions}
 \author{Jin Whan Bae}
 
 
@@ -110,9 +110,9 @@ and the United States.
 \pagebreak
 
 \section{Background}
-Nuclear energy is the largest provider of carbon-free energy
+Nuclear energy provides the largest amount of carbon-free energy
 in the United States. However, several problems remain with nuclear
-energy, with one of the biggest one being the problem of nuclear waste.
+energy, such as nuclear waste.
 From the 1950s, the United States have been trying to commission a 
 geological waste disposal site for its `spent' fuel. However, even
 after 60 years, this endeavor has yet to accomplish of substantial value.
@@ -122,7 +122,7 @@ a multitude of new reactor designs. The new reactors designs also
 experiment with new forms of fuel that deviate from an enriched uranium
 oxide fuel. Noble designs such as fast reactors and molten salt reactors
 allow various types of fuel forms and fuel cycles to be considered. These advances in new
-technology has fueled the dream of a `closed' fuel cycle, where little to no
+technology fueled the dream of a `closed' fuel cycle, where little to no
 supply of natural material is required, that `used' fuel from one reactor,
 after processing, could fuel another reactor.
 
@@ -132,19 +132,56 @@ Thus, it seems highly unlikely that, given the current circumstances
 such as the economic competitiveness of nuclear, uprising of natural
 gas, an administration unenthusiastic towards sustainability, that 
 this transition will happen soon.
-However, the question remains as to what is important when considering
-a nuclear fuel cycle transition - what will `nudge' the public to 
-support such a great effort \cite{leonard_richard_2008}? What do we
+Thus, it is important to question the important metrics when considering
+a nuclear fuel cycle transition - what will `nudge'\cite{leonard_richard_2008}
+the public to support such a great effort ? What do we
 need to focus on to `close' the fuel cycle? What parameters are
 important?
 
-There have been many honest efforts by expert groups 
+\section{Literature Review}
+There have been many honest efforts by expert groups
 to identify and quantify the key metrics of fuel cycles,
  such as the Evaluation and Screening Study
-\cite{wigeland_nuclear_2014} and the OECD-NEA study on uncertainty
-\cite{hyland_effects_2015}.
+\cite{wigeland_nuclear_2014}. However, the metrics from the E\&S study
+are not quite appropriate for transition scenarios, for the evaluation
+was done in a static fuel cycle. This work intends to find important
+metrics in a transition scenario.
+
+\begin{table}[h]
+    \centering
+    \caption{Metrics considered in Evaluation and Screening
+                Study \cite{wigeland_nuclear_2014}.}
+    \begin{tabular}{cc}
+        \hline
+        \textbf{Category} & \textbf{Parameter} \\ \hline
+        \multirow{5}{*}{Nuclear Waste Management (per energy)} & Mass of \gls{UNF} + \gls{HLW} \\
+         & Activity of \gls{UNF} + \gls{HLW} at 100 years \\
+         & Activity of \gls{UNF} + \gls{HLW} at 100,000 years \\
+         & Mass of \gls{DU} + \gls{RU}\\
+         & Volume of \gls{LLW} \\ \hline
+        \multirow{2}{*}{Proliferation Risk / Material Security} & Material Attractiveness \\
+         & Targets for Malevolent Use \\ \hline
+        \multirow{4}{*}{Environmental Impact (per energy)} & Land use \\
+        & Water use \\
+        & CO2 released\\
+        & Radiological exposure - worker dose\\ \hline
+
+        \multirow{1}{*}{Resource Utilization (per energy)} & Natural U required \\ \hline
+
+        \multirow{4}{*}{Others} & Safety \\
+        & Development and Deployment Risk \\
+        & Institutional Issues\\
+        & Financial Risk and Economics \\ \hline
+    \end{tabular}
+\end{table}
 
 
+While metrics are the outputs of a fuel cycle transition, the parameters
+are inputs to a fuel cycle transition scenario, and are subject to
+sensitivity. Key parameters in fuel cycle transitions have been identified
+by the OECD-NEA study on uncertainty \cite{hyland_effects_2015}. In this
+study, some of these parameters are swept over a range to quantify its
+effect on the metrics.
 
 \begin{table}[h]
     \centering
@@ -153,9 +190,9 @@ to identify and quantify the key metrics of fuel cycles,
     \begin{tabular}{cc}
         \hline
         \textbf{Category} & \textbf{Parameter} \\ \hline
-        \multirow{4}{*}{Fissile Inventory and Consumption} & Fissile Burnup \\ 
-         & Fresh fuel composition \\ 
-         & Cycle length \\ 
+        \multirow{4}{*}{Fissile Inventory and Consumption} & Fissile Burnup \\
+         & Fresh fuel composition \\
+         & Cycle length \\
          & Breeding Grain\\ \hline
         \multirow{4}{*}{Waste} & Initial \gls{MA} content in fuel \\
          & Recuperation Rate (MA) \\
@@ -169,9 +206,9 @@ to identify and quantify the key metrics of fuel cycles,
         & Nuclear Energy Demand \\
         & FR introduction time \\
         & Rate of transition \\ \hline
-        
     \end{tabular}
 \end{table}
+
 
 
 
@@ -180,41 +217,22 @@ to identify and quantify the key metrics of fuel cycles,
 
 The goal of this paper is to identify and quantify the 
 importance of key parameters in fuel cycle transition scenarios.
-To accomplish this goal, several steps are followed.
+I follow several steps to accomplish this goal.
 
-First, \Cyclus, the code that is used for this study, is benchmarked
-against ORION \cite{gregg_analysis_2012} and the UNF-ST\&DARDS database
-\cite{peterson_used_2013}. The UNF-ST\&DARDS database contains detailed
+First, I benchmark \Cyclus, the fuel cycle analysis code that is used for this study,
+against ORION \cite{gregg_analysis_2012} and the \gls{UNF-STANDARDS} database
+\cite{peterson_used_2013}. The \gls{UNF-STANDARDS} database contains detailed
 data on the U.S. legacy nuclear fuel assemblies, and contains the
-assemblies' burnup and composition.
+assemblies' burnup and composition. This allows me to check the fidelity
+and the performance of \Cyclus in matching real-life scenarios.
 
+Then, key metrics by which fuel cycle transition should be measured by
+is identified through literature review and discussion. I then
+consider important metrics in the perspective of the general public.
 
-
-This paper analyzes a real scenario, where the fuel cycle
-simulation of the historical nuclear operation of a nation is run,
-while tracking the inventory. This simulation will provide insight into
-the available resources (e.g. plutonium) and the required repository
-capacity if the nation maintains the status quo.
-
-After the historical operation to the current date, two different 
-scenarios are run, one with transition into a `closed' fuel cycle
-and another maintaining the status quo. Various metrics of the nuclear fuel cycle,
-like accumulated \gls{UNF} mass, decay heat, and natural resources used,
-are calculated and compared.
-
-Fuel cycle transition scenarios are very uncertain, and these uncertainties
-are needed to be taken into account, like done in \cite{nuclear_phathanapirom_2016}.
-Key uncertainties, such as energy demand growth
-rate, technology availability, and costs, should be modeled with uncertainty
-in mind. Thus, the basic scenarios are varied with the key parameters
-swept over a reasonable parameter range and visualized. 
-
-To do the parameter sweep of fuel cycle transition scenarios without
-treacherous labor, we need a demand-driven deployment algorithm,
-an algorithm to run multiple simulations while sweeping over
-variables, and an algorithm that allows visualization of 
-the parameter sweep simulations. Luckily, all three tools are
-currently in development. 
+Then, I identify important fuel cycle parameters and perform a parameter
+sweep on two real scenarios to visualize the sensitivity of the parameters
+on the key metrics.
 
 \section{\Cyclus}
 
@@ -248,11 +266,16 @@ a user-defined deployment scheme.
 \section{Method}
 
 \begin{enumerate}
-\item Construct basic scenario
-\item Do a `base case' of transition scenario of three countries, using published parameters (breeding ratio, reactor specifications, lifetime etc)
-\item Parameter sweep on key uncertainties (cost, advanced reactor availability,
-energy demand growth rate etc)
-\item Visualization and Discussion
+    \item Benchmark \Cyclus against ORION and \gls{UNF-STANDARDS}
+    \item Identify key fuel cycle transition metrics
+    \item Identify key fuel cycle parameters
+    \item Perform parameter sweep on key parameters on real scenarios
+    \begin{enumerate}
+        \item United States transition scenario
+        \item France transition scenario
+    \end{enumerate}
+    \item Analyze sensitivity of parameters on key metrics
+    \item Visualization and discussion
 \end{enumerate}
 
 \subsection{Material Flow}
@@ -353,9 +376,6 @@ was not included. However, further in the future where the depleted
 uranium inventory drains, reprocessed uranium (or, natural uranium) will need to be utilized. 
 
 \FloatBarrier
-
-
-\section{Literature Review}
 
 
 \section{France}
@@ -608,7 +628,7 @@ French La Hague and MELOX sites \cite{schneider_spent_2008, hugelmann_melox_1999
 \begin{table}[h]
     \centering
     \caption{Simulation Specifications}
-    \begin{tabularx}{\linewidth}{bsx}
+    \begin{tabularx}{\linewidth}{bss}
         \hline
         \textbf{Specification} &\textbf{ Value} & \textbf{Units}\\
         \hline
@@ -625,7 +645,7 @@ French La Hague and MELOX sites \cite{schneider_spent_2008, hugelmann_melox_1999
         \gls{LWR} \gls{MOX} fabrication throughput & 16.25 \cite{hugelmann_melox_1999} & $\frac{\text{metric tons of \gls{MOX}}}{month}$\\
         \gls{ASTRID} \gls{MOX} fabrication throughput & No limit ($\infty$) & $\frac{\text{metric tons of \gls{MOX}}}{month}$ \\
         \gls{LWR} \gls{MOX} recycling  &  Not reprocessed & - \\
-        \gls{ASTRID} \gls{MOX} recycling & $\infty$-pass & - \\  
+        \gls{ASTRID} \gls{MOX} recycling & $\infty$-pass & - \\
         \hline
     \end{tabularx}
     \label{tab:gen}
@@ -987,7 +1007,7 @@ installed capacity of about 100 GWe. With its size and long history of nuclear
 energy, the United States have accumulated about $70,000$ \gls{MTHM} of \gls{UNF}.
 The United States' historical nuclear operation and inventory is tracked using
 \Cyclus and is compared with benchmarked results from \gls{ORION} and the
-\gls{UNF-ST\&DARDS} database. The \gls{UNF-ST\&DARDS} database is a comprehensive,
+\gls{UNF-STANDARDS} database. The \gls{UNF-STANDARDS} database is a comprehensive,
 controlled source of \gls{UNF} information, including dry cask attributes, assembly
 data, and economic attributes \cite{peterson_unf_2017}. With the successful benchmark,
 the simulation is be extrapolated to the future. Two separate simulations, one with
@@ -1001,6 +1021,84 @@ This chapter includes the results and comparison of two simulations:
     \item The United States transitions into a `closed' fuel cycle with breeder reactors and reprocessing.
     \item The United States maintains once-through cycle.
 \end{enumerate}
+
+
+
+\section{\gls{UDB} Reactor Module}
+
+The logic flow of the UDB reactor module is illustrated in figure \ref{fig:logic}.
+
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+    text width=5em, text badly centered,  inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+    text width=8em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{buff} = [rectangle, draw, fill=green!20, 
+    text width=8em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{kernal} = [rectangle, draw, fill=red!20, 
+    text width=8em, text centered, rounded corners, minimum height=3em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{dummy} = [rectangle]
+\tikzstyle{cloud} = [draw, text centered, ellipse,fill=red!20, text width=15em,
+    minimum height=2em]
+
+\usetikzlibrary{calc}
+
+\begin{figure}[!ht]
+\begin{tikzpicture}[node distance = 2.5cm and 2cm, auto]
+    % Place nodes
+    \node [kernal] (enternotify) {Set buy policy};
+    \node [block, below of=enternotify] (tick1) {Empty tick?};
+    \node [kernal, below of=tick1] (dre) {DRE - receive fuel and fill};
+    \node [decision, below of=dre] (core?) {Is core Loaded?};
+    \node [block, right = of dre] (tock) {Shutdown State - Do nothing};
+    \node [decision, below of=core?] (crit1) {Critical?};
+    \node [block, left = of crit1] (fiss) {Ask for more fissile?};
+    \node [block, below of=crit1] (dep) {Deplete using ROM};
+    \node [buff, below of=dep] (torep) {Core to Rep};
+    \node [block, right = of torep] (rep) {Separate};
+    \node [buff, below of=torep] (refill) {Refill Core from fill tank};
+    \node [buff, right = of dep] (waste) {Add separated waste to waste for market};
+    \node [buff, right = of refill] (backto) {Send fuel isotope back into core};
+    \node [buff, right = of rep] (patank) {Pa tank for decay};
+    \node [block, right = of backto] (decay) {Decay until Useful};
+    \node [decision, below of=refill] (crit2) {Critical?};
+    \node [buff, below of=decay] (backto2) {Send fuel isotope back into core};
+
+
+    % Draw edges
+    \path [line] (enternotify) -- (tick1);
+    \path [line] (tick1) -- (dre);
+    \path [line] (core?) -| node [near start] {no} (tock);
+    \path [line] (tock) |- (tick1);
+    \path [line] (dre) -- (core?);
+    \path [line] (core?) -- node {yes} (crit1);
+    \path [line] (crit1) -- node {yes} (dep);
+    \path [line] (crit1) -- node {no} (fiss);
+    \path [line] (dep) -- (torep);
+    \path [line] (torep) -- (refill);
+    \path [line] (refill) -- (crit2);
+    \path [line] (torep) -- (rep);
+    \path [line] (rep) -- (waste);
+    \path [line] (rep) -- (patank);
+    \path [line] (rep) -- (backto);
+    \path [line] (backto) -- (crit2);
+    \path [line] (patank) -- (decay);
+    \path [line] (decay) -- (backto2);
+    \path [line] (backto2) -- (crit2);
+    \path [line] (crit2.south) |- node {no} ($(crit2.south) - (0,5mm)$) -|  (fiss);
+    \path [line] (crit2.west) -| node {yes} ($(crit2.west) - (10mm, 0)$) |-  (dep);
+    
+
+    
+
+    %\path [line] (decide) -| node [near start] {yes} (update);
+    %\path [line] (update) |- (identify);
+    %\path [line] (decide) -- node {no}(stop);
+    \end{tikzpicture}
+\caption{\color{red}{Kernal Interactions}, \color{blue}{In-agent functions}, 
+         \color{green}{Buffer Transactions}.}
+\lable{fig:logic}
+\end{figure}
 
 %\chapter{Conclusions}
 
