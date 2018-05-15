@@ -66,6 +66,7 @@
 \author{Jin Whan Bae}
 
 
+
 %% Create an abstract that can also be used for the ProQuest abstract.
 %% Note that ProQuest truncates their abstracts at 350 words.
 \begin{abstract}
@@ -117,10 +118,10 @@ From the 1950s, the United States have been trying to commission a
 geological waste disposal site for its `spent' fuel. However, even
 after 60 years, this endeavor has yet to accomplish of substantial value.
 
-On the other hand, the recent advances in nuclear technology produced
-a multitude of new reactor designs. The new reactors designs also
-experiment with new forms of fuel that deviate from an enriched uranium
-oxide fuel. Noble designs such as fast reactors and molten salt reactors
+Recent advances in nuclear technology produced
+a multitude of new reactor designs which experiment with new forms
+of fuel that deviate from an enriched uranium oxide fuel.
+Noble designs such as fast reactors and molten salt reactors
 allow various types of fuel forms and fuel cycles to be considered. These advances in new
 technology fueled the dream of a `closed' fuel cycle, where little to no
 supply of natural material is required, that `used' fuel from one reactor,
@@ -132,6 +133,7 @@ Thus, it seems highly unlikely that, given the current circumstances
 such as the economic competitiveness of nuclear, uprising of natural
 gas, an administration unenthusiastic towards sustainability, that 
 this transition will happen soon.
+
 Thus, it is important to question the important metrics when considering
 a nuclear fuel cycle transition - what will `nudge'\cite{leonard_richard_2008}
 the public to support such a great effort ? What do we
@@ -139,18 +141,22 @@ need to focus on to `close' the fuel cycle? What parameters are
 important?
 
 \section{Literature Review}
+
 There have been many honest efforts by expert groups
 to identify and quantify the key metrics of fuel cycles,
  such as the Evaluation and Screening Study
 \cite{wigeland_nuclear_2014}. However, the metrics from the E\&S study
-are not quite appropriate for transition scenarios, for the evaluation
-was done in a static fuel cycle. This work intends to find important
-metrics in a transition scenario.
+are not quite appropriate for transition scenarios, for the evaluation and simulation
+were done in static fuel cycles. This work intends to find important
+metrics in a transition scenario. For reference, the metrics
+identified in the Evaluation and Screening study is listed in 
+table \ref{tab:es}.
 
 \begin{table}[h]
     \centering
     \caption{Metrics considered in Evaluation and Screening
                 Study \cite{wigeland_nuclear_2014}.}
+    \label{tab:es}
     \begin{tabular}{cc}
         \hline
         \textbf{Category} & \textbf{Parameter} \\ \hline
@@ -180,11 +186,12 @@ While metrics are the outputs of a fuel cycle transition, the parameters
 are inputs to a fuel cycle transition scenario, and are subject to
 sensitivity. Key parameters in fuel cycle transitions have been identified
 by the OECD-NEA study on uncertainty \cite{hyland_effects_2015}. In this
-study, some of these parameters are swept over a range to quantify its
-effect on the metrics.
+study, some of these parameters (organized in table \ref{tab:sens}
+are swept over a range to quantify its effect on the metrics.
 
 \begin{table}[h]
     \centering
+    \label{tab:sens}
     \caption{Parameters considered in uncertainties study 
              in OECD-NEA study \cite{hyland_effects_2015}.}
     \begin{tabular}{cc}
@@ -209,7 +216,32 @@ effect on the metrics.
     \end{tabular}
 \end{table}
 
+On the other hand, publications from MIT take a more 
+reluctant stance on the need to transition into a `closed' fuel cycle.
+They argue that more focus should be given to \gls{LWR} technology 
+because uranium is abundant, fuel cycle infrastructure is expensive,
+and that nuclear energy demand is in decline \cite{kazimi_future_2011}. Since it is an interdisciplinary study, the MIT report
+considers metrics from a business perspective, like economics,
+safety, to a national or governmental perspective, like waste management,
+or energy independence. The report's criteria to compare fuel cycles
+is replicated in table \ref{tab:mit}.
 
+\begin{table}[h]
+    \centering
+    \label{tab:mit}
+    \caption{Criteria to Compare Fuel Cycles from the MIT report \cite{kazimi_future_2011}}
+    \begin{tabular}{ccc}
+        \hline
+        \textbf{Criteria} & \textbf{Technical} & \textbf{Institutional}\\ \hline
+        Economics & Overnight Capital Costs & Financing, Regulation \\
+        Safety & Risk Assessment & Regulatory structure \\
+        Waste Management & Waste form, time of storage & Regulation, Societal view \\
+        Environment & Water / land consumption & Greenhouse gas regulation \\
+        Resource utilization & Uranium costs & Security of supply \\
+        Nonproliferation & Separated plutonium & Institutional arrangements for fuel \\
+        \hline
+    \end{tabular}
+\end{table}
 
 
 
@@ -230,9 +262,10 @@ Then, key metrics by which fuel cycle transition should be measured by
 is identified through literature review and discussion. I then
 consider important metrics in the perspective of the general public.
 
-Then, I identify important fuel cycle parameters and perform a parameter
+Then, I identify important fuel cycle parameters by performing a parameter
 sweep on two real scenarios to visualize the sensitivity of the parameters
 on the key metrics.
+
 
 \section{\Cyclus}
 
@@ -1097,7 +1130,7 @@ The logic flow of the UDB reactor module is illustrated in figure \ref{fig:logic
     \end{tikzpicture}
 \caption{\color{red}{Kernal Interactions}, \color{blue}{In-agent functions}, 
          \color{green}{Buffer Transactions}.}
-\lable{fig:logic}
+\label{fig:logic}
 \end{figure}
 
 %\chapter{Conclusions}
