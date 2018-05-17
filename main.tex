@@ -70,12 +70,17 @@
 %% Create an abstract that can also be used for the ProQuest abstract.
 %% Note that ProQuest truncates their abstracts at 350 words.
 \begin{abstract}
-This work analyses the historic operation of nuclear energy and the \gls{UNF} inventory.
-With the calculated inventory, we suggest different
-directions of fuel cycle transition scenarios that will maximize the currently
-available resource. Several case studies of this includes the European region,
-and the United States.
-\end{abstract} 
+This work identifies important metrics and parameters in
+nuclear fuel cycle transition scenarios. First, the agent-based
+fuel cycle simulator \Cyclus is benchmarked against \gls{ORION}.
+Second, important fuel cycle transition metrics are identified
+by extensive literature review.
+Third, I run sensitivity studies on two regional fuel cycle
+transition scenarios (U.S. and France) to identify important
+parameters and how they affect the metrics.
+[results]
+
+\end{abstract}
 
 %% Create a dedication in italics with no heading, centered vertically
 %% on the page.
@@ -111,10 +116,11 @@ and the United States.
 \pagebreak
 
 \section{Background}
+
 Nuclear energy provides the largest amount of carbon-free energy
 in the United States. However, several problems remain with nuclear
 energy, such as nuclear waste.
-From the 1950s, the United States have been trying to commission a 
+From the 1950s, the United States have been trying to commission a
 geological waste disposal site for its `spent' fuel. However, even
 after 60 years, this endeavor has yet to accomplish of substantial value.
 
@@ -131,14 +137,54 @@ However, transitioning the nuclear fuel cycle requires great effort,
 from constructing new reactors to new fuel processing infrastructure.
 Thus, it seems highly unlikely that, given the current circumstances
 such as the economic competitiveness of nuclear, uprising of natural
-gas, an administration unenthusiastic towards sustainability, that 
+gas, an administration unenthusiastic towards sustainability, that
 this transition will happen soon.
+
+In 2017, \gls{ANS} announced closing the fuel cycle as one of its
+grand challenge, stating that doing so will allow the U.S.
+to `obtain maximum value and minimizing environmental
+impact from using nuclear fuel' \cite{noname_ans_2017}.
+The report also says that identifying the `most promising'
+fuel cycles based on clear evaluation metrics is important,
+as it was done in the Fuel Cycle Evaluation and Screening
+Study report \cite{wigeland_nuclear_2014}.
 
 Thus, it is important to question the important metrics when considering
 a nuclear fuel cycle transition - what will `nudge'\cite{leonard_richard_2008}
-the public to support such a great effort ? What do we
-need to focus on to `close' the fuel cycle? What parameters are
-important?
+the public to support such a great effort ? What incentives
+do we have to `close' the fuel cycle?
+
+Additionally, we need to identify important parameters in
+fuel cycle transition, so that resources can be
+focused on the more important parameters, such as reprocessing
+research or advanced reactor development.
+
+This series of studies attempts to answer those questions with a 
+combination of literature review, fuel cycle simulations and sensitivity
+studies.
+
+
+\section{Introduction}
+
+The goal of this paper is to identify and quantify the 
+importance of key parameters in fuel cycle transition scenarios.
+I follow several steps to accomplish this goal.
+
+First, I benchmark \Cyclus, the fuel cycle analysis code that is used for this study,
+against ORION \cite{gregg_analysis_2012} and the \gls{UNF-STANDARDS} database
+\cite{peterson_used_2013}. The \gls{UNF-STANDARDS} database contains detailed
+data on the U.S. legacy nuclear fuel assemblies, and contains the
+assemblies' burnup and composition. This allows me to check the fidelity
+and the performance of \Cyclus in matching real-life scenarios.
+
+Then, key metrics by which fuel cycle transition should be measured by
+is identified through literature review and discussion. I then
+consider important metrics in the perspective of the general public.
+
+Then, I identify important fuel cycle parameters by performing a parameter
+sweep on two real scenarios to visualize the sensitivity of the parameters
+on the key metrics.
+
 
 \section{Literature Review}
 
@@ -148,7 +194,8 @@ to identify and quantify the key metrics of fuel cycles,
 \cite{wigeland_nuclear_2014}. However, the metrics from the E\&S study
 are not quite appropriate for transition scenarios, for the evaluation and simulation
 were done in static fuel cycles. This work intends to find important
-metrics in a transition scenario. For reference, the metrics
+metrics in a transition scenario. For example,
+For reference, the metrics
 identified in the Evaluation and Screening study is listed in 
 table \ref{tab:es}.
 
@@ -192,7 +239,7 @@ are swept over a range to quantify its effect on the metrics.
 \begin{table}[h]
     \centering
     \label{tab:sens}
-    \caption{Parameters considered in uncertainties study 
+    \caption{Parameters considered in uncertainties study
              in OECD-NEA study \cite{hyland_effects_2015}.}
     \begin{tabular}{cc}
         \hline
@@ -244,27 +291,6 @@ is replicated in table \ref{tab:mit}.
 \end{table}
 
 
-
-\section{Introduction}
-
-The goal of this paper is to identify and quantify the 
-importance of key parameters in fuel cycle transition scenarios.
-I follow several steps to accomplish this goal.
-
-First, I benchmark \Cyclus, the fuel cycle analysis code that is used for this study,
-against ORION \cite{gregg_analysis_2012} and the \gls{UNF-STANDARDS} database
-\cite{peterson_used_2013}. The \gls{UNF-STANDARDS} database contains detailed
-data on the U.S. legacy nuclear fuel assemblies, and contains the
-assemblies' burnup and composition. This allows me to check the fidelity
-and the performance of \Cyclus in matching real-life scenarios.
-
-Then, key metrics by which fuel cycle transition should be measured by
-is identified through literature review and discussion. I then
-consider important metrics in the perspective of the general public.
-
-Then, I identify important fuel cycle parameters by performing a parameter
-sweep on two real scenarios to visualize the sensitivity of the parameters
-on the key metrics.
 
 
 \section{\Cyclus}
