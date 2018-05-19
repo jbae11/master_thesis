@@ -1,29 +1,34 @@
-
 The goal of this paper is to identify and quantify the
 importance of key parameters in fuel cycle transition scenarios
 and their impacts on important fuel cycle transition metrics.
+
+Numerous work similar to this nature exists, but they provide
+static analyses and does not fully capture the dynamic nature
+of the nuclear fuel cycle transition scenario. Also, there
+has not been a study where the nuclear fuel cycle transition
+scenario has been applied to a real-world scenario.
+
+By running transition scenarios with current \gls{UNF}
+inventory and nuclear reactor fleet in consideration,
+and running a sensitivity study within the real-world simulation,
+this study provides a more realistic, quantitative insight
+into what parameters are of importance.
+
 I follow several steps to accomplish this goal.
 
 First, I benchmark \Cyclus, the fuel cycle simulator that is used for this study,
 against \gls{ORION} \cite{gregg_analysis_2012} with the \gls{UNF-STANDARDS} database
 \cite{peterson_used_2013}. The \gls{UNF-STANDARDS} database contains detailed
 data on the U.S. legacy nuclear fuel assemblies, and contains the
-assemblies' burnup and composition. This allows me to check the fidelity of \Cyclus with a previously-benchmarked code like \gls{ORION}.
+assemblies' burnup and composition. This allows me to check the fidelity
+of \Cyclus with a previously-benchmarked code like \gls{ORION}.
 
 Then, key metrics for fuel cycle transition
-is identified through literature review and discussion. I then
+are identified through literature review and discussion. I then
 extract important metrics in the perspective of the general public.
 
 Then, I identify important fuel cycle parameters by performing a parameter
-sweep on two real scenarios to visualize the sensitivity of the parameters
-on the key metrics.
-
-In a glance, this study sounds very similar to the OECD-NEA study in 2015
-by Hyland et al. \cite{hyland_effects_2015}, but this study provides
-unique insight in that it explores the sensitivity of incentives to
-transition, not just fuel cycle metrics.
-
-Also, this study attempts to apply the similar sensitivity study in
-real-world regional scenarios, such as France and the U.S. Note that the purpose
-of this study is to identify important parameters, not to make a suggestion
-as to what any government should do.
+sweep on two real scenarios to visualize the sensitivity of the metrics
+for each parameter. With the results I draw a conclusion on what parameters
+are important, and what the future efforts in `closing' the fuel cycle
+should focus on.
