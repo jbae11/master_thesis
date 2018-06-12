@@ -17,11 +17,16 @@ into what parameters are of importance.
 I follow several steps to accomplish this goal.
 
 First, I benchmark \Cyclus, the fuel cycle simulator that is used for this study,
-against \gls{ORION} \cite{gregg_analysis_2012} with the \gls{UNF-STANDARDS} database
-\cite{peterson_used_2013}. The \gls{UNF-STANDARDS} database contains detailed
-data on the U.S. legacy nuclear fuel assemblies and contains the
-assemblies' burnup and composition. This allows me to check the fidelity
-of \Cyclus with a previously-benchmarked code like \gls{ORION}.
+against other fuel cycle simulators. A collective effort has been made previously
+by national lab researchers to compare
+and benchmark fuel cycle simulators
+DYMOND \cite{yacout_modeling_2005},
+VISION \cite{jacobson_verifiable_2010},
+ORION \cite{gregg_analysis_2012}, and
+MARKAL \cite{shay_epa_2006} in a verification study \cite{feng_standardized_2016}.
+I replicate the results from the verification study and reveal that \Cyclus'
+results agree with other fuel cycle codes with minor differences rising from
+reactor module behavior.
 
 Then, key metrics for fuel cycle transition
 are identified through literature review and discussion. I then
