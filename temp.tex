@@ -1,6 +1,15 @@
 
+%%
+%% This is file `thesis-ex.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uiucthesis2014.dtx  (with options: `example')
+%% 
+\def\fileversion{v2.25b} \def\filedate{2018/06/10}
 %% Package and Class "uiucthesis2014" for use with LaTeX2e.
-\documentclass{report}
+\documentclass[edeposit,fullpage]{uiucthesis2014}
 
 \usepackage[acronym,toc]{glossaries}
 \include{acros}
@@ -19,24 +28,6 @@
 \usepackage{booktabs}
 \usepackage{threeparttable, tablefootnote}
 
-%tikzpicture fit to page width
-\usepackage{environ}
-\makeatletter
-\newsavebox{\measure@tikzpicture}
-\NewEnviron{scaletikzpicturetowidth}[1]{%
-  \def\tikz@width{#1}%
-  \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
-  \BODY
-  \end{lrbox}%
-  \pgfmathparse{#1/\wd\measure@tikzpicture}%
-  \edef\tikzscale{\pgfmathresult}%
-  \BODY
-}
-
-\usepackage{tabularx}
-\newcolumntype{b}{>{\hsize=1.0\hsize}X}
-\newcolumntype{s}{>{\hsize=.5\hsize}X}
-\newcolumntype{m}{>{\hsize=.75\hsize}X}
 \usepackage{graphics}
 \newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
 \newcommand{\uthree}{\xspace $^{233}_{92}U$ \xspace}
@@ -65,14 +56,15 @@
 
 \title{Key Parameters and Metrics of Fuel Cycle Transitions}
 \author{Jin Whan Bae}
-%\department{Department of Nuclear, Plasma, Radiological Engineering}
-%\schools{B.S., University of Illinois - Urbana Champaign, 2017}
-%\msthesis
-%\advisor{Kathryn Huff}
-%\degreeyear{2018}
-%\committee{Professor Rizwan Uddin \\ Professor Clifford Singer}
+\department{Nuclear, Plasma, Radiological Engineering}
+\schools{B.S., University of Illinois at Urbana-Champaign, 2017}
+\msthesis
+\advisor{Kathryn Huff}
+\degreeyear{2018}
+\committee{Professor Kathryn Huff, Advisor}
 \maketitle
 
+\frontmatter
 
 %% Create an abstract that can also be used for the ProQuest abstract.
 %% Note that ProQuest truncates their abstracts at 350 words.
@@ -86,11 +78,14 @@ Third, I run sensitivity studies on two regional fuel cycle
 transition scenarios (U.S. and France) to identify important
 parameters and how they affect the metrics.
 [results]
-
 \end{abstract}
 
 %% Create a dedication in italics with no heading, centered vertically
 %% on the page.
+\begin{dedication}
+To children worldwide.
+\end{dedication}
+
 %% Create an Acknowledgements page, many departments require you to
 %% include funding support in this.
 \chapter*{Acknowledgments}
@@ -99,8 +94,7 @@ I consider all my output as a result of me standing on the shoulder
 of giants. There have been multiple giants that were kind enough
 to lend me their shoulders. Notably, the tallest of all, my advisor
 and mentor Kathryn Huff, who patiently guided me from my academic
-infancy. Also, I owe the world to my parents and loving brother who
-brought me up with love
+infancy. Also, I owe the world to my parents and loving brother brought me up with love
 from my actual infancy.  I also thank the staff of Oak Ridge National Laboratory
 Joushua L. Peterson-Droogh, Eva Davidson, and Andrew Worrall for their
 guidance over the summer.
@@ -112,18 +106,6 @@ Andrei Rykhlevskii, Gwendolyn Chee, Gregory Westphal, Gyu Tae Park, Sun Myung Pa
 Anshuman Chuabe have been of great help. Lastly thanks to my long friends Shane Riew,
 Eric Bae, Daniel Stewart, and all my comrades from the 12DIV Engineering 3CO.
 
-
-%% The thesis format requires the Table of Contents to come
-%% before any other major sections, all of these sections after
-%% the Table of Contents must be listed therein (i.e., use \chapter,
-%% not \chapter*).  Common sections to have between the Table of
-%% Contents and the main text are:
-%%
-%% List of Tables
-%% List of Figures
-%% List Symbols and/or Abbreviations
-%% etc.
-
 \tableofcontents
 \listoftables
 \listoffigures
@@ -131,13 +113,13 @@ Eric Bae, Daniel Stewart, and all my comrades from the 12DIV Engineering 3CO.
 %% Create a List of Abbreviations. The left column
 %% is 1 inch wide and left-justified
 \chapter{List of Abbreviations}
+
+\begin{symbollist*}
 \printglossaries
-%% Create a List of Symbols. The left column
-%% is 0.7 inch wide and centered
-\chapter{List of Symbols}
+\end{symbollist*}
 
+\mainmatter
 
-\pagebreak
 
 \chapter{Background}
 \input{background}
@@ -171,7 +153,6 @@ Eric Bae, Daniel Stewart, and all my comrades from the 12DIV Engineering 3CO.
 
 \bibliographystyle{unsrtnat}
 \bibliography{bibliography}
-
 
 \end{document}
 \endinput
