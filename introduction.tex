@@ -1,0 +1,40 @@
+The goal of this paper is to identify and quantify the
+importance of key parameters in fuel cycle transition scenarios
+and their impacts on important fuel cycle transition metrics.
+
+Numerous work similar to this nature exists, but they provide
+static analyses and does not fully capture the dynamic nature
+of the nuclear fuel cycle transition scenario. Also, few
+transition scenarios consider real-life scenarios
+where an existing \gls{UNF} inventory can be utilize to
+accelerate transition.
+
+By running transition scenarios with current \gls{UNF}
+inventory and nuclear reactor fleet in consideration,
+and running a sensitivity study within the real-world simulation,
+this study provides a more realistic, quantitative insight
+into what parameters are of importance.
+
+I follow several steps to accomplish this goal.
+
+First, I benchmark \Cyclus, the fuel cycle simulator that is used for this study,
+against other fuel cycle simulators. A collective effort has been made previously
+by national lab researchers to compare
+and benchmark fuel cycle simulators
+DYMOND \cite{yacout_modeling_2005},
+VISION \cite{jacobson_verifiable_2010},
+ORION \cite{gregg_analysis_2012}, and
+MARKAL \cite{shay_epa_2006} in a verification study \cite{feng_standardized_2016}.
+I replicate the results from the verification study and reveal that \Cyclus'
+results agree with other fuel cycle codes with minor differences rising from
+reactor module behavior.
+
+Then, key metrics for fuel cycle transition
+are identified through literature review and discussion. I then
+extract important metrics in the perspective of the general public.
+
+Then, I identify important fuel cycle parameters by performing a parameter
+sweep on two real scenarios to visualize the sensitivity of the metrics
+for each parameter. With the results, I draw a conclusion on what parameters
+are important, and what the future efforts in `closing' the fuel cycle
+should focus on.

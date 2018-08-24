@@ -1,0 +1,619 @@
+
+The stated long term plan for nuclear deployment in France targets a technology 
+transition to \glspl{SFR}\cite{cne2_reports_2015}. However, the current inventory of French \gls{UNF} 
+is insufficient to fuel that transition without building new \glspl{LWR}.
+
+If instead, France accepted 
+\gls{UNF} from other \gls{EU} nations and used it to produce \gls{MOX} for new \glspl{SFR},
+the \gls{MOX} created will fuel a French transition to an \gls{SFR} fleet
+and allow France to avoid building additional \glspl{LWR}.
+
+To simulate this cooperative scenario, I simulated the entire \gls{EU} region
+and all its nuclear reactor operating history and \gls{UNF} accumulation up to the
+nearest foreseeable future. Then, France would take as much \gls{UNF} it needs
+to transition into a fully \gls{SFR} fleet without building additional \glspl{LWR}.
+
+This chapter includes the results and comparison of two simulations:
+\begin{enumerate}
+    \item France transitions into a fully \gls{SFR} fleet by taking other \gls{EU} nations' \gls{UNF}
+    \item France maintains its current fuel cycle with \gls{LWR} \gls{MOX} reprocessing.
+\end{enumerate}
+
+\subsection{\gls{EU} Deployment Schedule}
+
+The \gls{IAEA} \gls{PRIS} database \cite{iaea_nuclear_2017} contains worldwide reactor
+operation history.
+The computational workflow in this work, shown in Figure \ref{diag:comp}, automates data extraction from the 
+\gls{PRIS} database. We import this database directly as a \texttt{csv} file to populate the simulation
+with deployment information, listing the country, reactor unit, type, net capacity (\gls{MWe}), status,
+operator, construction date, first criticality date, first grid date, commercial date, shutdown
+date (if applicable), and unit capacity factor for 2013. Then only the \gls{EU} countries are extracted
+from the \texttt{csv} file. We developed a python script to generate
+a \Cyclus 
+compatible input file accordingly, which lists the individual reactor units as agents. 
+
+
+\begin{figure}
+        \centering
+\begin{tikzpicture}[node distance=1.5cm]
+\node (database) [object] {Database (\texttt{.csv})};
+\node (script) [process, below of=database] {Input Generation Script (\texttt{write\_input.py})};
+\node (input) [object, below of=script] {\Cyclus Input File (\texttt{.xml})};
+\node (cyclus) [process, below of=input]{\Cyclus};
+\node (output) [object, below of=cyclus]{\texttt{Output File (\texttt{.Sqlite})}};
+\node (script2) [process, below of=output]{Analysis Script (\texttt{analysis.py})};
+
+\draw [arrow] (database) -- (script); 
+\draw [arrow] (script) -- (input); 
+\draw [arrow] (input) -- (cyclus);
+\draw [arrow] (cyclus) -- (output);
+\draw [arrow] (output) -- (script2);
+\end{tikzpicture}
+\caption{Green circles and blue boxes represent files and software 
+processes, respectively, in the computational workflow.}
+\label{diag:comp}
+\end{figure}
+
+
+Projections of future reactor deployment in this simulation are based on
+assessment of analyses from references, for instance \gls{PRIS}, for reactors planned
+for construction \cite{iaea_nuclear_2017}, the World Nuclear Association
+\cite{world_nuclear_association_nuclear_2017}, and literature concerning the future of
+nuclear power in a global \cite{joskow_future_2012} and European context
+\cite{hatch_politics_2015}.  Existing projections extend to 2050.
+
+\Cref{tab:eu_deployment} lists the reactors that are currently  planned or
+under construction in the \gls{EU}. In the simulation, all  planned constructions are completed 
+without delay or failure and reach a lifetime of 60 years.  
+
+\pagebreak
+\begin{table}[h]
+    \centering
+    \caption {Power reactors under construction and planned. Replicated from \cite{world_nuclear_association_nuclear_2017}.}
+    \label{tab:eu_deployment}
+    \begin{tabular}{ccccr}
+        \hline
+        \textbf{Exp. Operational }&\textbf{Country} &\textbf{Reactor} & \textbf{Type} & \textbf{Gross \gls{MWe}}\\
+        \hline
+        2018 & Slovakia  & Mochovce 3 & PWR & 440\\
+        2018 & Slovakia & Mochovce 4 & PWR & 440 \\
+        2018 & France & Flamanville 3 & PWR & 1600 \\
+        2018 & Finland & Olkilouto 3 & PWR & 1720 \\
+        2019 & Romania & Cernavoda 3 & PHWR & 720 \\
+        2020 & Romania & Cernavoda 4 & PHWR & 720 \\
+        2024 & Finland & Hanhikivi & VVER1200 & 1200 \\
+        2024 & Hungary & Paks 5 & VVER1200 & 1200 \\
+        2025 & Hungary & Paks 6 & VVER1200 & 1200 \\
+        2025 & Bulgaria & Kozloduy 7 & \footnotemark AP1000 & 950 \\
+        2026 & UK & Hinkley Point C1 & EPR & 1670 \\
+        2027 & UK & Hinkley Point C2 & EPR & 1670 \\
+        2029 & Poland & Choczewo & N/A & 3000 \\
+        2035 & Poland & N/A & N/A & 3000 \\
+        2035 & Czech Rep & Dukovany 5 & N/A & 1200 \\
+        2035 & Czech Rep & Temelin 3 & AP1000 & 1200 \\
+        2040 & Czech Rep & Temelin 4 & AP1000 & 1200 \\
+        \hline
+    \end{tabular}
+\end{table}
+
+    \footnotetext{The fate of many planned reactors is uncertain. The proposed reactor types
+              are also unclear. The ones marked `N/A' for type are assumed to the \glspl{PWR}
+              in the simulation.}
+\FloatBarrier
+
+For each \gls{EU} nation, we categorize the growth trajectory is categorized from
+``Aggressive Growth'' to ``Aggressive Shutdown''. ``Aggressive growth'' is
+characterized by a rigorous expansion of nuclear power, while
+``Aggressive Shutdown'' is characterized as a transition to rapidly
+de-nuclearize the nation's electric grid. We categorize each nation's growth 
+trajectory into five degrees depending on G, the growth trajectory metric:
+
+ \[
+ G = \left\{\begin{array}{ll}
+ \text{Aggressive Growth}, & \text{for } G \geq 2\\
+ \text{Modest Growth}, & \text{for } 1.2 \leq G < 2\\
+ \text{Maintanence}, & \text{for } 0.8 \leq G < 1.2 \\
+ \text{Modest Reduction}, & \text{for } 0.5 \leq G< 0.8\\
+ \text{Aggressive Reduction}, & \text{for } G \leq 0.5
+ \end{array}\right\} = \frac{C_{2040}}{C_{2017}}\\\\
+ \]
+ \[
+  G = \text{Growth Trajectory  } [-] 
+ \]
+ \[
+ C_{i} = \text{Nuclear Capacity in Year i  } [\gls{MWe}].
+ \]
+
+The growth trajectory and specific plan of each nation in the \gls{EU} 
+is listed in Table \ref{tab:eu_growth}.  
+
+\begin{table}[h]
+    \centering
+    \caption{Projected nuclear power strategies of \gls{EU} nations \cite{world_nuclear_association_nuclear_2017}}
+        \begin{tabular}{lll}
+            \hline 
+                    \textbf{Nation} & \textbf{Growth Trajectory} & \textbf{Specific Plan }\\
+                    \hline
+                    UK & Aggressive Growth & {\small  13 units (17,900 \gls{MWe}) by 2030.}\\
+                    Poland & Aggressive Growth &  {\small Additional 6,000 \gls{MWe} by 2035.}\\
+                    Hungary & Aggressive Growth &  {\small Additional 2,400 \gls{MWe} by 2025.} \\ 
+                    Finland & Modest Growth &  {\small Additional 2,920 \gls{MWe} by 2024.}\\
+                    Slovakia & Modest Growth & {\small Additional 942 \gls{MWe} by 2025.}\\
+                    Bulgaria & Modest Growth &  {\small Additional 1,000 \gls{MWe} by 2035.} \\
+                    Romania & Modest Growth &  {\small Additional 1,440 \gls{MWe} by 2020.} \\
+                    Czech Rep. & Modest Growth & {\small  Additional 2,400 \gls{MWe} by 2035.}\\
+                    France & Modest Reduction & {\small No expansion or early shutdown.}\\
+                    Slovenia & Modest Reduction & {\small No expansion or early shutdown.}\\
+                    Netherlands & Modest Reduction & {\small No expansion or early shutdown.}\\
+                    Lithuania & Modest Reduction & {\small No expansion or early shutdown.}\\
+                    Spain & Modest Reduction &  {\small No expansion or early shutdown.} \\
+                    Italy & Modest Reduction & {\small No expansion or early shutdown. }\\
+                    Belgium & Aggressive Reduction & All shut down 2025.\\
+                    Sweden & Aggressive Reduction & All shut down 2050.\\
+                    Germany & Aggressive Reduction & All shut down by 2022.\\
+                    \hline
+                    
+        \end{tabular}
+
+Using this categorization to drive facility deployment, the simulation captures 
+regional differences in reactor power capacity and \gls{UNF} production as a 
+function of time. Accordingly, \cref{fig:eu_pow} shows the resulting simulated 
+installed capacity in \gls{EU} nations.  Sudden capacity reductions seen in the 
+2040s result from end-of-license reactor retirements and nuclear phaseout plans 
+in nations such as Germany and Belgium.  
+    
+  \label{tab:eu_growth}
+\end{table}
+\FloatBarrier
+
+\begin{figure}[htbp!]
+    \begin{center}
+        \includegraphics[scale=0.6]{./images/eu_future/power_plot.png}
+    \end{center}
+    \caption{Installed nuclear capacity in the EU is distinguished by \texttt{Region}s in \Cyclus.}
+    \label{fig:eu_pow}
+\end{figure}
+
+
+\subsection{French \gls{SFR} Deployment Schedule}
+
+\Cref{fig:sfr_num}
+shows
+the French transition to \glspl{SFR} modeled in this simulation.
+Historically aggressive growth of nuclear in the 1980s leads to a substantial 
+shutdown of nuclear in the 2040s, which, in the simulation, are replaced by new 
+\glspl{SFR}. The net capacity is kept constant at 66 GWe.
+
+\begin{figure}[htbp!]
+        \begin{center}
+                \includegraphics[scale=0.6]{./images/french-transition/power_plot.png}
+        \end{center}
+        \caption{The potential French transition from \glspl{LWR} to 
+                \glspl{SFR} when assisted by \gls{UNF} from other \gls{EU} 
+        nations.}
+        \label{fig:sfr_num}
+\end{figure}
+
+\Cref{fig:dep} shows the deployment required to support the transition in 
+\cref{fig:sfr_num}. France must build four reactors per year, on average, to 
+make up for the end-of-license decommissioning of power plants built in the 1980s and 1990s.  The second period of aggressive building occurs when the first generation of \glspl{SFR} decommission after 80 years. Starting in 2040, France deploys 600-\gls{MWe} \glspl{SFR} to make up for 
+decommissioned French \gls{LWR} capacity. This results in an installed 
+\gls{SFR} 
+capacity of 66,000 \gls{MWe} by 2078 when the final \gls{LWR} is 
+decommissioned. 
+
+
+
+\begin{figure}[htbp!]
+    \begin{center}
+        \includegraphics[scale=0.6]{./images/french-transition/sfr_deploy.png}
+    \end{center}
+    \caption{The deployment of \glspl{SFR} in France is characterized by a period of
+    aggressive building.}
+    \label{fig:dep}
+\end{figure}
+
+
+Finally, \Cref{fig:tot_dep} shows the total deployment scheme we simulated.  
+The French transition to \glspl{SFR} couples with the historical and projected 
+operation of \gls{EU} reactors.  The steep transition from 2040 to 2060 
+reflects the scheduled decommissioning of reactors built in the 1975-2000 era 
+of aggressive nuclear growth in France.
+
+\begin{figure}[htbp!]
+    \begin{center}
+        \includegraphics[scale=0.6]{./images/eu_future/onesim.png}
+    \end{center}
+    \caption{The total deployment scheme we simulated relies on \gls{UNF} 
+    collaboration among nations.} 
+    \label{fig:tot_dep}
+\end{figure}
+
+These figures reflect that, for the given assumptions, bursts of construction
+are necessary to maintain capacity.  In reality, a construction rate of five 
+reactors every year is ambitious, but might have the advantage of
+larger scale production of components and more modular assembly and construction if major components can mostly be built off site.
+
+This analysis establishes a multi-national material flow and demonstrates that, if such an aggressive deployment scheme took place, the \glspl{SFR} would have enough fuel.
+
+\subsection{Scenario Specification}
+
+The scenario specifications defining the simulations presented in this work 
+are listed in table \ref{tab:gen}.
+The reprocessing and \gls{MOX} fabrication capacity in France
+prior to 2020 is modeled after the 
+French La Hague and MELOX sites \cite{schneider_spent_2008, hugelmann_melox_1999}.
+
+
+\begin{table}[h]
+    \centering
+    \caption{Simulation Specifications}
+    \begin{tabularx}{\linewidth}{bss}
+        \hline
+        \textbf{Specification} &\textbf{ Value} & \textbf{Units}\\
+        \hline
+        Simulation Starts & 1970 & year\\
+        Simulation Ends & 2160 & year\\ 
+        Production of \gls{ASTRID} fuel begins & 2020 & year\\
+        \glspl{SFR} become available & 2040 & year\\
+        Reprocessed uranium usage &  Not used anywhere & -\\
+        Minimum \gls{UNF} cooling time  & 36  & months\\
+        Separation efficiency of U and Pu & 99.8 & \% \\
+        Reprocessing streams & Pu and U & - \\
+        Reprocessing capacity before 2020 & 91.6 \cite{schneider_spent_2008} & $\frac{\text{metric tons of \gls{UNF}}}{month}$  \\
+        Reprocessing capacity after 2020 & 183.2 & $\frac{\text{metric tons of \gls{UNF}}}{month}$\\
+        \gls{LWR} \gls{MOX} fabrication throughput & 16.25 \cite{hugelmann_melox_1999} & $\frac{\text{metric tons of \gls{MOX}}}{month}$\\
+        \gls{ASTRID} \gls{MOX} fabrication throughput & No limit ($\infty$) & $\frac{\text{metric tons of \gls{MOX}}}{month}$ \\
+        \gls{LWR} \gls{MOX} recycling  &  Not reprocessed & - \\
+        \gls{ASTRID} \gls{MOX} recycling & $\infty$-pass & - \\
+        \hline
+    \end{tabularx}
+    \label{tab:gen}
+\end{table}
+
+
+\pagebreak
+
+\section{Reactor Specifications}
+Three major reactors are used in the simulation, \gls{PWR}, \gls{BWR}, and ASTRID-type \gls{SFR} reactors.
+
+
+For \glspl{LWR}, we used a linear core size model to capture
+varying reactor capacity. For example, a 
+1,200 \gls{MWe} PWR has $193*\frac{1,200}{1,000} = 232$ \gls{UOX} assemblies, each
+weighing 523.4 kg.
+After each 18 month cycle, one-third of the 
+core (77 assemblies) discharges. Refueling
+is assumed to take two months to complete, during which the reactor
+is shut down. The specifications are defined in table \ref{tab:reactor-specs} 
+which details the reactor specifications in this simulation. \gls{LWR} 
+specifications are modified linearly for varying power capacity.  
+
+\begin{table}[h]
+    \centering
+    \caption{Baseline \gls{LWR} and \gls{ASTRID} simulation specifications.}
+    \begin{tabular}{lrrr}
+        \hline
+        \textbf{Specification} & \textbf{\gls{PWR} \cite{sutharshan_ap1000tm_2011}} & \textbf{\gls{BWR} \cite{hinds_next-generation_2006}} & \textbf{\gls{SFR}} \cite{varaine_pre-conceptual_2012}\\
+        \hline
+                Lifetime [y] \tablefootnote{The simulated reactor lifetime reaches the licensed lifetime unless 
+        the reactor is shut down prematurely.} & 60 & 60 & 80 \\
+                Cycle Time [mos.]& 18 & 18 & 12\\ 
+                Refueling Outage [mos.]& 2 & 2  & 2\\
+                Rated Power [\gls{MWe}] & 1000 & 1000 & 600\\
+                Assembly mass [kg] & 523.4 & 180 & -- \\
+                Batch mass [kg] & -- & -- & 5,568\\
+                Discharge Burnup [GWd/tHM] & 51 & 51 & 105 \\
+                Assemblies per core \tablefootnote{Number of assemblies and corresponding \gls{LWR} core 
+        masses are reported for a 1000-\gls{MWe} core. Reactors with different core  
+        powers are modeled with a linear mass assumption.} & 193  & 764 & -- \\
+
+                Batches per core & 3 & 3 & 4\\
+        Initial Fissile Loading [t] & 3.1  $^{235}$U & 4.2  $^{235}$U & 4.9 Pu \\
+                Fuel & \gls{UOX} or \gls{MOX} & \gls{UOX} & \gls{MOX} \\
+        \hline
+    \end{tabular}
+        
+    \label{tab:reactor-specs}
+
+    \end{table}
+
+
+\subsection{Material Definitions}
+Depletion calculations of the nuclear fuel are recipe-based, such that a fresh 
+and used fuel recipe is defined for each reactor type.
+For the compositions of the used fuel, a reference depletion calculation
+from ORIGEN is used (see \cref{tab:comp}). ORIGEN calculates buildup,
+ decay, and processing of radioactive materials
+\cite{parks_overview_1992}. This recipe recipe has also been used for repository performance modeling \cite{wilson_adoption_2009}.
+
+\begin{table}[h]
+    \centering
+    \caption{Fresh fuel compositions in the simulation \cite{wilson_adoption_2009, varaine_pre-conceptual_2012}.}
+%   \scalebox{0.86}{
+        \begin{tabular}{lrrr}
+            \hline
+             & \multicolumn{3}{c}{ Composition [\%]} \\
+            Recipe & U-235  & U-238  & Pu \\ 
+            \hline
+            Fresh \gls{UOX} Fuel & 3.1 & 96.9 & -   \\ 
+            Fresh \gls{LWR} \gls{MOX} Fuel & 0.2 & 90.7 & 9.1 \\ 
+            Fresh \gls{ASTRID} Fuel & 0.2 & 77.7 & 22 \\
+            \hline
+        \end{tabular}
+        
+        \label{tab:sim_result}
+\end {table}
+
+
+
+\subsection{Results - Transition Scenario}
+This section displays the simulation results if France utilized
+\gls{UNF} from other \gls{EU} nations to fuel the transition into a fully
+\glspl{ASTRID} fleet.
+
+\subsubsection{Nuclear Fuel Material Inventory}
+\Cref{tab:sim_result1} 
+lists \gls{EU} material inventory in 2050.
+The materials continue to accumulate after 2050, but the
+\gls{UNF} France receives before 2050 is most impactful for the
+feasibility of the transition. Note that \cref{tab:sim_result1} 
+distinguishes the
+\gls{UOX} in the simulation either stored or reprocessed to create \gls{MOX}.
+
+
+\begin{table}[h]
+    \centering
+        \caption{\gls{EU} nuclear material inventory in 2050.}
+\begin{tabularx}{\textwidth}{XrX}
+            \hline
+                        \textbf{Category} & \textbf{Value} & Specifics \\
+                                          & \textbf{[MTHM]} & \\ \hline
+                        UOX Loaded  & 161,894 & UOX used in EU (minus France) reactors 1970-2050\\ 
+            MOX Loaded  & 6,945  & MOX used in French reactors 1970-2050\\
+                        Available used UOX (EU)  & 95,193  & Used EU (minus France) 
+                                UOX in storage for future ASTRID MOX 
+                                production\\
+                        Available used UOX (France) & 
+                                10,029  & Used French UOX stored for 
+                                future ASTRID MOX production. \\
+                                Reprocessed UOX (France) & 53,590 & Used French UOX already reprocessed for the production of LWR MOX \\
+            Tails  & 980,294  & (Tails generated) $-$ (Tails used for production of LWR MOX) \\ 
+            Natural U Used  & 1,142,189  & \\ \hline
+        \end{tabularx}
+        
+        \label{tab:sim_result1}
+\end {table}
+\FloatBarrier
+
+
+Figures \ref{fig:eu_tail} and \ref{fig:eu_snf} show the 
+accumulation of tails and used fuel over time in the \gls{EU}.
+Tails accumulate as a by-product of uranium enrichment. For every
+ton of \gls{UOX} fuel, about nine times of tails is produced. 
+Spent fuel is discharged from reactors every refueling period.
+The entire core is discharged when the reactor decommissions.
+A total of about $1,000,000$ MTHM of tails and $100,000$ MTHM of
+\gls{UNF} have accumulated by 2050.
+Figure \ref{fig:eu_fuel} shows the amount of fuel used in the \gls{EU}. The 
+tails mass accumulation rate is fairly steady, with peaks occurring when new 
+reactors are deployed.
+In \cref{fig:eu_snf}, the peaks are caused by reactor decommissioning which 
+triggers all the batches in the final reactor core to be sent to the repository.
+
+\begin{figure}[htbp!]
+    \begin{center}
+        \includegraphics[scale=0.7]{./images/eu_future/tails.png}
+    \end{center}
+        \caption{Simulated accumulation of tails in the \gls{EU} is shown as a function of time.}
+    \label{fig:eu_tail}
+\end{figure}
+
+\begin{figure}[htbp!]
+    \begin{center}
+        \includegraphics[scale=0.7]{./images/eu_future/total_fuel.png}
+    \end{center}
+\caption{Simulated total \gls{EU} fuel useage is shown as a function of time.}
+    \label{fig:eu_fuel}
+\end{figure}
+
+
+\begin{figure}[htbp!]
+    \begin{center}
+            \includegraphics[scale=0.7]{./images/eu_future/snf_discharge.png}
+    \end{center}
+        \caption{Simulated \gls{EU} \gls{UNF} accumulation and discharge is 
+shown as a function of time.}
+    \label{fig:eu_snf}
+\end{figure}
+
+
+\subsubsection{French \gls{SFR} Deployment}
+\FloatBarrier
+
+Reprocessing the \gls{UNF} collected from all EU nations can provide the 
+initial cores for approximately 180 \glspl{SFR}. Table \ref{tab:pu} lists the 
+isotope, mass fraction, and quantity of plutonium that can be obtained from the 
+2050 \gls{UNF} inventory.  With the \gls{SFR} breeding ratio above one, France 
+can transition into a fully \gls{SFR} fleet without extra construction of 
+\glspl{LWR}. 
+
+\begin{table}[h]
+    \centering
+    \caption{Plutonium in the \gls{UNF} inventory.}
+    \begin{tabular}{lrr}
+        \hline
+        \textbf{Isotope} & \textbf{Mass Fraction in Used Fuel [\%]} & \textbf{Quantity [t]} \\ \hline
+        Pu238 & 0.0111 & 10.52 \\ 
+        Pu239 & 0.518 & 545.05 \\ 
+        Pu240 & 0.232 & 244.11 \\ 
+        Pu241 & 0.126 & 132.58 \\ 
+        Pu242 & 0.0487 & 51.24 \\ \hline
+        \textbf{Total} & \textbf{0.9358} & \textbf{983.52} \\ \hline
+    \end{tabular}
+    
+    \label{tab:pu}
+\end{table}
+
+From Varaine et al. \cite{varaine_pre-conceptual_2012}, a French
+ASTRID-type 600\gls{MWe} \gls{SFR} consumes $1.225$ metric tons of
+plutonium a year, with an initial plutonium loading of $4.9$ metric tons. 
+Thus, the number of \glspl{SFR} that can be loaded with the reprocessed
+plutonium from \gls{UNF} can be estimated to be 200, assuming adequate 
+reprocessing and fabrication capacity as well as abundant depleted uranium 
+supply.
+ 
+Used \gls{MOX} from an ASTRID reactor is 23.95\% plutonium
+in this simulation (see \cref{tab:comp}), whereas fresh \gls{MOX} is 22\% plutonium.
+The plutonium breeding ratio in this simulation is thus assumed to be
+$\approx 1.08$.
+
+\Cref{fig:fuel} shows \gls{MOX} loaded in the \glspl{SFR} per month.  The plot 
+has peaks during a period of aggressive deployment of \glspl{SFR} followed by 
+an equilibrium at 100 \gls{MTHM}. The peaks reoccur with the deployment of the 
+second generation of \glspl{SFR}.  The spikes are due to initial fuel demand 
+correspoding to these new deployments.  The initial cores loaded into new 
+\glspl{SFR} rely on the \gls{MOX} created from legacy \gls{UNF}. Once the 
+deployed \glspl{SFR} create enough extra plutonium, the legacy \gls{UNF} is no 
+longer used. Notably, this switch from a less preferred fuel origin to a more 
+preferred fuel origin is handled automatically within \Cyclus via user-defined preferences 
+within its dynamic resource exchange algorithm \cite{gidden_methodology_2016}.
+
+
+\begin{figure}[htbp!]
+    \begin{center}
+        \includegraphics[width=0.7\textwidth]{./images/french-transition/where_fuel.png}
+    \end{center}
+    \caption{Fuel loaded into \glspl{SFR} was simulated in discrete 
+        batches.}
+    \label{fig:fuel}
+\end{figure}
+
+\Cref{fig:pu_no_cum} shows the separated plutonium discharge per month from the reprocessing plant. The plutonium outflux does not precisely follow the fuel demand because \Cyclus agents have material buffers that store commodity fuel for later usage. The reprocessed plutonium from legacy \gls{UNF} is stored for the initial loading of \glspl{SFR}.  Plutonium separated from legacy \gls{UNF} meets plutonium demans sufficiently to reduce the reprocessing demand for the first aggressive deployment of \glspl{SFR}.  The plutonium from reprocessing legacy fuel is a flat rectangle because the reprocessing throughput was set to 183.2 $\frac{\gls{MTHM}}{month}$ to avoid reprocessing all the legacy in one timestep. 
+ 
+
+\begin{figure}[htbp!]
+    \begin{center}
+        \includegraphics[scale=0.7]{./images/french-transition/pu.png}
+    \end{center}
+    \caption{The separated plutonium discharge from the reprocessing plant 
+        in $\frac{\mbox{MTHM}}{\mbox{month}}$.}
+    \label{fig:pu_no_cum}
+\end{figure}
+
+ \Cref{tab:sfr_sim_result} lists metrics obtained from the second simulation.
+
+\begin{table}[h]
+    \centering
+    \caption {In the French transition to \glspl{SFR},
+                  the total legacy \gls{UNF} reprocessed is the 
+                                  amount of \gls{UNF} France needs 
+                  for a transition into a fully \gls{SFR} fleet. 
+                                  %The tails used is around ninth of the original tails inventory from the previous simulation.
+                                  %KDH note: What does this mean?
+                                  %thought there was only one simulation. . . 
+                          }
+    \scalebox{0.86}{
+        \begin{tabular}{llr}
+            \hline
+            \textbf{Category} & \textbf{Unit} & \textbf{Value}  \\ \hline
+            Total \gls{ASTRID} MOX used & MTHM & 63,447  \\ 
+            \textbf{Average UOX Reprocessing} & MTHM/month & \textbf{123.27} \\
+            \textbf{Average Total Reprocessing} & MTHM/month & \textbf{63.23} \\
+            \textbf{Average Fuel Fabrication} & MTHM/month & \textbf{74.31} \\
+            Total \glspl{SFR} Deployed & & 220 \\ 
+            Total Plutonium Reprocessed & MTHM & 14,831 \\ 
+            Total \gls{ASTRID} fuel from UOX Waste & MTHM & 2,895  \\ 
+            Total \gls{ASTRID} fuel from MOX Waste & MTHM  & 60,552 \\ 
+            Total Tails used & MTHM & 49,488 \\ 
+            \textbf{Total legacy UNF reprocessed} & MTHM & \textbf{53,595} \\ 
+            Total Reprocessed Uranium Stockpile & MTHM & 159,383 \\ 
+            Total Raffinate & MTHM & 24,789 \\ \hline
+        \end{tabular}}
+        
+        \label{tab:sfr_sim_result}
+\end {table}
+
+
+These results demonstrate that despite the large amount of initial plutonium that has to be reprocessed
+prior to \gls{ASTRID} deployment, the 20 years (2020-2040) of 
+\gls{ASTRID} fuel preparation
+allows a reasonable level of average
+\gls{UOX} reprocessing capacity demand. \gls{UOX} reprocessing continues 
+until 2057, when the \gls{ASTRID} spent fuel can supply the plutonium
+for its own fuel.
+
+\subsubsection{Conclusion}
+
+France can transition into
+a fully \gls{SFR} fleet with installed capacity of 66,000 \gls{MWe} without
+building additional \glspl{LWR}
+if France receives \gls{UNF} from other \gls{EU} nations.
+Supporting the \gls{SFR} fleet requires an average 
+reprocessing capacity of 73.27 \gls{MTHM} per month,
+and an average fabrication capacity of 45.29 \gls{MTHM} per month.
+
+Since most \gls{EU} nations do not have an operating \gls{UNF}
+repository or a management plan, they have a strong incentive
+to send their \gls{UNF} to France. In particular, the nations
+planning aggressive nuclear reduction will be able phase out nuclear
+without constructing a permanent repository. France has an
+incentive to take this fuel, since recycling used fuel from
+other nations will allow France to meet their MOX demand
+without new construction of \glspl{LWR}.
+
+\Cref{tab:which_send} lists \gls{EU} nations and their \gls{UNF} inventory
+in 2050. We analyzed a strategy in which 
+the nations reducing their nuclear fleet send their \gls{UNF} to France.
+The sum of \gls{UNF} from Italy, Slovenia, Belgium, Spain and Germany
+provides enough \gls{UNF} for the simulated transition ($\approx 54,000$ MTHM). 
+These nations are shown in bold in \cref{tab:which_send}.
+Sweden is not considered because of its concrete waste management plan.
+
+
+\begin{table}[h]
+    \centering
+    \caption {\gls{EU} nations and their respective \gls{UNF} inventory.} 
+                \begin{tabularx}{\textwidth}{llr}
+                    \hline 
+                    \textbf{Nation} & \textbf{Growth Trajectory} & \small{\textbf{UNF in 2050 [MTHM] }}\\
+                    \hline
+                    Poland & Aggressive Growth & 1,807\\
+                    Hungary & Aggressive Growth & 3,119 \\ 
+                    UK & Aggressive Growth & 13,268\\
+                    Slovakia & Modest Growth & 2,746\\
+                    Bulgaria & Modest Growth & 3,237 \\
+                    Czech Rep. & Modest Growth & 4,413\\
+                    Finland & Modest Growth &  5,713\\
+                    Netherlands & Modest Reduction & 539\\
+                    \textbf{Italy} & \textbf{Modest Reduction} & \textbf{583}\\
+                    \textbf{Slovenia} & \textbf{Modest Reduction} & \textbf{765}\\
+                    \textbf{Lithuania} & \textbf{Modest Reduction} & \textbf{2,644} \\
+                    \textbf{Belgium} & \textbf{Aggressive Reduction} & \textbf{6,644}\\
+                    \textbf{Spain} & \textbf{Modest Reduction} &  \textbf{9,771} \\
+                    \textbf{France} & \textbf{Modest Reduction} & \textbf{9,979} \\
+                    Sweden & Aggressive Reduction & 16,035\\
+                    \textbf{Germany} & \textbf{Aggressive Reduction} & \textbf{23,868}\\
+                    \hline
+                \end{tabularx}
+    
+    \label{tab:which_send}
+
+\end{table}
+
+On the other hand, in these simulations, some complex political and economic factors were not incorporated and various assumptions were present in this scenario. For
+example, Germany's current policy is to not reprocess its \gls{LWR} fuel
+\cite{topfer_germanys_2011}, and this policy would create a shortage
+in the supply of \gls{LWR} \gls{UNF} for \gls{ASTRID} \gls{MOX} production.
+Continuation of that German policy would not, however, be incompatible
+with a change in \gls{EU} policy that frees \gls{EU} countries from
+creating their high level waste repositories, since France could still
+agree to take in Germany's \gls{UNF} for direct disposal. The analysis
+method described herein could readily be adapted to account for such possibilities. 
+The collaborative option explored here may hold value for the \gls{EU} nuclear community,
+and may enable France to advance more rapidly into a closed fuel cycle. 
+\FloatBarrier
+
+
+\subsection{Results - Parameter Sweep}
+\subsection{Results - Sensitivity Study}
