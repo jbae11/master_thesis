@@ -1,40 +1,126 @@
-The goal of this paper is to identify and quantify the
-importance of key parameters in fuel cycle transition scenarios
-and their impacts on important fuel cycle transition metrics.
+The scope of this work includes development of
+various methods and tools to leverage Cyclus' existing
+capabilities to model real-world fuel cycle transition scenarios.
 
-Numerous work similar to this nature exists, but they provide
-static analyses and does not fully capture the dynamic nature
-of the nuclear fuel cycle transition scenario. Also, few
-transition scenarios consider real-life scenarios
-where an existing \gls{UNF} inventory can be utilize to
-accelerate transition.
+\section{Background and motivation}
+Increasing climate change concerns has directed attention
+to nuclear energy, which produces reliable base load energy
+with negligible CO$_2$ emission. With the reduction of fossil
+fuel based power plants and the general increase in energy demand
+(28\% growth between 2015 and 2040 \cite{conti_international_2016}),
+nuclear power is expected to play a crucial role in the world energy portfolio.
 
-By running transition scenarios with current \gls{UNF}
-inventory and nuclear reactor fleet in consideration,
-and running a sensitivity study within the real-world simulation,
-this study provides a more realistic, quantitative insight
-into what parameters are of importance.
+However, concerns of the accumulating \gls{UNF} inventory,
+safety of the current reactor fleet, and the availability of
+uranium resources create a negative public perception of
+nuclear energy and its sustainability.
 
-I follow several steps to accomplish this goal.
+Advanced fuel cycles utilize reprocessing of the \gls{UNF}
+and advanced reactor technology, such as fast-spectrum reactors,
+to address those concerns. Reductions by a factor of four
+in \gls{HLW} volume can be achieved with reprocessing \cite{widder_benefits_2010},
+and advanced reactors provide dramatic improvements "in the four
+broad areas of sustainability, economics, safety and reliability,
+and proliferation resistance and physical protection" \cite{committee_technology_2002}.
 
-First, I benchmark \Cyclus, the fuel cycle simulator that is used for this study,
-against other fuel cycle simulators. A collective effort has been made previously
-by national lab researchers to compare
-and benchmark fuel cycle simulators
+Advanced fuel cycles are much more complex than
+the current once-through cycle. The once-through cycle is when a natural uranium source is
+enriched and fabricated for use in \glspl{LWR}, and the \gls{UNF} is stored and disposed.
+On the other hand, advanced fuel cycles recycle \gls{UNF} from \glspl{LWR} and
+fabricate fuel for advanced reactors, such as \glspl{SFR} and \glspl{MSR}. 
+The two cycles are shown in figure []. A fuel cycle simulation tool needs
+to have the capability to model all the facilities involved, in order to
+calculate the material flow and nuclear inventory correctly.
+
+The development of nuclear fuel cycle simulation tools
+to simulate transition scenarios
+is increasingly becoming important, as multiple nations
+consider transitioning out of their \gls{LWR} based fleet
+to an advanced nuclear fuel cycle which utilized reprocessing
+of \gls{UNF} and advanced nuclear reactor technologies.
+
+For a successful simulation of a real-world fuel cycle transition
+scenario, a fuel cycle simulation tool must be able to 
+model the past and current fleet accurately and model advanced
+fuel cycle technologies, such as \glspl{MSR} and reprocessing plants.
+
+\section{Objectives}
+
+This thesis demonstrates real-world nuclear fuel cycle transition
+scenario modeling capabilities of Cyclus. The first objective is
+to benchmark Cyclus to other fuel cycle simulation tools to
+show that Cyclus' results are in good agreement with the results
+from other codes. The second objective is to develop tools
+necessary to model real-world nuclear fuel cycle transition
+scenarios. The tools include a script that creates a Cyclus
+input file of the historical nuclear reactor operation from
+a database, and a module that models \gls{MSR} behavior in Cyclus.
+Finally, I use Cyclus to construct a simulation of the nuclear
+fuel cycle transition scenario for France and the United States,
+to obtain metrics such as \gls{UNF} and raffinate inventory.
+
+
+\section{Methods}
+This thesis accomplishes the objective in three steps. First,
+the general fuel cycle simulation tool, Cyclus, is benchmarked
+to demonstrate its agreement with other fuel cycle simulation
+tools. Second, I identify the tools and methods necessary
+for modeling and simulating real-world transition scenarios.
+Finally, I construct and run fuel cycle transition scenarios
+for France and the United States.
+
+A previous study \cite{feng_standardized_2016} validates existing fuel cycle
+simulation tools in a fuel cycle transition scenario, where a \gls{LWR} fleet
+transitions into an \gls{SFR} fleet with continuous reprocessing. This 
+study compares four well-known nuclear fuel cycle simulation codes
 DYMOND \cite{yacout_modeling_2005},
 VISION \cite{jacobson_verifiable_2010},
 ORION \cite{gregg_analysis_2012}, and
-MARKAL \cite{shay_epa_2006} in a verification study \cite{feng_standardized_2016}.
-I replicate the results from the verification study and reveal that \Cyclus'
-results agree with other fuel cycle codes with minor differences rising from
-reactor module behavior.
+MARKAL \cite{shay_epa_2006}. The results from each code were
+compared to a set of `model solutions' that were generated
+from an excel worksheet for different metrics (e.g. fuel loading
+in reactor, \gls{UNF} inventory). I reproduce the transition
+scenario on Cyclus, and compare the Cyclus results with those
+from the `model solutions'.
 
-Then, key metrics for fuel cycle transition
-are identified through literature review and discussion. I then
-extract important metrics in the perspective of the general public.
+In order to model real-world transition scenarios into an advanced
+fuel cycle, I developed two major tools. First, I developed a python
+module that automates extraction from the curated \gls{IAEA} \gls{PRIS} database
+\cite{iaea_nuclear_2018}. The database lists each nuclear reactor's
+country, name, type, net capacity (\gls{MWe}), status, operator, construction
+date, first criticality date, first grid date, commercial date, and shutdown
+date (if applicable). The module extracts the information from this file
+to generate a Cyclus compatible input file, which lists the individual
+reactor units as agents. Second, I developed a tool that models \glspl{MSR}
+using a database generated from a high-fidelity \gls{MSR} depletion calculation.
+The database is an output of Saltproc [!!! Cite saltproc], which is a python
+module that drives
+SERPENT 2 \cite{jaakko_serpent-a_2013} to model on-line reprocessing in an \gls{MSR}.
+The hdf5 database contains isotopic timeseries of streams in and out of the reactor,
+isotopic timeseries inside the reactor, and keff values. The developed tool then
+reads the hdf5 file to mimic \gls{MSR} behavior by requesting and offering
+material that is listed in the database.
 
-Then, I identify important fuel cycle parameters by performing a parameter
-sweep on two real scenarios to visualize the sensitivity of the metrics
-for each parameter. With the results, I draw a conclusion on what parameters
-are important, and what the future efforts in `closing' the fuel cycle
-should focus on.
+Finally I construct the fuel cycle transition scenario for France and the United States.
+I make different assumptions for the two scenarios due to each nation's different goals,
+initial conditions (currently existing fleet, \gls{UNF} inventory), and potential reactor
+technology.
+
+The structure of this thesis is as follows. In chapter 2, I review other fuel cycle simulation
+tools and their gaps, and explain why Cyclus
+has the unique capability for modeling real-world fuel cycle transition scenarios.
+In chapter 3, I list and justify my assumption for the fuel cycle transition
+scenario for France and the United States.
+Chapter 4 shows the results from the benchmark study, where Cyclus results are compared
+to results from other fuel cycle simulation tools.
+Chapter 5 contains explanation and demonstration of  
+ I list and justify my assumptions
+for the fuel cycle transition scenario for France and the United States. 
+
+\iffalse
+For France, I model the entire \gls{EU} region to calculate \gls{UNF} inventory
+in each \gls{EU} nation. This is because France would need to receive \gls{UNF} from other
+nations to quickly transition into a \gls{SFR} fleet, since their \gls{UNF} inventory
+is small due to their long history of reprocessing for \gls{LWR} \gls{MOX} fuel production.
+\fi
+
