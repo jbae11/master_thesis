@@ -1,9 +1,9 @@
-The scope of this work includes development of
+The scope of this work includes development and demonstration of
 various methods and tools to leverage Cyclus' existing
 capabilities to model real-world fuel cycle transition scenarios.
 
 \section{Background and motivation}
-Increasing climate change concerns has directed attention
+Increasing climate change concerns have directed attention
 to nuclear energy, which produces reliable base load energy
 with negligible CO$_2$ emission. With the reduction of fossil
 fuel based power plants and the general increase in energy demand
@@ -26,23 +26,29 @@ and proliferation resistance and physical protection" \cite{committee_technology
 Advanced fuel cycles are much more complex than
 the current once-through cycle. The once-through cycle is when a natural uranium source is
 enriched and fabricated for use in \glspl{LWR}, and the \gls{UNF} is stored and disposed.
-On the other hand, advanced fuel cycles recycle \gls{UNF} from \glspl{LWR} and
-fabricate fuel for advanced reactors, such as \glspl{SFR} and \glspl{MSR}. 
-The two cycles are shown in figure []. A fuel cycle simulation tool needs
+On the other hand, advanced fuel cycles recycle \gls{UNF} from reactors and
+fabricate fuel for advanced reactors, such as \glspl{SFR} and \glspl{MSR}.
+A fuel cycle simulation tool needs
 to have the capability to model all the facilities involved, in order to
 calculate the material flow and nuclear inventory correctly.
 
-The development of \gls{NFCS}
+The development of \glspl{NFCS}
 to simulate transition scenarios
 is increasingly becoming important, as multiple nations
-consider transitioning out of their \gls{LWR} based fleet
-to an advanced \gls{NFC} which utilized reprocessing
+consider transitioning out of their \gls{LWR} based once-through \gls{NFC}
+to an advanced \gls{NFC} which utilizes reprocessing
 of \gls{UNF} and advanced nuclear reactor technologies.
 
-For a successful simulation of a real-world fuel cycle transition
-scenario, a fuel cycle simulation tool must be able to 
-model the past and current fleet accurately and model advanced
-fuel cycle technologies, such as \glspl{MSR} and reprocessing plants.
+Additionally, a \gls{NFCS} needs to be able to model the currently
+existing nuclear facilities for modeling real-world \gls{NFC} transition
+scenarios. 
+For a successful simulation, a \gls{NFCS} must be able to 
+model the variety of nuclear facilities in the current fleet,
+and need to be able to predict the past as well as the near future.
+Finally, a \gls{NFCS} needs to be able to model advanced reactor
+behavior, such as a \gls{MSR}, where the material flow is not
+discrete and constant but continuous and dynamic.
+
 
 \section{Objectives}
 
@@ -93,29 +99,30 @@ date (if applicable). The module extracts the information from this file
 to generate a Cyclus compatible input file, which lists the individual
 reactor units as agents. Second, I developed a tool that models \glspl{MSR}
 using a database generated from a high-fidelity \gls{MSR} depletion calculation.
-The database is an output of Saltproc [!!! Cite saltproc], which is a python
+The database is an output of Saltproc [!!! Cite saltproc], a python
 module that drives
 SERPENT 2 \cite{leppanen_serpentcontinuous-energy_2013} to model on-line reprocessing in an \gls{MSR}.
 The hdf5 database contains isotopic timeseries of streams in and out of the reactor,
 isotopic timeseries inside the reactor, and keff values. The developed tool then
 reads the hdf5 file to mimic \gls{MSR} behavior by requesting and offering
-material that is listed in the database.
+material to the Cyclus framework.
 
 Finally I construct the fuel cycle transition scenario for France and the United States.
 I make different assumptions for the two scenarios due to each nation's different goals,
-initial conditions (currently existing fleet, \gls{UNF} inventory), and potential reactor
+initial conditions (currently existing fleet, \gls{UNF} inventory), and their pursued reactor
 technology.
 
 The structure of this thesis is as follows. In chapter 2, I review other fuel cycle simulation
 tools and their gaps, and explain why Cyclus
 has the unique capability for modeling real-world fuel cycle transition scenarios.
-In chapter 3, I list and justify my assumption for the fuel cycle transition
+Chapter 3 contains explanation and development of the tools that add the 
+capabilities needed to accomplish the objective.
+In chapter 4, I list and justify my assumption for the fuel cycle transition
 scenario for France and the United States.
-Chapter 4 shows the results from the benchmark study, where Cyclus results are compared
+Chapter 5 shows the results from the benchmark study, where Cyclus results are compared
 to results from other fuel cycle simulation tools.
-Chapter 5 contains explanation and demonstration of  
- I list and justify my assumptions
-for the fuel cycle transition scenario for France and the United States. 
+Chapter 6 and 7 shows the results from the France and United States fuel cycle transition
+scenario.
 
 \iffalse
 For France, I model the entire \gls{EU} region to calculate \gls{UNF} inventory
