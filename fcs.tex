@@ -92,20 +92,34 @@ are organized in table \ref{tab:ffh}.
 \end{table}
 
 \section{Additional capabilities identified for real-world fuel cycle transition scenario}
-From the functionalities identified in Brown et al., I identified two additional functionalities -
+From Brown et al. \cite{brown_identification_2016}, I identified two additional functionalities -
 modeling discrete, real-world reactor fleets and operational history; modeling liquid-fueled
 reactors with continuous reprocessing.
 
 \subsection{Modeling discrete, real-world reactor fleets}
 For modeling real-world nuclear fuel cycle transition scenarios, the initial
 condition (e.g. existing fissile inventory, existing reactor fleet) is important
-to understand transition parameters, such as transition rapidity.
+to understand transition strategy, such as advanced reactor deployment
+scheme. This requires the \gls{NFCS} to correctly model the current fleet and its
+remaining lifetime. The purpose of a fuel cycle is to produce power, thus the objective
+function of a fuel cycle simulation is generally power demand, and a transition
+scenario involves advanced reactor (fast-spectrum reactors) filling in the
+gap of decommissioned \glspl{LWR}.
+Once the energy supply of the current fleet is calculated,
+the analyst can determine the deployment scheme of reactors to meet a certain
+power demand. Thus, it is important for the \gls{NFCS} to be able to simulate
+discrete, real-world reactor fleets to have an accurate deployment scheme to
+meet power demand.
 
+\subsubsection{Discrete reactor facilities}
 \glspl{NFCS} like COSI 6 \cite{meyer_new_2009}, EVOLCODE \cite{alvaerz-velarde_validation_2014},
 FAMILY21,
 do have discrete facility modeling capabilities, while ORION \cite{},
 DESAE2.2\cite{tsibulskiy_desae_2006}, and VISION \cite{jacobson_verifiable_2010} does not \cite{boucher_international_2010}.
-However,
+
+
+\subsubsection{Past work on modeling real-world fleets}
+
 
 Only one published study is done modeling the current U.S. nuclear fleet,
 using ORION \cite{sunny_transition_2015}. This is done using 
@@ -139,23 +153,3 @@ due to the large computational burden associated with frequent depletion calcula
 [that's where I come in]
 
 
-
-
-
-\section{Cyclus}
-
-
-
-
-\begin{itemize}
-	\item Required capabilities for modeling transition scenarios
-	\begin{itemize}
-		\item Real-World modeling
-		\item Advanced Reactor modeling
-		\item Reprocessing and transmutation
-	\end{itemize}
-	\item Current state of other \gls{NFCS}
-	\item Current State of Cyclus
-	\item Gaps in Cyclus that needs to be filled
-	\item Tools developed in this paper
-\end{itemize}
