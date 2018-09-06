@@ -93,21 +93,38 @@ are organized in table \ref{tab:ffh}.
 
 \section{Additional capabilities identified for real-world fuel cycle transition scenario}
 From the functionalities identified in Brown et al., I identified two additional functionalities -
-modeling discrete, real-life reactor fleets and operational history; modeling liquid-fueled
+modeling discrete, real-world reactor fleets and operational history; modeling liquid-fueled
 reactors with continuous reprocessing.
 
+\subsection{Modeling discrete, real-world reactor fleets}
+
+
 \subsection{Modeling liquid-fueled reactors with continuous reprocessing}
-\glspl{MSR} reactor designs are 
+
+\glspl{MSR} reactor designs have recently gained attention due to it being a
+potentially safer, more efficient, and sustainable form of nuclear power
+\cite{serp_molten_2014}. Multiple companies in the U.S. are now pursuing
+commercialization of \gls{MSR} design reactors, such as Tranasatomic \cite{transatomic_technical_2016}
+, Terrapower \cite{, Terrestrial \cite{leblanc_18-_2017}, and
+Thorcon \cite{dolan_19-_2017}. Other parties such as China (TMSR-LF \cite{dai_17-_2017}) 
+and the European Union (MSFR \cite{heuer_towards_2014}, MOSART \cite{ignatiev_molten_2014})
+are developing \gls{MSR} designs.
+
+However, modeling \glspl{MSR} is difficult due to its online reprocessing regime.
+The material flow in and out of the reactor is continuous and dynamic, as well as the
+composition inside the core.
+The neutronics and depletion calculations have to be performed continuously while
+the composition of the fuel changes. Reactor physics and depletion calculations
+on the \gls{MSR} have been done, notably by 
+ Oak Ridge National Laboratory researchers who developed
+ChemTriton \cite{powers_new_2013}, a python script that drives SCALE,
+to perform semi-continuous reprocessing of the fuel \cite{powers_inventory_2014, betzler_fuel_2018}.
+However, there is no existing \gls{NFCS} that has the capability to model \glspl{MSR}
+due to the large computational burden associated with frequent depletion calculations.
+
+[that's where I come in]
 
 
-The reason for needing the liquid-fueled reactor modeling in a \gls{NFCS}
-is due to the recent rise of interest in \glspl{MSR} in the United States.
-
-\glspl{SFR},
-which are considered the most prominent fast-spectrum advanced reactor, behave similarly to \glspl{LWR}
-in that they have discrete batches and cycle times. However, \glspl{MSR} have a unique behavior
-of continuous refueling and on-line reprocessing which makes the material flow in to and out from the reactor
-dynamic in both quantity and composition. This capability requires
 
 
 
