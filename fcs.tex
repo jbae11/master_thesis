@@ -6,6 +6,39 @@ The goal of a \gls{NFCS} is to calculate `metrics' - quantitative
 measures of performance that can be compared among fuel cycle
 options \cite{huff_fundamental_2016}.
 
+Table \ref{tab:fcs} lists the \glspl{NFCS}
+that are considered in this section. The \glspl{NFCS}
+listed generally are focused to solve one functionality
+(e.g. multi-regional analysis, detailed isotopic tracking,
+demand-driven deployment, cost analysis, sensitivity study)
+but lacks in other functionalities \cite{huff_next_2010}. In
+other words, no \gls{NFCS} has all the functionalities to
+perform the superset of analysis types.
+
+\begin{table}[h]
+    \centering
+    \caption{List of \glspl{NFCS} considered in this paper.
+             Reproduced from \cite{huff_next_2010}}
+    \label{tab:fcs}
+    \begin{tabular}{lll}
+        \hline
+        Name & Developer & Reference(s) \\
+        CAFCA & MIT & \cite{guerin_benchmark_2009}\\
+        COSI6 & CEA (Frane) & \cite{meyer_new_2009} \\
+        DANESS & ANL & \cite{van_daness:_2006}\\
+        DESAE2.1 & Rosatom (Russia) & \cite{tsibulskiy_desae_2006}\\
+        EVOLCODE2 & CIEMAT (Spain) & \cite{alvaerz-velarde_validation_2014}\\
+        FAMILY21 & JAEA (Japan) & \cite{oecd_nuclear_2009}\\
+        GENIUSv1 & INL & \cite{dunzik-gougar_global_2007}\\
+        GENIUSv2 & Univ of Wisconsin & \cite{dunn_genius_2009}\\
+        NFCSS & IAEA & \cite{iaea_guidance_2008}\\
+        NFCSim & LANL & \cite{schneider_nfcsim:_2005} \\
+        VISION & ANL/INL & \cite{jacobson_verifiable_2010} \\
+        \hline
+    \end{tabular}
+\end{table}
+
+
 \section{Capabilities required for modeling transition scenarios}
 There are specific capabilities required for modeling transition
 scenarios. A study by Brown et al. \cite{brown_identification_2016}
@@ -112,8 +145,10 @@ discrete, real-world reactor fleets to have an accurate deployment scheme to
 meet power demand.
 
 \subsubsection{Discrete reactor facilities}
+
+
 \glspl{NFCS} like COSI 6 \cite{meyer_new_2009}, EVOLCODE \cite{alvaerz-velarde_validation_2014},
-FAMILY21,
+FAMILY21 \cite{oecd_nuclear_2009},
 do have discrete facility modeling capabilities, while ORION \cite{},
 DESAE2.2\cite{tsibulskiy_desae_2006}, and VISION \cite{jacobson_verifiable_2010} does not \cite{boucher_international_2010}.
 
