@@ -112,7 +112,7 @@ are organized in table \ref{tab:ffh}.
 
         \hline
 
-        \multirow{3}{*}{\shortstack{Material \\ Prioritization}} & material accumulation & Basic \\
+        \multirow{3}{*}{\shortstack{Material \\ Prioritization}} & Material accumulation & Basic \\
         	& Material prioritization &Integral \\
         	& Radioactive decay & Exemplary \\
 
@@ -129,7 +129,7 @@ From Brown et al. \cite{brown_identification_2016}, I identified two additional 
 modeling discrete, real-world reactor fleets and operational history; modeling liquid-fueled
 reactors with continuous reprocessing.
 
-\subsection{Modeling discrete, real-world reactor fleets}
+\subsection{Modeling discrete, real-world reactor facilities}
 For modeling real-world nuclear fuel cycle transition scenarios, the initial
 condition (e.g. existing fissile inventory, existing reactor fleet) is important
 to understand transition strategy, such as advanced reactor deployment
@@ -139,29 +139,46 @@ function of a fuel cycle simulation is generally power demand, and a transition
 scenario involves advanced reactor (fast-spectrum reactors) filling in the
 gap of decommissioned \glspl{LWR}.
 Once the energy supply of the current fleet is calculated,
-the analyst can determine the deployment scheme of reactors to meet a certain
+the analyst can determine the deployment scheme of future reactors to meet a certain
 power demand. Thus, it is important for the \gls{NFCS} to be able to simulate
 discrete, real-world reactor fleets to have an accurate deployment scheme to
-meet power demand.
+meet power demand. Additionally having discrete facilities will translate into
+having a high-resolution calculation of the material flow as well.
 
-\subsubsection{Discrete reactor facilities}
-
+\subsubsection{Discrete reactor facility modeling}
+Discrete modeling of reactors allow a higher resolution of the power supply and
+material flow. In the real world, especially in the United States, existing
+reactors do not have the exact same power output, or core size. This means that
+lumping the reactor fleet together causes loss in accuracy.
 
 \glspl{NFCS} like COSI 6 \cite{meyer_new_2009}, EVOLCODE \cite{alvaerz-velarde_validation_2014},
 FAMILY21 \cite{oecd_nuclear_2009},
-do have discrete facility modeling capabilities, while ORION \cite{},
-DESAE2.2\cite{tsibulskiy_desae_2006}, and VISION \cite{jacobson_verifiable_2010} does not \cite{boucher_international_2010}.
+do have discrete facility modeling capabilities, while
+DESAE2.2\cite{tsibulskiy_desae_2006}, and VISION \cite{jacobson_verifiable_2010} do
+not \cite{boucher_international_2010}. Even for \glspl{NFCS} with discrete modeling
+capabilities, some do not model distinct activities. For example, COSI models
+reactors operating in sync \cite{boucher_benchmark_2012}.
 
+Similarly, most \glspl{NFCS} do not treat disruption events (lack of fuel supply,
+or decommissioning of a reactor)
+discretely. For example, ORION shuts down the entire simulation if there
+is a lack of fuel supply, and cannot decommission reactors mid-cycle.
+DESAE `borrows' lacking fuel from storage (leaving a
+negative value) instead of shutting down the reactor \cite{mccarthy_benchmark_2012}.
 
 \subsubsection{Past work on modeling real-world fleets}
-
+Modeling real-world fleets requires data about the current existing fleet,
+such as power capacity, core size, and expected shutdown date (remaining lifetime).
 
 Only one published study is done modeling the current U.S. nuclear fleet,
-using ORION \cite{sunny_transition_2015}. This is done using 
+using ORION \cite{sunny_transition_2015}. However, this work is far from
+modeling real-world U.S. nuclear fleet since it assumed a \gls{LWR} deployed power capacity
+of 90 GWe in 2015, which decreases by 5 GWe every year starting from 2030,
+meaning that no consideration is given to the actual shutdown dates of
+existing reactors. This simplification stems from ORION modeling reactor as
+a fleet governed by a power demand, not discrete facilities.
 
-
-
-
+[that's where I come in]
 
 \subsection{Modeling liquid-fueled reactors with continuous reprocessing}
 \glspl{MSR} reactor designs have recently gained attention due to it being a
