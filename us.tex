@@ -2,23 +2,49 @@
 The United States have been the forerunner of nuclear energy, with a current
 installed capacity of about 100 GWe. With its size and long history of nuclear
 energy, the United States have accumulated about $70,000$ \gls{MTHM} of \gls{UNF}.
-The United States' historical nuclear operation and inventory is tracked using
-\Cyclus and is compared with benchmarked results from \gls{ORION} and the
-\gls{UNF-STANDARDS} database. The \gls{UNF-STANDARDS} database is a comprehensive,
-controlled source of \gls{UNF} information, including dry cask attributes, assembly
-data, and economic attributes \cite{peterson_unf-st&dards_2017}. With the successful benchmark,
-the simulation is extrapolated to the future. I run two separate simulations, 
-one with transition into a `closed' fuel cycle, and the other once-through.
 
 The problem with modeling the U.S. transition scenario is that the U.S. does not have
 a defined advanced reactor, whereas France has a central plan to transition into \glspl{ASTRID} \cite{boullis_french_2015, varaine_pre-conceptual_2012}.
 Although the most prominent and `canonical' reactor design when considering
-transition is the \gls{SFR}, the fact that the U.S. nuclear reactor fleet
+transition into fast-spectrum, breeding reactors ]is the \gls{SFR},
+the fact that the U.S. nuclear reactor fleet
 is decided by economic interests (industries), this allows me to explore
-different options, such as a mixed advanced reactor fleet. 
+different options, such as the \gls{MSR} design.
 
-This chapter includes the results and comparison of two simulations:
-\begin{enumerate}
-    \item The United States transitions into a `closed' fuel cycle with breeder reactors and reprocessing.
-    \item The United States maintains once-through cycle.
-\end{enumerate}
+\glspl{MSR} reactor designs have recently gained attention in the U.S. due to it being a
+potentially safer, more efficient, and sustainable form of nuclear power
+\cite{serp_molten_2014}. Multiple companies in the U.S. are now pursuing
+commercialization of \gls{MSR} design reactors, such as Tranasatomic \cite{transatomic_technical_2016}
+, Terrapower, Terrestrial \cite{leblanc_18-_2017}, and
+Thorcon \cite{dolan_19-_2017}. Other parties such as China (TMSR-LF \cite{dai_17-_2017}) 
+and the European Union (MSFR \cite{heuer_towards_2014}, MOSART \cite{ignatiev_molten_2014})
+are developing \gls{MSR} designs.
+
+In this chapter, I explore the U.S. transition scenario
+from a \gls{LWR} fleet into a \gls{MSR} fleet.
+
+\section{Initial Conditions and Scenario Parameters}
+Unlike the French scenario,
+where the \gls{UNF} inventory at the present time is unknown, there is a
+detailed database that describes the U.S. \gls{UNF} inventory up to 2011.
+The \gls{UNF-STANDARDS} database is a comprehensive,
+controlled source of \gls{UNF} information, including dry cask attributes, assembly
+data, and economic attributes \cite{peterson_unf-st&dards_2017}. This database
+allows the transition scenario simulation to start from 2011, instead of 1970,
+like the French simulation. The \gls{UNF} inventory mass and composition in 2011
+will be imported from \gls{UNF-STANDARDS} and will be `initiated' in the simulation
+as a \texttt{Source} facility.
+
+\section{U.S. Deployment Schedule}
+
+\subsection{Energy Demand Prediction}
+
+\section{Scenario Specification}
+
+\section{Reactor Specifications}
+
+\section{Material Definitions}
+
+\section{Results}
+
+\section{Conclusion}
