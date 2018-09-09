@@ -1,5 +1,84 @@
+I developed two extensions to leverage 
+the capabilities of Cyclus to model
+real-world fuel cycle transition scenarios.
+The first extension is a python input-generating module
+that allows automated scenario generation of the real-world 
+nuclear fleet at any point in the past. The second extension
+is a Cyclus archetype that mimics \gls{MSR} feed and removal
+behavior using a HDF5 database generated from SaltProc.
 
-\section{Developed tools}
+\section{write\_input.py}
+The objectives for the \texttt{write\_input.py} module
+is to automate the population of Cyclus input files
+to model the current state of reactor fleets at a given
+point in time. 
 
-[write input.py]
-[hdf5 reactor]
+The module reads from the \gls{PRIS} database
+and extracts data on each reactor's country, reactor unit,
+type, net capacity (MWe), status, operator, construction date,
+first criticality date, first grid date, commercial date,
+and shutdown date (if applicable). The user inputs simulation
+configurations such as start year, start month, and
+simulation duration. The module then calculates the deployment
+scheme of each reactor, and interpolates the core size using
+a linear core size model. The linear core size model assumes
+that the core and assembly size of an \gls{LWR} scales linearly
+with its net power capacity. The logic flow of the module is 
+shown in diagram \ref{diag:log_flow}
+
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[node distance=3.5cm and 2cm, on grid, auto, text width=2cm]
+	\node (database) [object] {PRIS Database (\texttt{.csv})};
+	\node (data) [process, below of=database] {Reactor data (net capacity, reactor size)};
+	
+	\node (user) [object, right of=database] {User};
+	\node (input) [process, below of=user] {Start year, month,  Simulation duration};
+	
+	\node (template) [process, right of=user] {Cyclus input template files};
+	
+	\node (script) [object, below of=input] {write\_input.py};
+	
+	\node (lifetime) [process, below of=script] {Calculated reactor lifetime};
+	\node (coresize) [process, right of=lifetime] {Interpolated core size};
+	\node (region) [process, left of=lifetime] {Calculated deployment scheme};
+	
+	\node (output) [object, below of=lifetime] {Generated Cyclue Input File (.xml)};
+	
+	\draw [arrow] (database) -- (data); 
+	\draw [arrow] (user) -- (input); 
+	\draw [arrow] (data) -- (script);
+	\draw [arrow] (input) -- (script);
+	\draw [arrow] (template) -- (script);
+	
+	\draw [arrow] (script) -- (lifetime);
+	\draw [arrow] (script) -- (coresize);
+	\draw [arrow] (script) -- (region);
+	
+	\draw [arrow] (lifetime) -- (output);
+	\draw [arrow] (coresize) -- (output);
+	\draw [arrow] (region) -- (output);
+	
+	\end{tikzpicture}
+	\caption{ Logic flow of \texttt{write\_input.py}.
+		Green circles and blue boxes represent data and sources, respectively.}
+	\label{diag:log_flow}
+\end{figure}
+
+
+
+\section{HDF5-reactor}
+The HDF5 reactor is a Cyclus facility archetype designed to 
+model \gls{MSR} behavior. It roughly couples Saltproc \cite{rykhlevskii_online_2017}
+and Cyclus, by using the output from SaltProc to mimic \gls{MSR}
+feed and removal behavior in Cyclus. Most of the computationally heavy
+work is done in SaltProc in generation of the database, which avoids the large computational burden
+when running Cyclus. This method is similar to the simplified implementation of
+recipe reactors, where the depleted composition of the fuel is calculated outside of the
+fuel cycle simulation, but for a reactor with a continuous material feed and removal,
+such as an \gls{MSR}.
+
+[logic flow]
+[example problem?]
+

@@ -1,4 +1,31 @@
 \section{Cyclus}
+
+\Cyclus is an agent-based fuel cycle simulation framework 
+\cite{huff_fundamental_2016}, which means 
+that each reactor, reprocessing plant, and fuel fabrication plant is modeled as an agent.
+A \Cyclus simulation contains prototypes, which are fuel cycle facility models (archetypes) with
+pre-defined parameters, that are deployed in the simulation as \texttt{facility} agents.
+Encapsulating the \texttt{facility} agents are the \texttt{Institution} and \texttt{Region}.
+A \texttt{Region} agent holds a set of \texttt{Institution}s. 
+An \texttt{Institution} agent can deploy or decommission \texttt{facility} agents.
+The \texttt{Institution} agent is part of a \texttt{Region} agent,
+which can contain multiple \texttt{Institution} agents. Several versions of \texttt{Institution}
+and \texttt{Region} exist, varying in complexity and functions \cite{huff_extensions_2014}.
+\texttt{DeployInst} is used as the institution archetype for this work, where the institution
+deploys agents at user-defined timesteps. 
+
+At each timestep (one month),
+agents make requests for materials or bid to supply them and exchange
+with one another. A market-like mechanism called the dynamic resource exchange
+\cite{gidden_agent-based_2015} governs the exchanges.
+Each material resource has a quantity, composition, name, and a unique identifier
+for output analysis. 
+
+In this work, each nation is represented as a distinct \texttt{Region} agent,
+that contains \texttt{Institution} agents, each deploying  \texttt{Facility} 
+agents. The \texttt{Institution} agents then deploy agents according to 
+a user-defined deployment scheme.
+
 The Cyclus \gls{NFCS} framework and its
 modeling ecosystem, the suite of agents and other
 physics plug-in libraries compatible with it, incorporate
@@ -60,12 +87,11 @@ the transaction between two agents.
 
 \subsection{Cyclus' fitness for real-world \gls{NFC} transition scenario}
 The Cyclus framework and its extension libraries fulfill all the functionalities
-specified by Brown et al. \cite{brown_identification_2016}. Additionally,
+specified by Brown et al. \cite{brown_identification_2016}.  Additionally,
 it's text-based input structure and discrete facility modeling capabilities
-allow modeling of real-world individual reactors. Finally, I can add
+allow modeling of real-world, individual reactors. Finally, I can add
 the \gls{MSR} model mentioned previously into Cyclus due to its
-modularity and extensibility.
-
-[how i've done it?]
+modularity and extensibility. The details of the implementation
+of these capabilities are shown in the next chapter.
 
 
