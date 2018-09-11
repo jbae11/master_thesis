@@ -1,17 +1,18 @@
 \glspl{NFCS} are system-level analysis tools
 that allow tracking of material flow in a \gls{NFC}. Its
 functionalities include, but are not limited to, isotopic decay,
-depletion calculations, and separating of material streams.
+depletion calculations, and separation of material streams.
 The goal of a \gls{NFCS} is to calculate `metrics' - quantitative
 measures of performance that can be compared among fuel cycle
 options \cite{huff_fundamental_2016}.
 
 Table \ref{tab:fcs} lists the \glspl{NFCS}
 that are considered in this section. The \glspl{NFCS}
-listed generally are focused to solve one functionality
+listed generally are focused on one functionality
 (e.g. multi-regional analysis, detailed isotopic tracking,
 demand-driven deployment, cost analysis, sensitivity study)
-but lacks in other functionalities \cite{huff_next_2010}. In
+but lacks in the flexibility to perform other
+functionalities \cite{huff_next_2010}. In
 other words, no \gls{NFCS} has all the functionalities to
 perform the superset of analysis types.
 
@@ -125,22 +126,23 @@ are organized in table \ref{tab:ffh}.
 \end{table}
 
 \section{Additional capabilities identified for real-world fuel cycle transition scenario}
-From Brown et al. \cite{brown_identification_2016}, I identified two additional functionalities -
+From Brown et al. \cite{brown_identification_2016}, I identified two additional functionalities 
+for modeling real-world \gls{NFC} transition scenario -
 modeling discrete, real-world reactor fleets and operational history; modeling liquid-fueled
 reactors with continuous reprocessing.
 
 \subsection{Modeling discrete, real-world reactor facilities}
 For modeling real-world nuclear fuel cycle transition scenarios, the initial
 condition (e.g. existing fissile inventory, existing reactor fleet) is important
-to understand transition strategy, such as advanced reactor deployment
-scheme. This requires the \gls{NFCS} to correctly model the current fleet and its
+to strategize the transition scenario, such as reactor deployment
+scheme, fuel type, and reactor design. This requires the \gls{NFCS} to correctly model the current fleet and its
 remaining lifetime. The purpose of a fuel cycle is to produce power, thus the objective
-function of a fuel cycle simulation is generally power demand, and a transition
+function of a fuel cycle simulation is generally power demand. A transition
 scenario involves advanced reactor (fast-spectrum reactors) filling in the
 gap of decommissioned \glspl{LWR}.
 Once the energy supply of the current fleet is calculated,
 the analyst can determine the deployment scheme of future reactors to meet a certain
-power demand. Thus, it is important for the \gls{NFCS} to be able to simulate
+power demand in the future. Thus, it is important for the \gls{NFCS} to be able to simulate
 discrete, real-world reactor fleets to have an accurate deployment scheme to
 meet power demand. Additionally having discrete facilities will translate into
 having a high-resolution calculation of the material flow as well.
@@ -170,7 +172,7 @@ negative value) instead of shutting down the reactor \cite{mccarthy_benchmark_20
 Modeling real-world fleets requires data about the current existing fleet,
 such as power capacity, core size, and expected shutdown date (remaining lifetime).
 
-Only one published study is done modeling the current U.S. nuclear fleet,
+One published study is done modeling the current U.S. nuclear fleet,
 using ORION \cite{sunny_transition_2015}. However, this work is far from
 modeling real-world U.S. nuclear fleet since it assumed a \gls{LWR} deployed power capacity
 of 90 GWe in 2015, which decreases by 5 GWe every year starting from 2030,
@@ -184,26 +186,29 @@ by Carre et al \cite{carre_overview_2009}, but it is unclear what tool they use.
 
 However, modeling real-world fleets is possible in Cyclus, due to two major
 reasons. First, Cyclus models
-discrete facilities with their own events and material flow, unlike many other
-\glspl{NFCS}. Second, Cyclus has a text-based input file structure, meaning that
+discrete facilities with their own events and material flow.
+Second, Cyclus has a text-based input file structure, meaning that
 the input files (and thus the scenario) can be generated from 
 a database, which is what is done in this work.
 
 \subsection{Modeling liquid-fueled reactors with continuous reprocessing}
-\glspl{MSR} reactor designs have recently gained attention due to it being a
-potentially safer, more efficient, and sustainable form of nuclear power
-\cite{serp_molten_2014}. Multiple companies in the U.S. are now pursuing
+\gls{MSR} reactor designs have recently gained attention due to 
+their potential to be 
+safer, more efficient, and sustainable \cite{serp_molten_2014}.
+Multiple companies in the U.S. are now pursuing
 commercialization of \gls{MSR} design reactors, such as Tranasatomic \cite{transatomic_technical_2016}
 , Terrapower, Terrestrial \cite{leblanc_18-_2017}, and
 Thorcon \cite{dolan_19-_2017}. Other parties such as China (TMSR-LF \cite{dai_17-_2017}) 
 and the European Union (MSFR \cite{heuer_towards_2014}, MOSART \cite{ignatiev_molten_2014})
 are developing \gls{MSR} designs.
 
-However, modeling \glspl{MSR} is difficult due to its online reprocessing regime.
+However, modeling a \gls{MSR} is challenging due to its online reprocessing
+and continuously flowing fuel.
 The material flow in and out of the reactor is continuous and dynamic, as well as the
 composition inside the core.
 The neutronics and depletion calculations have to be performed continuously while
-the composition of the fuel changes. Reactor physics and depletion calculations
+the composition of the fuel changes by depletion and reprocessing.
+Reactor physics and depletion calculations
 on the \gls{MSR} have been done, notably by 
  Oak Ridge National Laboratory researchers who developed
 ChemTriton \cite{powers_new_2013}, a python script that drives SCALE,
@@ -211,12 +216,12 @@ to perform semi-continuous reprocessing of the fuel \cite{powers_inventory_2014,
 However, there is no existing \gls{NFCS} that has the capability to model \glspl{MSR}
 due to the large computational burden associated with frequent depletion calculations.
 
-This challenge of large computational time can be overcome by `outsourcing' the computationally
+This challenge of large computational time in a \gls{NFCS} can be overcome by `outsourcing' the computationally
 heavy work to the higher-fidelity reactor physics and depletion codes. The output from the
 high-fidelity codes can be saved as a database, which then Cyclus reads to model the behavior
 corresponding to the \gls{MSR} design. For example, a high-fidelity code would run a certain
-\gls{MSR} design for its lifetime, and the history of its inflow and outflow would be recorded
-in a database. A Cyclus facility module would read this database and mimic the inflow and outflow
-behavior listed in the database, effectively modeling \gls{MSR} interactions with the market.
-This method allows the computationally heavy work to preparing the database, thus the \gls{NFC}
-simulation itself will take very little time.
+\gls{MSR} design for its lifetime, and the history of its feed and waste recorded in a
+database. A Cyclus facility module would read this database and mimic the feed and removal
+behavior listed in the database, effectively modeling \gls{MSR} interactions with the `market'.
+This allows \gls{MSR} modeling in a larger-scale system analysis without heavy computational
+burden, while securing fidelity of the depletion calculation.

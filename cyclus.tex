@@ -1,7 +1,7 @@
 \section{Cyclus}
 
 \Cyclus is an agent-based fuel cycle simulation framework 
-\cite{huff_fundamental_2016}, which means 
+\cite{huff_fundamental_2016}, meaning
 that each reactor, reprocessing plant, and fuel fabrication plant is modeled as an agent.
 A \Cyclus simulation contains prototypes, which are fuel cycle facility models (archetypes) with
 pre-defined parameters, that are deployed in the simulation as \texttt{facility} agents.
@@ -14,12 +14,11 @@ and \texttt{Region} exist, varying in complexity and functions \cite{huff_extens
 \texttt{DeployInst} is used as the institution archetype for this work, where the institution
 deploys agents at user-defined timesteps. 
 
-At each timestep (one month),
+At each timestep,
 agents make requests for materials or bid to supply them and exchange
 with one another. A market-like mechanism called the dynamic resource exchange
 \cite{gidden_agent-based_2015} governs the exchanges.
-Each material resource has a quantity, composition, name, and a unique identifier
-for output analysis. 
+For output analysis, each material resource has a quantity, composition, name, and a unique identifier.
 
 In this work, each nation is represented as a distinct \texttt{Region} agent,
 that contains \texttt{Institution} agents, each deploying  \texttt{Facility} 
@@ -37,15 +36,15 @@ and extensibility. Its agent-based modeling approach
 is ideal for modeling coupled, physics dependent
 supply chain problems common in \glspl{NFC}.
 The framework allows for dynamic loading of 
-external libraries, which allow the users to plug-and-play
-different types of physics models for their \gls{NFC}
+external libraries, which allows the users to plug-and-play
+different types of physics models for \gls{NFC}
 simulation.
 
 \subsection{Open Source}
 License agreements and institutional
 approval is need for most \glspl{NFCS} like COSI, DANESS, DESAE, EVOLCODE,
 FAMILY21, NFCSim, ORION and VISION \cite{juchau_modeling_2017}, making
-it hard for both the usage and development in an academic setting.
+it hard for both the usage and development in an academic settings.
 On the other hand, Cyclus relies completely on open source,
 free libraries, allowing all users to both use and develop the
 Cylcus framework and existing libraries. The open-sourceness
@@ -88,10 +87,10 @@ the transaction between two agents.
 \subsection{Cyclus' fitness for real-world \gls{NFC} transition scenario}
 The Cyclus framework and its extension libraries fulfill all the functionalities
 specified by Brown et al. \cite{brown_identification_2016}.  Additionally,
-it's text-based input structure and discrete facility modeling capabilities
-allow modeling of real-world, individual reactors. Finally, I can add
-the \gls{MSR} model mentioned previously into Cyclus due to its
-modularity and extensibility. The details of the implementation
+its text-based input structure and discrete facility modeling capabilities
+allow modeling of real-world, individual reactors. Finally, 
+the addition of a \gls{MSR} model can be achieved without altering
+Cyclus due to its modularity. The details of the implementation
 of these capabilities are shown in the next chapter.
 
 
