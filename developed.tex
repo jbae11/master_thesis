@@ -93,7 +93,7 @@ The model reactor designs are listed in table \ref{tab:lin_core}.
 		Generic \gls{PHWR} & CANDU6 & 700 & 24.17 & 4,560 & \cite{galeriu_technical_nodate} \\
 		\hline
 	\end{tabularx}
-	\label{tab:lin_Core}
+	\label{tab:lin_core}
 \end {table}
 
 
@@ -106,9 +106,10 @@ feed and removal behavior in Cyclus. Most of the computationally heavy
 work is done in SERPENT (driven  by Saltproc) in generation of the database, which avoids the large computational burden
 when running Cyclus. This method is similar to the simplified implementation of
 recipe reactors, where the depletion calculation is performed outside of the
-fuel cycle simulation. However, this reactor uses a database of recipes
-rather than a single recipe in order to model the continuously varying
-nature of liquid-fueled reactors like \glspl{MSR}.
+fuel cycle simulation. This reactor uses a database of recipes
+rather than a single recipe in order to capture the continuously varying
+nature of liquid-fueled reactors like \glspl{MSR}. Since there is no
+defined burnup step, the database includes all stream isotopics 
 
 \begin{figure}
 	\centering
@@ -162,7 +163,7 @@ The user inputs only of the commodity names
 for each stream, and the database path, since the
 HDF5 database already contains the notion of reactor design,
 reprocessing scheme, and other reactor parameters (shown in
-figure \ref{fig:hdf5_flow}). The commodity names are needed
+figure \ref{diag:hdf5_flow}). The commodity names are needed
 for reactor agent to communicate with other Cyclus agents
 in exchanging material.
 
