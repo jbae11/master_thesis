@@ -2,7 +2,7 @@
 that allow tracking of material flow in a \gls{NFC}. Its
 functionalities include, but are not limited to, isotopic decay,
 depletion calculations, and separation of material streams.
-The goal of a \gls{NFCS} is to calculate `metrics' - quantitative
+The goal of a \gls{NFCS} is to calculate \textit{metrics} - quantitative
 measures of performance that can be compared among fuel cycle
 options \cite{huff_fundamental_2016}.
 
@@ -11,7 +11,7 @@ that are considered in this section. The \glspl{NFCS}
 listed generally are focused on one functionality
 (e.g. multi-regional analysis, detailed isotopic tracking,
 demand-driven deployment, cost analysis, sensitivity study)
-but lacks in the flexibility to perform other
+but lack in the flexibility to perform other
 functionalities \cite{huff_next_2010}. In
 other words, no \gls{NFCS} has all the functionalities to
 perform the superset of analysis types.
@@ -24,6 +24,7 @@ perform the superset of analysis types.
     \begin{tabular}{lll}
         \hline
         Name & Developer & Reference(s) \\
+        \hline
         CAFCA & MIT & \cite{guerin_benchmark_2009}\\
         COSI6 & CEA (Frane) & \cite{meyer_new_2009} \\
         DANESS & ANL & \cite{van_den_durpel_daness:_2006}\\
@@ -41,8 +42,7 @@ perform the superset of analysis types.
 
 
 \section{Capabilities required for modeling transition scenarios}
-There are specific capabilities required for modeling transition
-scenarios. A study by Brown et al. \cite{brown_identification_2016}
+A study by Brown et al. \cite{brown_identification_2016}
 identified nine common functionalities for \glspl{NFCS} for modeling
 transition scenarios - material compositions, deployment of fuel
 cycle facilities, front-end facility models, separations and material
@@ -126,7 +126,7 @@ are organized in table \ref{tab:ffh}.
 \end{table}
 
 \section{Additional capabilities identified for real-world fuel cycle transition scenario}
-From Brown et al. \cite{brown_identification_2016}, I identified two additional functionalities 
+I identified two additional functionalities beyond the ones identified by Brown et al \cite{brown_identification_2016}
 for modeling real-world \gls{NFC} transition scenario -
 modeling discrete, real-world reactor fleets and operational history; modeling liquid-fueled
 reactors with continuous reprocessing.
@@ -134,11 +134,11 @@ reactors with continuous reprocessing.
 \subsection{Modeling discrete, real-world reactor facilities}
 For modeling real-world nuclear fuel cycle transition scenarios, the initial
 condition (e.g. existing fissile inventory, existing reactor fleet) is important
-to strategize the transition scenario, such as reactor deployment
+to plan the transition scenario, such as reactor deployment
 scheme, fuel type, and reactor design. This requires the \gls{NFCS} to correctly model the current fleet and its
 remaining lifetime. The purpose of a fuel cycle is to produce power, thus the objective
 function of a fuel cycle simulation is generally power demand. A transition
-scenario involves advanced reactor (fast-spectrum reactors) filling in the
+scenario involves advanced reactors (fast-spectrum reactors) filling in the
 gap of decommissioned \glspl{LWR}.
 Once the energy supply of the current fleet is calculated,
 the analyst can determine the deployment scheme of future reactors to meet a certain
@@ -148,7 +148,7 @@ meet power demand. Additionally having discrete facilities will translate into
 having a high-resolution calculation of the material flow as well.
 
 \subsubsection{Discrete reactor facility modeling}
-Discrete modeling of reactors allow a higher resolution of the power supply and
+Discrete modeling of reactors allows a higher resolution of the power supply and
 material flow. In the real world, especially in the United States, existing
 reactors do not have the exact same power output, or core size. This means that
 lumping the reactor fleet together causes loss in accuracy.
