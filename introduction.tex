@@ -5,9 +5,11 @@ capabilities to model real-world fuel cycle transition scenarios.
 \section{Background and motivation}
 Increasing climate change concerns have directed attention
 to nuclear energy, which produces reliable base load energy
-with negligible CO$_2$ emission. With the reduction of fossil
-fuel based power plants and the general increase in energy demand
-(28\% growth between 2015 and 2040 \cite{conti_international_2016}),
+with negligible CO$_2$ emission. To reduce CO$_2$ emissions,
+the world will have to reduce fossil fuel based power plants.
+Also, the energy demand is expected to increase
+(28\% growth between 2015 and 2040 \cite{conti_international_2016}).
+Given the two circumstances,
 nuclear power is expected to play a crucial role in the world energy portfolio.
 
 However, concerns of the accumulating \gls{UNF} inventory,
@@ -15,20 +17,30 @@ safety of the current reactor fleet, and the availability of
 uranium resources create a negative public perception of
 nuclear energy and its sustainability.
 
+This work will demonstrate the capability of a system-level
+analysis tool, Cyclus, which can model a more advanced \gls{NFC} that
+possibly solves the three concerned mentioned above. The
+modeling capability will aid in planning a strategy for
+transitioning into an advanced fuel cycle.
+
 \subsection{The Nuclear Fuel Cycle}
 The nuclear fuel cycle is described as a set of facilities
 that interact with one another to either provide or consume
-fuel services \cite{gidden_agent-based_2015}. The goal of
+fuel services \cite{gidden_agent-based_2015}. The general goal of
 the cycle is to produce power economically, while managing
 \gls{UNF}, the byproduct of power production. The discharge
-\gls{UNF} from the reactors are eventually sent back to facilities for
+\gls{UNF} from the reactors is eventually sent back to facilities for
 either recycling or disposal. 
 
-There are a large number of fuel cycle groups, categorized by the extent of recycling
+
+The fuel cycle evaluation and screening study is a study
+conducted by Wigeland et al. to identify potential
+fuel cycles and their groups \cite{wigeland_nuclear_2014}.
+Wigeland et al. identified 40 fuel cycle groups, categorized by the extent of recycling
 (no recycle, limited recycle, and continuous recycle), fuel composition
 (e.g. thorium-U233, uranium-plutonium), and the type of reactors (fast/thermal critical
-reactors, sub-critical \gls{EDS}). The fuel cycle evaluation and screening study by
-Wigeland et al. identified 40 evaluation groups \cite{wigeland_nuclear_2014}.
+reactors, sub-critical \gls{EDS}).
+
 
 \subsubsection{Once-through fuel cycle}
 
@@ -37,7 +49,7 @@ storage without further reprocessing \cite{tsoulfanidis_nuclear_2013}.
 This cycle is often called the open fuel cycle, and is the current cycle for
 most nations with nuclear energy (e.g. U.S., Korea, Finland, Sweden).
 
-The cycle begins with mining of uranium ore, which is extracted from the
+This fuel cycle begins with mining of uranium ore, which is extracted from the
 ground. The mined ore is milled to form yellowcake ($U_3O_8$). 
 The yellowcake is then either converted to $UF_6$ and enriched, or converted
 to $UO_2$ directly. This is because some reactor designs (e.g. \glspl{CANDU} \cite{torgerson_candu_2006})
@@ -46,7 +58,7 @@ higher-than-natural levels of uranium-235. The processed $UO_2$ is
 then fabricated to pellets and loaded into fuel assemblies. 
 
 Once the fuel is depleted in the reactor, it is put in on-site pools to cool down.
-This process ranges from two to seven years. After cooling, the \gls{UNF}
+This process ranges from two to ten years. After cooling, the \gls{UNF}
 is stored in dry casks as interim storage, destined to be sent to a geologic repository
 for permanent disposal.
 
@@ -76,7 +88,7 @@ as shown in figure \ref{fig:decay_heat}.
 
 \begin{figure}[htbp!]
 	\begin{center}
-		\includegraphics[scale=0.3]{./images/decay_heat.png}
+		\includegraphics[scale=0.6]{./images/decay_heat.png}
 	\end{center}
 	\caption{Decay heat contributions in \gls{UNF} from a \gls{PWR} irradiated
 		to 50 GWd/MTHM \cite{wigeland_separations_2006}.}
@@ -112,7 +124,7 @@ continuous recycle of U/Pu or U/TRU with U fuel in fast critical reactors
 
 \section{Objectives}
 
-This thesis demonstrates real-world \gls{NFC} transition
+This thesis demonstrates the real-world \gls{NFC} transition
 scenario modeling capabilities of Cyclus. The goal is to
 develop tools that leverage Cyclus' modularity to
 add capabilities required for modeling real-world
@@ -125,13 +137,13 @@ States.
 This thesis accomplishes the objective in three steps. First,
 the general fuel cycle simulation tool, Cyclus, is benchmarked
 to demonstrate its agreement with other fuel cycle simulation
-tools. Second, I identify the tools and methods necessary
+tools. Second, I identify and develop the tools and methods necessary
 for modeling and simulating real-world transition scenarios.
 Finally, I construct and run fuel cycle transition scenarios
 for France and the United States.
 
 A previous study by Feng et al. \cite{feng_standardized_2016} validates existing 
-\glspl{NFCS} in a fuel cycle transition scenario, where a \gls{LWR} fleet
+\glspl{NFCS} in a fuel cycle transition scenario, in which an \gls{LWR} fleet
 transitions into an \gls{SFR} fleet with continuous reprocessing. This 
 study compares four well-known \glspl{NFCS}
 DYMOND \cite{yacout_modeling_2005},
@@ -139,26 +151,26 @@ VISION \cite{jacobson_verifiable_2010},
 ORION \cite{gregg_analysis_2012}, and
 MARKAL \cite{shay_epa_2006}. The results from each code were
 compared to a set of `model solutions' that were generated
-from an excel worksheet for different metrics (e.g. fuel loading
+from an excel worksheet for various metrics (e.g. fuel loading
 in reactor, \gls{UNF} inventory). I reproduce the transition
 scenario in Cyclus, and compare the Cyclus results with those
 from the `model solutions'.
 
-In order to model real-world transition scenarios into an advanced
-fuel cycle, I developed two major tools. First, I developed a python
-module that automates extraction from the curated \gls{IAEA} \gls{PRIS} database
+In order to model real-world transition into an advanced
+fuel cycle, I developed two major tools. First, I developed \texttt{write_input.py}
+that automates extraction from the curated \gls{IAEA} \gls{PRIS} database
 \cite{iaea_nuclear_2018}. The database lists each nuclear reactor's
 country, name, type, net capacity (\gls{MWe}), status, operator, construction
 date, first criticality date, first grid date, commercial date, and shutdown
 date (if applicable). The module extracts the information from this file
 to generate a Cyclus compatible input file, which lists the individual
-reactor units as agents. Second, I developed a tool that models \glspl{MSR}
+reactor units as agents. Second, I developed a Cyclus archetype that models \glspl{MSR}
 using a database generated from a high-fidelity \gls{MSR} depletion calculation.
 The database is an output of Saltproc [??? Cite saltproc], a python
 module that drives
-SERPENT 2 \cite{leppanen_serpentcontinuous-energy_2013} to model on-line reprocessing in an \gls{MSR}.
+SERPENT 2 \cite{leppanen_serpentcontinuous-energy_2013} to model online reprocessing in an \gls{MSR}.
 The HDF5 database contains the historic compositions of each stream in and out of the reactor,
-composition history inside the reactor, and keff values. The developed tool then
+composition history inside the reactor, and $k_{eff}$ values. The developed tool then
 reads the HDF5 file to mimic \gls{MSR} behavior by requesting and offering
 feed and waste material to the Cyclus framework.
 
@@ -168,9 +180,9 @@ initial conditions (i.e. currently existing fleet, \gls{UNF} inventory), and the
 technology.
 
 The structure of this thesis is as follows. In chapter 2, I review other fuel cycle simulation
-tools and their gaps, and explain why Cyclus
-has the unique capability for modeling real-world fuel cycle transition scenarios.
-Chapter 3 contains explanation and development of the tools that add the 
+tools and their gaps, and explain the unique capability Cyclus
+has for transition scenario simulation.
+Chapter 3 contains explanation and the development process of the tools that add the 
 capabilities needed to accomplish the objective.
 Chapter 4 shows the results from the benchmark study, where Cyclus results are compared
 to results from other fuel cycle simulation tools.
