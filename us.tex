@@ -25,19 +25,42 @@ from a \gls{LWR} fleet into a \gls{MSR} fleet.
 
 \section{Initial Conditions and Scenario Parameters}
 Unlike the French scenario,
-where the \gls{UNF} inventory at the present time is unknown, there is a
-detailed database that describes the U.S. \gls{UNF} inventory up to 2013 May.
+where the \gls{UNF} inventory at the present time is calculated by
+simulating the nuclear operational history from 1970, there is a
+detailed database that describes the U.S. \gls{UNF} inventory up to May of 2013.
 The \gls{UNF-STANDARDS} database is a comprehensive,
 controlled source of \gls{UNF} information, including dry cask attributes, assembly
 data, and economic attributes \cite{peterson_unf-st&dards_2017}. This database
 allows the transition scenario simulation to start from 2013, instead of 1970,
-like the French simulation. The \gls{UNF} inventory mass and composition in 2013
+as in the French simulation. The \gls{UNF} inventory mass and composition in 2013
 will be imported from \gls{UNF-STANDARDS} and will be `initiated' in the simulation
-as a \texttt{Source} facility. 
+as a \texttt{Source} facility. The total mass of \gls{UNF} listed
+in the \gls{UNF-STANDARDS} database is 68,072 MTHM.
 
-\section{U.S. Deployment Schedule}
+The U.S. nuclear fleet in 2013 can be extracted from the \gls{PRIS} database.
+The same assumption that legacy reactors have a 60-year lifetime is applied.
+I used \texttt{write\_input.py} to generate the expected power capacity
+of the current U.S. nuclear from 2013 (shown in figure \ref{fig:us_legacy}).
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/legacy_power.png}
+	\end{center}
+	\caption{Installed nuclear capacity in the United States from 2013.}
+	\label{fig:us_legacy}
+\end{figure}
+
+The U.S. had 101 reactor units operating in 2013. Two reactors -
+Vermont Yankee and Fort Calhoun one - has shut down since 2013.
+Vermont Yankee was shut down in December, 2014, and Fort
+Calhoun one was shut down in October, 2016. At the date of this
+work, the United States has 99 commercial reactors with a 
+net capacity of 100,350 \gls{MWe} \cite{iaea_nuclear_2017}.
+
 
 \subsection{Energy Demand Prediction}
+
+\section{U.S. Deployment Schedule}
 
 \section{Scenario Specification}
 
