@@ -1,7 +1,7 @@
 
 The stated long term plan for nuclear deployment in France targets a technology 
-transition to \glspl{SFR}\cite{cne2_reports_2015}. However, the current inventory of French \gls{UNF} 
-is insufficient to fuel that transition without building new \glspl{LWR}.
+transition to \glspl{SFR} \cite{cne2_reports_2015}. However, the current inventory of French \gls{UNF} 
+is insufficient to fuel that transition without building new \glspl{LWR} \cite{carre_overview_2009}.
 
 If instead, France accepted 
 \gls{UNF} from other \gls{EU} nations and used it to produce \gls{MOX} for new \glspl{SFR},
@@ -20,39 +20,9 @@ taking other \gls{EU} nations' \gls{UNF}.
 
 \subsection{\gls{EU} Deployment Schedule}
 
-The \gls{IAEA} \gls{PRIS} database \cite{iaea_nuclear_2017} contains worldwide reactor
-operation history.
-The computational workflow in this work, shown in Figure \ref{diag:comp}, automates data extraction from the 
-\gls{PRIS} database. We import this database directly as a \texttt{csv} file to populate the simulation
-with deployment information, listing the country, reactor unit, type, net capacity (\gls{MWe}), status,
-operator, construction date, first criticality date, first grid date, commercial date, shutdown
-date (if applicable), and unit capacity factor for 2013. Then only the \gls{EU} countries are extracted
-from the \texttt{csv} file. We developed a python script to generate
-a \Cyclus 
-compatible input file accordingly, which lists the individual reactor units as agents. 
-
-
-\begin{figure}
-        \centering
-\begin{tikzpicture}[node distance=1.5cm]
-\node (database) [object] {Database (\texttt{.csv})};
-\node (script) [process, below of=database] {Input Generation Script (\texttt{write\_input.py})};
-\node (input) [object, below of=script] {\Cyclus Input File (\texttt{.xml})};
-\node (cyclus) [process, below of=input]{\Cyclus};
-\node (output) [object, below of=cyclus]{\texttt{Output File (\texttt{.Sqlite})}};
-\node (script2) [process, below of=output]{Analysis Script (\texttt{analysis.py})};
-
-\draw [arrow] (database) -- (script); 
-\draw [arrow] (script) -- (input); 
-\draw [arrow] (input) -- (cyclus);
-\draw [arrow] (cyclus) -- (output);
-\draw [arrow] (output) -- (script2);
-\end{tikzpicture}
-\caption{Green circles and blue boxes represent files and software 
-processes, respectively, in the computational workflow.}
-\label{diag:comp}
-\end{figure}
-
+The historic \gls{EU} deployment schedule and operation history 
+are generated using the \texttt{write\_input.py}
+module (described in section \ref{sec:writeinput}).
 
 Projections of future reactor deployment in this simulation are based on
 assessment of analyses from references, for instance \gls{PRIS}, for reactors planned
@@ -100,7 +70,7 @@ without delay or failure and reach a lifetime of 60 years.
               in the simulation.}
 \FloatBarrier
 
-For each \gls{EU} nation, we categorize the growth trajectory is categorized from
+For each \gls{EU} nation, we categorize the growth trajectory from
 ``Aggressive Growth'' to ``Aggressive Shutdown''. ``Aggressive growth'' is
 characterized by a rigorous expansion of nuclear power, while
 ``Aggressive Shutdown'' is characterized as a transition to rapidly
@@ -153,6 +123,10 @@ is listed in Table \ref{tab:eu_growth}.
                     \hline
                     
         \end{tabular}
+  \label{tab:eu_growth}
+\end{table}
+\FloatBarrier
+
 
 Using this categorization to drive facility deployment, the simulation captures 
 regional differences in reactor power capacity and \gls{UNF} production as a 
@@ -160,10 +134,6 @@ function of time. Accordingly, \cref{fig:eu_pow} shows the resulting simulated
 installed capacity in \gls{EU} nations.  Sudden capacity reductions seen in the 
 2040s result from end-of-license reactor retirements and nuclear phaseout plans 
 in nations such as Germany and Belgium.  
-    
-  \label{tab:eu_growth}
-\end{table}
-\FloatBarrier
 
 \begin{figure}[htbp!]
     \begin{center}
@@ -275,18 +245,9 @@ French La Hague and MELOX sites \cite{schneider_spent_2008, hugelmann_melox_1999
 
 \section{Reactor Specifications}
 Three major reactors are used in the simulation, \gls{PWR}, \gls{BWR}, and ASTRID-type \gls{SFR} reactors.
-
-
-For \glspl{LWR}, we used a linear core size model to capture
-varying reactor capacity. For example, a 
-1,200 \gls{MWe} PWR has $193*\frac{1,200}{1,000} = 232$ \gls{UOX} assemblies, each
-weighing 523.4 kg.
-After each 18 month cycle, one-third of the 
-core (77 assemblies) discharges. Refueling
-is assumed to take two months to complete, during which the reactor
-is shut down. The specifications are defined in table \ref{tab:reactor-specs} 
-which details the reactor specifications in this simulation. \gls{LWR} 
-specifications are modified linearly for varying power capacity.  
+The \gls{PWR} and \gls{BWR} specifications are determined using the linear core size model,
+as explained in section \ref{sec:writeinput}. The ASTRID-type \gls{SFR} specification
+is obtained from varaine et al \cite{varaine_pre-conceptual_2012}.
 
 \begin{table}[h]
     \centering
@@ -299,13 +260,13 @@ specifications are modified linearly for varying power capacity.
         the reactor is shut down prematurely.} & 60 & 60 & 80 \\
                 Cycle Time [mos.]& 18 & 18 & 12\\ 
                 Refueling Outage [mos.]& 2 & 2  & 2\\
-                Rated Power [\gls{MWe}] & 1000 & 1000 & 600\\
-                Assembly mass [kg] & 523.4 & 180 & -- \\
+                Rated Power [\gls{MWe}] & 1110 & 1000 & 600\\
+                Assembly mass [kg] & 446 & 180 & -- \\
                 Batch mass [kg] & -- & -- & 5,568\\
                 Discharge Burnup [GWd/tHM] & 51 & 51 & 105 \\
                 Assemblies per core \tablefootnote{Number of assemblies and corresponding \gls{LWR} core 
-        masses are reported for a 1000-\gls{MWe} core. Reactors with different core  
-        powers are modeled with a linear mass assumption.} & 193  & 764 & -- \\
+        masses are reported for a 1100-\gls{MWe} core. Reactors with different core  
+        powers are modeled with a linear mass assumption.} & 157  & 764 & -- \\
 
                 Batches per core & 3 & 3 & 4\\
         Initial Fissile Loading [t] & 3.1  $^{235}$U & 4.2  $^{235}$U & 4.9 Pu \\
@@ -324,7 +285,7 @@ and used fuel recipe is defined for each reactor type.
 For the compositions of the used fuel, a reference depletion calculation
 from ORIGEN is used (see \cref{tab:comp}). ORIGEN calculates buildup,
  decay, and processing of radioactive materials
-\cite{parks_overview_1992}. This recipe recipe has also been used for repository performance modeling \cite{wilson_adoption_2009}.
+\cite{parks_overview_1992}. This recipe has also been used for repository performance modeling \cite{wilson_adoption_2009}.
 
 \begin{table}[h]
     \centering
@@ -612,7 +573,3 @@ method described herein could readily be adapted to account for such possibiliti
 The collaborative option explored here may hold value for the \gls{EU} nuclear community,
 and may enable France to advance more rapidly into a closed fuel cycle. 
 \FloatBarrier
-
-
-\subsection{Results - Parameter Sweep}
-\subsection{Results - Sensitivity Study}

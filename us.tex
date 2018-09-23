@@ -1,40 +1,71 @@
 
-The United States have been the forerunner of nuclear energy, with a current
-installed capacity of about 100 GWe. With its size and long history of nuclear
+The United States have been the forerunner of nuclear energy, with a currently 
+installed nuclear capacity of 100,350 \gls{MWe} \cite{iaea_nuclear_2017}.
+With its size and long history of nuclear
 energy, the United States have accumulated about $70,000$ \gls{MTHM} of \gls{UNF}.
 
 The problem with modeling the U.S. transition scenario is that the U.S. does not have
 a defined advanced reactor, whereas France has a central plan to transition into \glspl{ASTRID} \cite{boullis_french_2015, varaine_pre-conceptual_2012}.
-Although the most prominent and `canonical' reactor design when considering
-transition into fast-spectrum, breeding reactors ]is the \gls{SFR},
-the fact that the U.S. nuclear reactor fleet
-is decided by economic interests (industries), this allows me to explore
-different options, such as the \gls{MSR} design.
+Previous analyses \cite{worrall_utilization_2013, sunny_transition_2015} focused on transitioning into
+fast-spectrum \glspl{SFR}.
+However, the fact that the U.S. nuclear reactor fleet
+is decided by economic interests (industries), this leads to
+a need to explore different options, such as transitioning into \glspl{MSR}.
 
-\glspl{MSR} reactor designs have recently gained attention in the U.S. due to it being a
-potentially safer, more efficient, and sustainable form of nuclear power
-\cite{serp_molten_2014}. Multiple companies in the U.S. are now pursuing
-commercialization of \gls{MSR} design reactors, such as Tranasatomic \cite{transatomic_power_corporation_technical_2016}
-, Terrapower, Terrestrial \cite{leblanc_18_2017}, and
-Thorcon \cite{jorgensen_19_2017}. Other parties such as China (TMSR-LF \cite{dai_17_2017}) 
-and the European Union (MSFR \cite{heuer_towards_2014}, MOSART \cite{ignatiev_molten_2014})
-are developing \gls{MSR} designs.
+As explained in section \ref{sec:msr}, rising interests in \gls{MSR} designs
+led to a proliferation of U.S. corporations aiming to commercialize
+\gls{MSR} designs. Given the large interest from industries,
+\gls{MSR} reactor designs are
+most likely to be commercially deployed in the United States.
 
 In this chapter, I explore the U.S. transition scenario
 from a \gls{LWR} fleet into a \gls{MSR} fleet.
 
 \section{Initial Conditions and Scenario Parameters}
-Unlike the French scenario,
-where the \gls{UNF} inventory at the present time is unknown, there is a
-detailed database that describes the U.S. \gls{UNF} inventory up to 2013 May.
-The \gls{UNF-STANDARDS} database is a comprehensive,
+
+For the French scenario, the \gls{UNF} inventory at the present
+time is calculated by simulating the nuclear operational history from 1970.
+However, this is unnecessary for the U.S. scenario because there is a 
+detailed database that describes the U.S. \gls{UNF} inventory up to May of 2013.
+The \gls{UNF-STANDARDS} is a comprehensive,
 controlled source of \gls{UNF} information, including dry cask attributes, assembly
 data, and economic attributes \cite{peterson_unf-st&dards_2017}. This database
 allows the transition scenario simulation to start from 2013, instead of 1970,
-like the French simulation. The \gls{UNF} inventory mass and composition in 2013
-will be imported from \gls{UNF-STANDARDS} and will be `initiated' in the simulation
-as a \texttt{Source} facility. 
+as in the French simulation. The \gls{UNF} inventory mass and composition in 2013
+is imported from \gls{UNF-STANDARDS} and is `initiated' in the simulation
+as a \texttt{Source} facility. The total mass of \gls{UNF} listed
+in the \gls{UNF-STANDARDS} database is 68,072 MTHM.
 
+Furthermore U.S. currently has additional uranium resource in the
+form of more than $700,000$ MTHM of depleted uranium \cite{office_nuclear_2011},
+which is a waste product of enrichment. The depleted uranium inventory
+is currently a liability and waste, but can be utilized as fertile material
+in a U-Pu fuel cycle. If the U.S. chooses a Th-$^233U$ fuel cycle,
+additional thorium resources would be needed, while with a U-Pu cycle, the
+U.S. can use its waste to create fuel.
+
+The U.S. nuclear fleet in 2013 can be extracted from the \gls{PRIS} database.
+The same assumption that legacy reactors have a 60-year lifetime is applied.
+I used \texttt{write\_input.py} to generate the expected power capacity
+of the current U.S. nuclear from 2013 (shown in figure \ref{fig:us_legacy}).
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/legacy_power.png}
+	\end{center}
+	\caption{Installed nuclear capacity in the United States from 2013.}
+	\label{fig:us_legacy}
+\end{figure}
+
+The U.S. had 101 reactor units operating in 2013. Two reactors -
+Vermont Yankee and Fort Calhoun One - has shut down since 2013.
+Vermont Yankee was shut down in December, 2014, and Fort
+Calhoun One was shut down in October, 2016. At the date of this
+work, the United States has 99 commercial reactors with a 
+net capacity of 100,350 \gls{MWe} \cite{iaea_nuclear_2017}.
+
+
+<<<<<<< HEAD
 \subsection{Energy Demand Prediction}
 
 \section{U.S. Deployment Schedule}
@@ -42,12 +73,205 @@ In its 2018 annual energy outlook report,
 the \gls{EIA} projects 0.4\% annual energy consumption growth
 
 
+=======
+
+\subsection{Energy Demand Prediction}
+The reference for the energy demand prediction is the 
+\gls{EIA} Annual Energy Outlook \cite{u.s._annual_2018}.
+The 2018 Annual Energy Outlook report predicts an annual electricity demand growth
+of 0.9\%. The report also predicts that nuclear
+power will either remain static or decrease. However, for this work,
+I assume that the U.S. nuclear power capacity increases with the general electricity
+demand, at a rate of 0.9\% from 2020 (shown in figure \ref{fig:us_proj}).
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/projection.png}
+	\end{center}
+	\caption{Projected nuclear power demand from 2020, with an
+			 annual increase rate of 0.9\%.}
+	\label{fig:us_proj}
+\end{figure}
+
+\subsection{\gls{MSR} Design and Availability}
+
+
+\gls{MSR} designs can be categorized into
+different groups depending on their operating
+neutron spectrum (e.g. fast, thermal), fuel cycle (e.g. Th-$^{233}U$, U-Pu),
+and transmutation goals (e.g. breeder, burner). Selection of an \gls{MSR}
+design depends on various factors like economics, safety, and fuel cycle
+considerations. For this work, I use a fast, U-Pu cycle, burner \gls{MSR} design
+named REBUS-3700 \cite{mourogov_potentialities_2006}.
+
+The REBUS-3700 \gls{MSR} design offers four principal
+advantages over other \gls{MSR} designs:
+\begin{itemize}
+	\item Fast spectrum - no need for moderator rods 
+	\item U-Pu cycle - requires only depleted uranium for supply after initial fuel salt loading
+	\item Weakly positive breeding gain (0.03)
+	\begin{itemize}
+		\item Self-sufficient (no external fissile input)
+		\item No surplus fissile material production (stabilizes Pu inventory)
+	\end{itemize}
+	\item U-\gls{TRU} initial fuel - transmutation of long-lived actinides
+	\item Simpler design - no radial / axial blanket
+\end{itemize}
+
+The U.S. has a large inventory of \gls{UNF} and tails. The benefits
+of the REBUS-3700 design aligns with the waste management interest
+of the U.S of reducing final geological repository burden. The U.S. can dramatically reduce its repository
+burden by:
+\begin{itemize}
+	\item Reduction of \gls{TRU} inventory by transmutation in the reactor (table \ref{tab:rebus_comp})
+	\begin{itemize}
+		\item Reduction of long-term decay heat and activity (figure \ref{fig:decay_heat})
+		\item More `tailored' waste form design for fission products
+	\end{itemize}
+	\item Reducing tails inventory
+\end{itemize}
+
+
+\begin{table}[h]
+	\centering
+	\caption{Initial and equilibrium \gls{TRU} isotopic composition \cite{mourogov_potentialities_2006}}
+	\label{tab:rebus_comp}
+	\begin{tabular}{lll}
+		\hline
+		Isotope & Beginning of Life & Equilibrium (\textasciitilde 6500 \gls{EFPD}) \\
+		\hline
+		$^{237} Np$ / $^{239} Np$ &  4.80 / 0.00 & 0.65 / 0.07 \\
+		$^{238} Pu$ / $^{239} Pu$ / $^{240} Pu$ / $^{241} Pu$ / $^{242} Pu$ & 2.13 / 48.33 / 22.17 / 9.05 / 6.38 & 2.23 / 58.02 / 27.63 / 3.35 / 4.05 \\
+		$^{241} Am$ / $^{242m} Am$ / $^{243} Am$ &5.17 / 0.01 / 1.48 & 1.50 / 0.12 / 1.05 \\
+		$^{242} Cm$ / $^{243} Cm$ / $^{244} Cm$ / $^{245} Cm$ / $^{246} Cm$ & 0.0 /0.0 / 0.43 / 0.04 / 0.00 & 0.07 / 0.01 / 1.02 / 0.19 / 0.05 \\
+		Equivalent enrichment, \% & 10.1 & 11.0 \\
+		\gls{TRU} fraction in heavy atoms vector, \% & 15.6 & 15.9 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+Additionally, the REBUS-3700 does not have, at any moment in
+operation, any separated fissile streams, like other \gls{MSR} designs
+such as the \gls{MSBR} design \cite{robertson_conceptual_1971} (Pa tank),
+or the \gls{MCSFR} design \cite{smith_assessment_1974} (separated Pu stream).
+The REBUS-3700 only takes in depleted uranium and dumps out reprocessed
+fission products and noble gases. The detailed reprocessing scheme is shown
+in table \ref{tab:rebus_reproc}. 
+This self-sustained and closed operation increases its non-proliferation
+properties.
+
+In this simulation, U.S. begins deployment of \glspl{MSR}
+in 2040. [how do i justify this?]
+
+
+\begin{table}[h]
+	\centering
+	\caption{Reprocessing scheme for REBUS-3700}
+	\label{tab:rebus_reproc}
+	\begin{tabular}{lll}
+		\hline
+		Group & Elements & Reprocessing Time (s) \\
+		\hline
+		Volatile Gases & Kr, Xe, Ar, Ne, H, N, O, Rn & 30 \\
+		Noble Metals & \shortstack{Se, Nb, Mo, Tc, Ru, Rh,\\ Pd, Ag, Sb, Te, Zr, Cd, In, Sn} & 30 \\
+		Rare Earths & \shortstack{Y, La, Ce, Pr, Nd, Pm, Sm, Gd, \\ Eu, Dy, Ho, Er, Tb, Ga, Ge, As, Zn} & 259200 \\
+		\hline
+	\end{tabular}
+\end{table}
+
+
+
+\section{U.S. Deployment Schedule}
+
+
+
+Since it is unlikely that \glspl{MSR} are ready for
+commercial deployment in 2020, I deploy \glspl{LWR} (AP 1000 design \cite{sutharshan_ap1000tm_2011})
+to meet the increasing power demand.
+
+As shown in figure \ref{fig:us_legacy}, the U.S. will
+undergo a large loss of nuclear capacity from 2030, under the
+assumption that U.S. reactors have a lifetime of 60 years.
+To make up for the decommissioned reactors.
+
+>>>>>>> dc6c19a02503589a389f7ce3daa72d082366b54e
 
 \section{Scenario Specification}
 
+The scenario specifications defining the simulations presented in this chapter
+are listed in table \ref{tab:us_sim_specs}.
+
+\begin{table}[h]
+	\centering
+	\caption{Simulation Specifications}
+	\begin{tabularx}{\linewidth}{bss}
+		\hline
+		\textbf{Specification} &\textbf{ Value} & \textbf{Units}\\
+		\hline
+		Simulation Starts & 2013 & year\\
+		Simulation Ends & 2160 & year\\ 
+		Production of \gls{MSR} fuel begins & 2030 & year\\
+		\glspl{MSR} become available & 2040 & year\\
+		Reprocessed uranium usage &  Not used anywhere & -\\
+		Minimum \gls{UNF} cooling time  & 36  & months\\
+		Separation efficiency of U and Pu & 99.8 & \% \\
+		Reprocessing streams & \gls{TRU} and U & - \\
+		Reprocessing capacity & $\infty$ & $\frac{\text{metric tons of \gls{UNF}}}{month}$\\
+		\gls{MSR} fuel salt fabrication throughput & No limit ($\infty$) & $\frac{\text{metric tons}}{month}$ \\
+		\gls{MSR} fuel salt recycling & $\infty$-pass & - \\
+		\hline
+	\end{tabularx}
+	\label{tab:us_sim_specs}
+\end{table}
+
 \section{Reactor Specifications}
 
+Two major reactors are used in the simulation, \gls{PWR} and \gls{MSR}
+reactors. 
+
+For \glspl{PWR}, I use a linear core size model to capture varying reactor capacity
+(explained in section \ref{sec:writeinput}). The reactors deployed after 2020 are
+modeled after the AP-1000 reactor \cite{sutharshan_ap1000tm_2011}. The reactor
+specifications are shown in \ref{tab:us-reactor-specs}.
+
+\begin{table}[h]
+	\centering
+	\caption{Baseline \gls{LWR} and \gls{MSR} simulation specifications.}
+	\begin{tabular}{lrr}
+		\hline
+		\textbf{Specification} & \textbf{\gls{PWR} \cite{sutharshan_ap1000tm_2011}} & \textbf{\gls{MSR} \cite{mourogov_potentialities_2006}} \\
+		\hline
+		Lifetime [y]  & 80 & 60 \\
+		Cycle Time [mos.]& 18 & continuous \\ 
+		Refueling Outage [mos.]& 2 & N/A \\
+		Rated Power [\gls{MWe}] & 1110 & 1628 \\
+		Assembly mass [kg] & 446 & N/A \\
+		Batch mass [kg] & 23,192 & N/A \\
+		Discharge Burnup [GWd/tHM] & 51 & N/A \\
+		Assemblies per core & 157  & N/A \\
+		Batches per core & 3 & N/A \\
+		Initial Fissile Loading [t] & 3.1  $^{235}$U & ??????? \\
+		Fuel & \gls{UOX} & \gls{TRU}-U Cl Salt \\
+		\hline
+	\end{tabular}
+	
+	\label{tab:us-reactor-specs}
+	
+\end{table}
+
+
 \section{Material Definitions}
+Depletion calculations for the \gls{LWR} nuclear fuel are recipe-based, such 
+that a fresh and used fuel recipe is calculated beforehand using ORIGEN (see table \ref{tab:comp}).
+ORIGEN calculates buildup, decay and processing of radioactive materials
+\cite{parks_overview_1992}. This recipe has also been used for
+repository performance modeling \cite{wilson_adoption_2009}.
+For fresh \gls{LWR} fuel, I assume a fuel enrichment of 3.1\% U235.
+
+For depletion calculations for \gls{MSR} fuel, I use Saltproc (section \ref{sec:saltproc})
+to obtain depleted fuel compositions and waste stream composition in a continuously
+reprocessing reactor operation.
+
 
 \section{Results}
 
