@@ -10,9 +10,9 @@ behavior using an HDF5 database generated from SaltProc.
 \section{write\_input.py}
 \label{sec:writeinput}
 The objective for the \texttt{write\_input.py} module
-is to automate the population of Cyclus input files
+is to automate the generation of Cyclus input files
 to model the state of reactor fleets at a given
-point in time. 
+point in time.
 
 The module reads from the \gls{PRIS} database \cite{iaea_nuclear_2018}
 and extracts data on each reactor's country, reactor unit,
@@ -84,8 +84,7 @@ The module calculates the core sizes of various reactor
 types by using a linear core size model. It assumes that
 reactor cores scale linearly from a model reactor design.
 The model reactor designs are listed in table \ref{tab:lin_core}.
-For example, a 1,200 MWe PWR has 157 ∗ 1,200
-1,000 = 188 Uranium Oxide Fuel (UOX)
+For example, a 1,200 MWe PWR has $157 \times \frac{1,200}{1,000} = 188$ Uranium Oxide Fuel (UOX)
 assemblies, each weighing 446 kg. After each 18 month cycle, one-third of the core
 (77 assemblies) discharges. Refueling is assumed to take two months to complete,
 during which the reactor is shut down.
@@ -97,9 +96,9 @@ during which the reactor is shut down.
 		\hline
 		\textbf{Category} & \textbf{Model Reactor} & \textbf{Power [MWe]} & \textbf{Assembly Mass [kg]} & \textbf{Assemblies in Core} & \textbf{Reference}  \\
 		\hline
-		Generic \gls{PWR} & AP-1000 & 1110 & 446 & 157 & \cite{schulz_westinghouse_2006} \\
-		Generic \gls{BWR} & 4-MK I & 1098 &180 & 764 & \cite{moore_physical_1989} \\
-		Generic \gls{PHWR} & CANDU6 & 700 & 24.17 & 4,560 & \cite{galeriu_technical_nodate} \\
+		\gls{PWR} & AP-1000 & 1110 & 446 & 157 & \cite{schulz_westinghouse_2006} \\
+		\gls{BWR} & 4-MK I & 1098 &180 & 764 & \cite{moore_physical_1989} \\
+		\gls{PHWR} & CANDU6 & 700 & 24.17 & 4,560 & \cite{galeriu_technical_nodate} \\
 		\hline
 	\end{tabularx}
 	\label{tab:lin_core}
@@ -139,8 +138,8 @@ nature of liquid-fueled reactors like \glspl{MSR}.
 	
 	\node (hdf5 reactor) [process, below of = hdf5] {HDF5-reactor};
 	
-	\node (bid) [object, below of = hdf5 reactor] {Feed Material bid};
-	\node (request) [object, right of = bid] {Waste Material request};
+	\node (bid) [object, below of = hdf5 reactor] {Feed Material request};
+	\node (request) [object, right of = bid] {Waste Material bid};
 	\node (power) [object, left of = bid] {Power};
 	
 	\node (cyclus) [process, below of = bid] {Cyclus};
@@ -173,7 +172,7 @@ nature of liquid-fueled reactors like \glspl{MSR}.
 
 \subsection{Code Description}
 The user inputs only of the commodity names
-for each stream (e.g. waste, fertile streams), and the database path, since the
+for each stream (e.g. waste, fertile), and the database path, since the
 HDF5 database already contains the notion of reactor design,
 reprocessing scheme, and other reactor parameters (shown in
 figure \ref{diag:hdf5_flow}). The commodity names are needed
