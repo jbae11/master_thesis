@@ -150,8 +150,8 @@ having a high-resolution calculation of the material flow as well.
 \subsubsection{Discrete reactor facility modeling}
 Discrete modeling of reactors allows a higher resolution of the power supply and
 material flow. In the real world, especially in the United States, existing
-reactors do not have the exact same power output, or core size. This means that
-lumping the reactor fleet together causes loss in accuracy.
+reactors do not have the exact same power output or core size. This means that
+lumping the reactor fleet together causes a loss in accuracy.
 
 \glspl{NFCS} like COSI 6 \cite{meyer_new_2009}, EVOLCODE \cite{alvarez-velarde_validation_2014},
 FAMILY21 \cite{oecd_nuclear_2009},
@@ -174,7 +174,7 @@ such as power capacity, core size, and expected shutdown date (remaining lifetim
 
 One published study is done modeling the current U.S. nuclear fleet,
 using ORION \cite{sunny_transition_2015}. However, this work is far from
-modeling real-world U.S. nuclear fleet since it assumed a \gls{LWR} deployed power capacity
+modeling real-world U.S. nuclear fleet since it assumed an \gls{LWR} deployed power capacity
 of 90 GWe in 2015, which decreases by 5 GWe every year starting from 2030,
 meaning that no consideration is given to the actual shutdown dates of
 existing reactors. This simplification stems from ORION modeling reactor as
@@ -183,7 +183,7 @@ a fleet governed by a power demand, not discrete facilities.
 Another study on the U.S. \gls{NFC} transition scenario by Andrew Worrall \cite{utilization_worrall_2013}
 models actual U.S. nuclear fleets using the \gls{PRIS} database, which is the same
 method used for this work. However, the analysis is done using an extensive
-network of Excel spreadsheet, and not a \gls{NFCS}.
+network of Excel spreadsheet, and not an \gls{NFCS}.
 
 There exists a study done on the French nuclear fuel cycle transition scenario
 by Carre et al \cite{carre_overview_2009}, but it is unclear what tool they use.
@@ -209,7 +209,7 @@ France (REBUS-3700 \cite{mourogov_potentialities_2006}),
 and the European Union (MSFR \cite{heuer_towards_2014}, MOSART \cite{ignatiev_molten_2014})
 are developing \gls{MSR} designs.
 
-However, modeling a \gls{MSR} is challenging due to its online reprocessing
+However, modeling an \gls{MSR} is challenging due to its online reprocessing
 and continuously flowing fuel.
 The material flow in and out of the reactor is continuous and dynamic, as well as the
 composition inside the core.
@@ -223,7 +223,7 @@ to perform semi-continuous reprocessing of the fuel \cite{powers_inventory_2014,
 However, there is no existing \gls{NFCS} that has the capability to model \glspl{MSR}
 due to the large computational burden associated with frequent depletion calculations.
 
-This challenge of large computational time in a \gls{NFCS} can be overcome by `outsourcing' the computationally
+This challenge of large computational time in an \gls{NFCS} can be overcome by `outsourcing' the computationally
 heavy work to the higher-fidelity reactor physics and depletion codes. The output from the
 high-fidelity codes can be saved as a database, which then Cyclus reads to model the behavior
 corresponding to the \gls{MSR} design. For example, a high-fidelity code would run a certain
