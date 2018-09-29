@@ -185,6 +185,94 @@ undergo a large loss of nuclear capacity from 2030, under the
 assumption that U.S. reactors have a lifetime of 60 years.
 To make up for the decommissioned reactors.
 
+\section{Material Flow}
+
+\subsection{Material Flow}
+
+The fuel cycle is represented by a series of facility agents whose material 
+flow is illustrated in figure \ref{diag:us_fc}, along with
+the \Cyclus archetypes that were used to model each facility.
+
+\begin{figure}
+	\centering
+	\scalebox{0.6}{
+		\begin{tikzpicture}[align=center, node distance = 3cm and 3cm, auto]
+		% Place nodes
+		\node [block] (sr) {Mine (\texttt{SOURCE})};
+		\node [cloud, below of=sr] (nu) {Nat U};
+		\node [block, below of=nu] (enr) {Enrichment ({\footnotesize \texttt{ENRICHMENT}})};
+		\node [cloud, below of=enr] (uox) {\acrshort{UOX}};
+		\node [block, below of=uox] (lwr) {\gls{LWR} (\texttt{REACTOR})};
+		\node [cloud, right of=lwr] (snf) {\gls{UNF}};
+		\node [block, right of=snf] (pool) {Pool (\texttt{Storage})};
+		\node [cloud, left of=uox] (tl2) {Dep U};
+		\node [block, below of=tl2] (stor) {Storage (\texttt{Storage})};
+		\node [block, right of=tl] (sk) {Repository (\texttt{SINK})};
+		\node [cloud, below of=sk] (cunf) {Cooled \gls{UNF}};
+		\node [cloud, below of=pool] (cunf2) {Cooled \gls{UNF}};
+		\node [block, below of=snf] (rep) {{\small Reprocessing ({\footnotesize \texttt{SEPARATIONS}})}};
+		\node [cloud, below of=rep] (u) {Sep. U} ;
+		\node [cloud, left of=rep] (pu) {Sep. TRU};
+		\node [block, left of=pu] (mix) {Fabrication (\texttt{MIXER})};
+		\node [cloud, below of=mix] (fs) {Fuel Salt};
+		\node [block, below of=mox] (mxr) {\gls{MSR} (\texttt{HDF5-Reactor})};
+		\node [cloud, left of=stor] (tl) {Dep U};
+		
+		\node [cloud, right of=mxr] (waste) {Waste};
+		\node [cloud, right of=fs] (es) {End-of-life Salt};
+		
+		\draw[->, thick] (sr) -- (nu);
+		\draw[->, thick] (nu) -- (enr);
+		\draw[->, thick] (enr) -- (tl2);
+		\draw[->, thick] (tl2) -- (stor);
+		\draw[->, thick] (enr) -- (uox);
+		\draw[->, thick] (uox) -- (lwr);
+		\draw[->, thick] (lwr) -- (snf);
+		
+		\draw[->, thick] (lwr) -- (snf);
+		\draw[->, thick] (snf) -- (pool);
+		\draw[->, thick] (pool) -- (cunf);
+		\draw[->, thick] (pool) -- (cunf2);
+		\draw[->, thick] (cunf) -- (sk);
+		\draw[->, thick] (cunf2) -- (rep);
+		
+		\draw[->, thick] (rep) -- (u);
+		\draw[->, thick] (rep) -- (pu);
+		\draw[->, thick] (pu) -- (mix);
+		\draw[->, thick] (mix) -- (mox);
+		\draw[->, thick] (mox) -- (mxr);
+		
+		\draw[->, thick] (stor) -- (tl);
+		\draw[->, thick] (tl) to [bend right] (mxr);
+		\draw[->, thick] (tl) -- (mix);
+		
+		\draw[->, thick] (mxr) -- (waste);
+		\draw[->, thick] (waste) to [bend right=80] (sk);
+		\draw[->, thick] (mxr) -- (es);
+		\draw[->, thick] (es) -- (rep);
+		
+		
+		\end{tikzpicture}
+		
+	}
+	\caption{Fuel cycle facilities (blue boxes) represented by 
+		\Cyclus archetypes (in parentheses) pass materials (red 
+		ovals) around the simulation.} 
+	\label{diag:us_fc}
+\end{figure}
+
+The U.S. transition scenario's material flow is similar to that of France,
+except that all the \gls{TRU} is reprocessed from \gls{LWR} \gls{UNF}
+to fabricate fuel salt, instead of \gls{MOX}. Also, the depleted uranium from
+the enrichment plant is stored in a storage facility to be used for fabricating
+\gls{MSR} fuel salt and as a fertile stream for \gls{MSR} facilities. 
+Lastly, instead of a single
+stream of \gls{MOX} \gls{UNF} from the \gls{MOX} reactors, the \gls{MSR}
+outputs two streams - waste and end-of-life salt - that is disposed
+and reprocessed, respectively.
+
+\FloatBarrier
+
 
 \section{Scenario Specification}
 
@@ -262,7 +350,37 @@ For depletion calculations for \gls{MSR} fuel, I use Saltproc (section \ref{sec:
 to obtain depleted fuel compositions and waste stream composition in a continuously
 reprocessing reactor operation.
 
+\section{Database Generation}
+The HDF5 database for this simulation is generated using Saltproc
+and a unit cell model of the REBUS-3700 reactor. The parameters
+used for running SERPENT and Saltproc are shown in table \ref{tab:saltproc-run-params}.
 
+\begin{table}[h]
+	\centering
+	\caption{Saltproc simulation parameters used to generate the database for REBUS-3700}
+	\begin{tabular}{lr}
+		\hline
+		\textbf{Parameter} & \textbf{Value}\\
+		\hline
+		\multicolumn{2}{c}{SERPENT Parameters}
+		Num. neutrons per generation & 8000 \\
+		Num. active generation & 150\\
+		Num. inactive generation & 50 \\
+		Burnup calc. mode & CRAM \\
+		Power density & $32.18e-3$ kW/g \\ 
+		Depletion step & 30 days\\
+		
+		\hline
+		\multicolumn{2}{c}{Saltproc Parameters}
+		Lifetime [y]  & 30 \\
+		Total timesteps & 365 \\
+		Reprocessing Scheme & As table \ref{tab:rebus_reproc}\\
+		\hline
+	\end{tabular}
+	
+	\label{tab:saltproc-run-params}
+	
+\end{table}
 \section{Results}
 
 \section{Conclusion}
