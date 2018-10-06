@@ -70,29 +70,23 @@ The reference for the energy demand prediction is the
 \gls{EIA} Annual Energy Outlook \cite{u.s._eia_annual_2018}.
 The 2018 Annual Energy Outlook report predicts an annual electricity demand growth
 of 0.9\%. The report also predicts that nuclear
-power will either remain static or decrease. However, for this work,
-I assume that the U.S. nuclear power capacity increases with the general electricity
-demand, at a rate of 0.9\% from 2020 (shown in figure \ref{fig:us_proj}).
-
-\begin{figure}[htbp!]
-	\begin{center}
-		\includegraphics[scale=0.6]{./images/us/projection.png}
-	\end{center}
-	\caption{Projected nuclear power demand from 2020, with an
-			 annual increase rate of 0.9\%.}
-	\label{fig:us_proj}
-\end{figure}
+power will either remain static or decrease. The report
+predicts that nuclear capacity will decrease from 99 GWe
+to 79GWe in 2050, with no new plants beyond 2020.
+However, for this work,
+I assume that the U.S. nuclear power capacity is kept at the
+current capacity, and new reactors are deployed to make up for the
+decommissioned capacity.
 
 \subsection{\gls{MSR} Design and Availability}
 
-
-\gls{MSR} designs can be categorized into
-different groups depending on their operating
+\gls{MSR} designs can be categorized depending on their operating
 neutron spectrum (e.g. fast, thermal), fuel cycle (e.g. Th-$^{233}U$, U-Pu),
 and transmutation goals (e.g. breeder, burner). Selection of an \gls{MSR}
 design depends on various factors like economics, safety, and fuel cycle
-considerations. For this work, I use a fast, U-Pu cycle, burner \gls{MSR} design
-named REBUS-3700 \cite{mourogov_potentialities_2006}.
+considerations. For this work, I choose a fast, U-Pu cycle, burner \gls{MSR} design
+named REBUS-3700 \cite{mourogov_potentialities_2006} to deploy for the
+transition analysis.
 
 The REBUS-3700 \gls{MSR} design offers four principal
 advantages over other \gls{MSR} designs:
@@ -108,10 +102,11 @@ advantages over other \gls{MSR} designs:
 	\item Simpler design - no radial / axial blanket
 \end{itemize}
 
-The U.S. has a large inventory of \gls{UNF} and tails. The benefits
+The U.S. has a large inventory of \gls{LWR} \gls{UNF} and tails. The benefits
 of the REBUS-3700 design aligns with the waste management interest
 of the U.S of reducing final geological repository burden. The U.S. can dramatically reduce its repository
 burden by:
+
 \begin{itemize}
 	\item Reduction of \gls{TRU} inventory by transmutation in the reactor (table \ref{tab:rebus_comp})
 	\begin{itemize}
@@ -121,10 +116,37 @@ burden by:
 	\item Reducing tails inventory
 \end{itemize}
 
+Additionally, the REBUS-3700 does not have, at any moment in
+operation, separated fissile streams, like other \gls{MSR} designs
+such as the \gls{MSBR} design \cite{robertson_conceptual_1971} (protactinium tank for
+$^{233}U$),
+or the \gls{MCSFR} design \cite{smith_assessment_1974} (separated Pu stream from the blanket region).
+The REBUS-3700 only takes in depleted uranium and processes out
+fission product groups such as volatile gases and noble metals.
+The detailed reprocessing scheme is shown
+in table \ref{tab:rebus_reproc}. 
+This self-sustained and closed operation increases its non-proliferation
+properties.
+
+The REBUS-3700 initial fuel and equilibrium \gls{TRU} isotopic composition is
+shown in table \ref{tab:rebus_comp}. The \gls{TRU} isotopic composition
+matches that of the \gls{LWR} \gls{UNF} after 8.5 years of decay (shown
+in figure \ref{fig:trutru}). 
+
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/trutru.png}
+	\end{center}
+	\caption{\gls{TRU} vector of REBUS-3700 initial fuel from Mourogov et al. \cite{mourogov_potentialities_2006}
+		with \gls{LWR} \gls{UNF} after 8.5 years of decay}
+	\label{fig:trutru}
+\end{figure}
+
 
 \begin{table}[h]
 	\centering
-	\caption{Initial and equilibrium \gls{TRU} isotopic composition \cite{mourogov_potentialities_2006}}
+	\caption{Initial and equilibrium \gls{TRU} isotopic composition from literature \cite{mourogov_potentialities_2006}.}
 	\label{tab:rebus_comp}
 	\begin{tabular}{lll}
 		\hline
@@ -140,19 +162,39 @@ burden by:
 	\end{tabular}
 \end{table}
 
-Additionally, the REBUS-3700 does not have, at any moment in
-operation, separated fissile streams, like other \gls{MSR} designs
-such as the \gls{MSBR} design \cite{robertson_conceptual_1971} (Pa tank),
-or the \gls{MCSFR} design \cite{smith_assessment_1974} (separated Pu stream).
-The REBUS-3700 only takes in depleted uranium and processes out
-fission product groups such as volatile gases and noble metals.
-The detailed reprocessing scheme is shown
-in table \ref{tab:rebus_reproc}. 
-This self-sustained and closed operation increases its non-proliferation
-properties.
+I performed a preliminary feasibility study of the two initial fuel compositions using Saltproc.
+Results (in figure \ref{fig:rebus_diff}) show that the core with \gls{LWR} \gls{UNF} \gls{TRU}
+composition has a higher $k_{eff}$ value in the beginning, but shows little difference after
+the first ten years. A lifetime of 40 years for the REBUS-3700 reactor is set since the $k_{eff}$
+value drops below 1.01 after 40 years of operation. The \gls{TRU} composition for the end-of-life
+fuel salt is shown in table \ref{tab:eol_comp}.
 
-In this simulation, U.S. begins deployment of \glspl{MSR}
-in 2040. [how do i justify this?]
+
+\begin{table}[h]
+	\centering
+	\caption{Beginning-of-life and end-of-life \gls{TRU} composition in the REBUS-3700 design with modified initial fuel composition.}
+	\label{tab:eol_comp}
+	\begin{tabular}{lll}
+		\hline
+		Isotope & Beginning of Life & End of Life \\ 
+		\hline
+		Np237 & 4.80E-02 & 8.24E-03\\ 
+		Np239 & 0.00E+00 & 5.49E-04\\ 
+		Pu238 & 2.13E-02 & 2.72E-02\\ 
+		Pu239 & 4.84E-01 & 5.53E-01\\ 
+		Pu240 & 2.22E-01 & 2.84E-01\\ 
+		Pu241 & 9.05E-02 & 3.29E-02\\ 
+		Pu242 & 6.38E-02 & 4.56E-02\\ 
+		Am241 & 5.17E-02 & 1.87E-02\\ 
+		Am243 & 1.48E-02 & 1.39E-02\\ 
+		Cm242 & 0.00E+00 & 7.62E-04\\ 
+		Cm244 & 4.30E-03 & 1.11E-02\\ 
+		Cm245 & 4.00E-05 & 2.76E-03\\ 
+		Cm246 & 0.00E+00 & 9.63E-04\\ 
+		Cm247 & 0.00E+00 & 1.23E-04\\ 
+		\hline
+	\end{tabular}
+\end{table}
 
 
 \begin{table}[h]
@@ -162,7 +204,7 @@ in 2040. [how do i justify this?]
 	\begin{tabular}{lll}
 		\hline
 		Group & Elements & Reprocessing Time (s) \\
-		\hline    \\
+		\hline    
 		Volatile Gases & Kr, Xe, Ar, Ne, H, N, O, Rn & 30 \\
 		Noble Metals & \shortstack{Se, Nb, Mo, Tc, Ru, Rh,\\ Pd, Ag, Sb, Te, Zr, Cd, In, Sn} & 30 \\
 		Rare Earths & \shortstack{Y, La, Ce, Pr, Nd, Pm, Sm, Gd, \\ Eu, Dy, Ho, Er, Tb, Ga, Ge, As, Zn} & 259200 \\
@@ -174,20 +216,36 @@ in 2040. [how do i justify this?]
 
 \section{U.S. Deployment Schedule}
 
-
-
-Since it is unlikely that \glspl{MSR} are ready for
-commercial deployment in 2020, I deploy \glspl{LWR} (AP 1000 design \cite{sutharshan_ap1000tm_2011})
-to meet the increasing power demand.
-
 As shown in figure \ref{fig:us_legacy}, the U.S. will
 undergo a large loss of nuclear capacity from 2030, under the
 assumption that U.S. reactors have a lifetime of 60 years.
-To make up for the decommissioned reactors.
+
+Since it is unlikely that \glspl{MSR} are ready for
+commercial deployment in 2020, I deploy \glspl{LWR} (AP 1000 design \cite{sutharshan_ap1000tm_2011})
+to make up for the decommissioned capacity. After 2050,
+REBUS-3700 design \glspl{MSR} are deployed. The deployment of new reactors
+are shown in figure \ref{fig:us_dep}, and the installed
+power capacity of the reactors is shown in \ref{fig:us_pow}.
+In the simulation, 84 additional \glspl{LWR} and 95 \glspl{MSR}
+are deployed.
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/power_plot.png}
+	\end{center}
+	\caption{New reactor deployment from 2020.}
+	\label{fig:us_pow}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/us_dep.png}
+	\end{center}
+	\caption{New reactor deployment from 2020.}
+	\label{fig:us_dep}
+\end{figure}
 
 \section{Material Flow}
-
-\subsection{Material Flow}
 
 The fuel cycle is represented by a series of facility agents whose material 
 flow is illustrated in figure \ref{diag:us_fc}, along with
@@ -245,12 +303,12 @@ the \Cyclus archetypes that were used to model each facility.
 		\draw[->, thick] (stor) -- (tl);
 		\draw[->, thick] (tl) to [bend right] (mxr);
 		\draw[->, thick] (tl) -- (mix);
-		
+		\draw[->, thick] (nu) -- node{} ++ (-8cm, 0) |- (mix) ;
+			
 		\draw[->, thick] (mxr) -- (waste);
 		\draw[->, thick] (waste) to [bend right=80] (sk);
 		\draw[->, thick] (mxr) -- (es);
 		\draw[->, thick] (es) -- (rep);
-		
 		
 		\end{tikzpicture}
 		
@@ -262,10 +320,10 @@ the \Cyclus archetypes that were used to model each facility.
 \end{figure}
 
 The U.S. transition scenario's material flow is similar to that of France,
-except that all the \gls{TRU} is reprocessed from \gls{LWR} \gls{UNF}
-to fabricate fuel salt, instead of \gls{MOX}. Also, the depleted uranium from
-the enrichment plant is stored in a storage facility to be used for fabricating
-\gls{MSR} fuel salt and as a fertile stream for \gls{MSR} facilities. 
+except that all \gls{TRU} is reprocessed from \gls{LWR} \gls{UNF}
+to fabricate fuel salt. Also, the depleted uranium from
+the enrichment plant is stored in a storage facility to be used as a fertile stream for \gls{MSR} facilities.
+Natural uranium is mixed with the reprocessed \gls{TRU} to create fuel salt.
 Lastly, instead of a single
 stream of \gls{MOX} \gls{UNF} from the \gls{MOX} reactors, the \gls{MSR}
 outputs two streams - waste and end-of-life salt - that is disposed
@@ -289,9 +347,9 @@ are listed in table \ref{tab:us_sim_specs}.
 		Simulation Starts & 2013 & year\\
 		Simulation Ends & 2160 & year\\ 
 		Production of \gls{MSR} fuel begins & 2030 & year\\
-		\glspl{MSR} become available & 2040 & year\\
+		\glspl{MSR} become available & 2050 & year\\
 		Reprocessed uranium usage &  None & -\\
-		Minimum \gls{UNF} cooling time  & 36  & months\\
+		Minimum \gls{UNF} cooling time  & 8.5  & years\\
 		Separation efficiency of U and Pu & 99.8 & \% \\
 		Reprocessing streams & \gls{TRU} and U & - \\
 		Reprocessing capacity & $\infty$ & $\frac{\text{metric tons of \gls{UNF}}}{month}$\\
@@ -319,16 +377,17 @@ specifications are shown in \ref{tab:us-reactor-specs}.
 		\hline
 		\textbf{Specification} & \textbf{\gls{PWR} \cite{sutharshan_ap1000tm_2011}} & \textbf{\gls{MSR} \cite{mourogov_potentialities_2006}} \\
 		\hline
-		Lifetime [y]  & 80 & 30 \\
+		Lifetime [y]  & 80 & 40 \\
 		Cycle Time [mos.]& 18 & continuous \\ 
 		Refueling Outage [mos.]& 2 & N/A \\
 		Rated Power [\gls{MWe}] & 1110 & 1628 \\
 		Assembly mass [kg] & 446 & N/A \\
 		Batch mass [kg] & 23,192 & N/A \\
+		Core mass [kg] & 70,022 & 200,100 \\
 		Discharge Burnup [GWd/tHM] & 51 & N/A \\
 		Assemblies per core & 157  & N/A \\
 		Batches per core & 3 & N/A \\
-		Initial Fissile Loading [t] & 3.1  $^{235}$U & 12.68 \gls{TRU} \\
+		Initial Fissile Loading [t] & 3.1  $^{235}$U & 18.06 \gls{TRU} \\
 		Fuel & \gls{UOX} & \gls{TRU}-U Cl Salt \\
 		\hline
 	\end{tabular}
@@ -362,19 +421,22 @@ used for running SERPENT and Saltproc are shown in table \ref{tab:saltproc-run-p
 		\hline
 		\textbf{Parameter} & \textbf{Value}\\
 		\hline
-		\multicolumn{2}{c}{SERPENT Parameters}
-		Num. neutrons per generation & 8000 \\
+		\multicolumn{2}{c}{\textbf{SERPENT Parameters}} \\
+		\hline
+		Num. neutrons per generation & 8,000 \\
 		Num. active generation & 150\\
 		Num. inactive generation & 50 \\
 		Burnup calc. mode & CRAM \\
-		Power density & $32.18e-3$ kW/g \\ 
+		Power density & $32.18e-3$ $\frac{kW}{g}$ \\ 
 		Depletion step & 30 days\\
-		
+		Fuel salt density & $3.6 \frac{g}{cm^3}$ \\		
 		\hline
-		\multicolumn{2}{c}{Saltproc Parameters}
-		Lifetime [y]  & 30 \\
+		\multicolumn{2}{c}{\textbf{Saltproc Parameters}} \\
+		\hline
+		Lifetime [y]  & 60 \\
 		Total timesteps & 365 \\
 		Reprocessing Scheme & As table \ref{tab:rebus_reproc}\\
+		Refill material & Depleted uranium ($0.3\%$ $^{235}U$) \\
 		\hline
 	\end{tabular}
 	

@@ -6,6 +6,13 @@ The goal of a \gls{NFCS} is to calculate \textit{metrics} - quantitative
 measures of performance that can be compared among fuel cycle
 options \cite{huff_fundamental_2016}.
 
+The obtained metrics can then be optimized to the interests
+of different stakeholders. Passerini et al. \cite{passerini_systematic_2017}
+identified categories and criteria for \gls{NFC} optimization and
+weighted the criteria for different stakeholders (e.g. Industry, laboratories).
+This approach can help decide which metric is important to stakeholders
+and optimize the fuel cycle for that metric.
+
 Table \ref{tab:fcs} lists the \glspl{NFCS}
 that are considered in this section. The \glspl{NFCS}
 listed generally are focused on one functionality
@@ -126,12 +133,12 @@ are organized in table \ref{tab:ffh}.
 \end{table}
 
 \section{Additional capabilities identified for real-world fuel cycle transition scenario}
-I identified two additional functionalities beyond the ones identified by Brown et al \cite{brown_identification_2016}
+I identified three additional functionalities beyond the ones identified by Brown et al \cite{brown_identification_2016}
 for modeling real-world \gls{NFC} transition scenario -
-modeling discrete, real-world reactor fleets and operational history; modeling liquid-fueled
+integrating historical data, modeling discrete facilities and events, and modeling liquid-fueled
 reactors with continuous reprocessing.
 
-\subsection{Modeling discrete, real-world reactor facilities}
+\subsection{Integrating historical data}
 For modeling real-world nuclear fuel cycle transition scenarios, the initial
 condition (e.g. existing fissile inventory, existing reactor fleet) is important
 to plan the transition scenario, such as reactor deployment
@@ -142,31 +149,7 @@ scenario involves advanced reactors (fast-spectrum reactors) filling in the
 gap of decommissioned \glspl{LWR}.
 Once the energy supply of the current fleet is calculated,
 the analyst can determine the deployment scheme of future reactors to meet a certain
-power demand in the future. Thus, it is important for the \gls{NFCS} to be able to simulate
-discrete, real-world reactor fleets to have an accurate deployment scheme to
-meet power demand. Additionally having discrete facilities will translate into
-having a high-resolution calculation of the material flow as well.
-
-\subsubsection{Discrete reactor facility modeling}
-Discrete modeling of reactors allows a higher resolution of the power supply and
-material flow. In the real world, especially in the United States, existing
-reactors do not have the exact same power output or core size. This means that
-lumping the reactor fleet together causes a loss in accuracy.
-
-\glspl{NFCS} like COSI 6 \cite{meyer_new_2009}, EVOLCODE \cite{alvarez-velarde_validation_2014},
-FAMILY21 \cite{oecd_nuclear_2009},
-do have discrete facility modeling capabilities, while
-DESAE2.2\cite{tsibulskiy_desae_2006}, and VISION \cite{jacobson_verifiable_2010} do
-not \cite{boucher_international_2010}. Even for \glspl{NFCS} with discrete modeling
-capabilities, some do not model distinct activities. For example, COSI models
-reactors operating in sync \cite{boucher_benchmark_2012}.
-
-Similarly, most \glspl{NFCS} do not treat disruption events (lack of fuel supply,
-or decommissioning of a reactor)
-discretely. For example, ORION shuts down the entire simulation if there
-is a lack of fuel supply, and cannot decommission reactors mid-cycle.
-DESAE `borrows' lacking fuel from storage (leaving a
-negative value) instead of shutting down the reactor \cite{mccarthy_benchmark_2012}.
+power demand in the future. 
 
 \subsubsection{Past work on modeling real-world fleets}
 Modeling real-world fleets requires data about the current existing fleet,
@@ -185,16 +168,33 @@ models actual U.S. nuclear fleets using the \gls{PRIS} database, which is the sa
 method used for this work. However, the analysis is done using an extensive
 network of Excel spreadsheet, and not an \gls{NFCS}.
 
-There exists a study done on the French nuclear fuel cycle transition scenario
-by Carre et al \cite{carre_overview_2009}, but it is unclear what tool they use.
-[I emailed him to find out.]
-
-However, modeling real-world fleets is possible in Cyclus, due to two major
+Modeling real-world fleets is possible in Cyclus, due to two major
 reasons. First, Cyclus models
 discrete facilities with their own events and material flow.
 Second, Cyclus has a text-based input file structure, meaning that
 the input files (and thus the scenario) can be generated from 
-a database, which is what is done in this work.
+a database and a script, which is what is done in this work.
+
+
+\subsubsection{Discrete reactor facility modeling}
+Discrete modeling of reactors allows a higher resolution of the power supply and
+material flow. In the real world, especially in the United States, existing
+reactors do not have the exact same power output or core size. This means that
+lumping the reactor fleet together causes a loss in accuracy. 
+\glspl{NFCS} like COSI 6 \cite{meyer_new_2009}, EVOLCODE \cite{alvarez-velarde_validation_2014},
+FAMILY21 \cite{oecd_nuclear_2009},
+do have discrete facility modeling capabilities, while
+DESAE2.2\cite{tsibulskiy_desae_2006}, and VISION \cite{jacobson_verifiable_2010} do
+not \cite{boucher_international_2010}.
+
+Similarly, most \glspl{NFCS} do not treat disruption events (lack of fuel supply,
+or decommissioning of a reactor)
+discretely. For example, ORION shuts down the entire simulation if there
+is a lack of fuel supply, and cannot decommission reactors mid-cycle.
+DESAE `borrows' lacking fuel from storage (leaving a
+negative value) instead of shutting down the reactor \cite{mccarthy_benchmark_2012}.
+COSI models reactors operating in sync \cite{boucher_benchmark_2012}.
+
 
 \subsection{Modeling liquid-fueled reactors with continuous reprocessing}
 \label{sec:msr}

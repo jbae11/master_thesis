@@ -205,6 +205,106 @@ larger scale production of components and more modular assembly and construction
 
 This analysis establishes a multi-national material flow and demonstrates that, if such an aggressive deployment scheme took place, the \glspl{SFR} would have enough fuel.
 
+\subsection{Material Flow}
+
+\subsection{Material Flow}
+
+The fuel cycle is represented by a series of facility agents whose material 
+flow is illustrated in figure \ref{diag:fc}, along with
+the \Cyclus archetypes that were used to model each facility.
+In this diagram, \gls{MOX} Reactors include both French \glspl{PWR} and 
+\glspl{SFR}.
+
+% Define block styles
+\tikzstyle{decision} = [diamond, draw, fill=blue!20, 
+text width=4.5em, text badly centered, node distance=3cm, inner sep=0pt]
+\tikzstyle{block} = [rectangle, draw, fill=blue!20, 
+text width=5em, text centered, rounded corners, minimum height=4em]
+\tikzstyle{line} = [draw, -latex']
+\tikzstyle{cloud} = [draw, ellipse,fill=red!20, node distance=3cm,
+minimum height=2em]
+
+
+\begin{figure}
+	\centering
+	\scalebox{0.6}{
+		\begin{tikzpicture}[align=center, node distance = 3cm and 3cm, auto]
+		% Place nodes
+		\node [block] (sr) {Mine (\texttt{SOURCE})};
+		\node [cloud, below of=sr] (nu) {Nat U};
+		\node [block, below of=nu] (enr) {Enrichment ({\footnotesize \texttt{ENRICHMENT}})};
+		\node [cloud, below of=enr] (uox) {\acrshort{UOX}};
+		\node [block, below of=uox] (lwr) {\gls{LWR} (\texttt{REACTOR})};
+		\node [cloud, right of=lwr] (snf) {\gls{UNF}};
+		\node [block, right of=snf] (pool) {Pool (\texttt{Storage})};
+		\node [cloud, left of=lwr] (tl2) {Dep U};
+		\node [cloud, right of=enr] (tl) {Dep U};
+		\node [block, right of=tl] (sk) {Repository (\texttt{SINK})};
+		\node [cloud, below of=sk] (cunf) {Cooled \gls{UNF}};
+		\node [cloud, below of=pool] (cunf2) {Cooled \gls{UNF}};
+		\node [block, below of=snf] (rep) {{\small Reprocessing ({\footnotesize \texttt{SEPARATIONS}})}};
+		\node [cloud, below of=rep] (u) {Sep. U} ;
+		\node [cloud, left of=rep] (pu) {Sep. Pu};
+		\node [block, left of=pu] (mix) {Fabrication (\texttt{MIXER})};
+		\node [cloud, below of=mix] (mox) {\gls{MOX}};
+		\node [block, below of=mox] (mxr) {\gls{MOX} Reactors 
+			(\texttt{REACTOR})};
+		\node [cloud, right of= mxr] (snmox) {Spent \gls{MOX}};
+		
+		\draw[->, thick] (sr) -- (nu);
+		\draw[->, thick] (nu) -- (enr);
+		\draw[->, thick] (enr) -- (tl);
+		\draw[->, thick] (enr) -- (tl2);
+		\draw[->, thick] (tl) -- (sk);
+		\draw[->, thick] (tl2) -- (mix);
+		\draw[->, thick] (enr) -- (uox);
+		\draw[->, thick] (uox) -- (lwr);
+		\draw[->, thick] (lwr) -- (snf);
+		
+		\draw[->, thick] (lwr) -- (snf);
+		\draw[->, thick] (snf) -- (pool);
+		\draw[->, thick] (pool) -- (cunf);
+		\draw[->, thick] (pool) -- (cunf2);
+		\draw[->, thick] (cunf) -- (sk);
+		\draw[->, thick] (cunf2) -- (rep);
+		
+		\draw[->, thick] (rep) -- (u);
+		\draw[->, thick] (rep) -- (pu);
+		\draw[->, thick] (pu) -- (mix);
+		\draw[->, thick] (mix) -- (mox);
+		\draw[->, thick] (mox) -- (mxr);
+		\draw[->, thick] (mxr) -- (snmox);
+		\draw[->, thick] (snmox) -- (rep);
+		
+		\end{tikzpicture}
+		
+	}
+	\caption{Fuel cycle facilities (blue boxes) represented by 
+		\Cyclus archetypes (in parentheses) pass materials (red 
+		ovals) around the simulation.} 
+	\label{diag:fc}
+\end{figure}
+
+A mine facility provides natural uranium, which is enriched by an enrichment
+facility to produce \gls{UOX}. Enrichment wastes (tails) are disposed of to a 
+sink facility representing ultimate disposal. The enriched \gls{UOX} fuels
+the \glspl{LWR} which in turn produce spent \gls{UOX}. The used fuel
+is sent to a wet storage facility for a minimum of 72 months. \cite{carre_overview_2009}.
+
+The cooled fuel is then reprocessed to separate plutonium and uranium,
+or sent to the repository.
+The plutonium mixed with depleted uranium (tails) makes \gls{MOX} (Both for
+French \glspl{LWR} and \glspl{ASTRID}).
+Reprocessed uranium is unused and stockpiled. Uranium is reprocessed
+in order to separate the raffinate (minor actinides and fission products)
+from usable material. Though neglected in this work, reprocessed
+uranium may substitute depleted uranium for \gls{MOX} production. In the
+simulations, sufficient depleted uranium existed that the complication of
+preparing reprocessed uranium for incorporation into reactor fuel
+was not included. However, further in the future where the depleted
+uranium inventory drains, reprocessed uranium (or, natural uranium) will need to be utilized. 
+
+\FloatBarrier
 \subsection{Scenario Specification}
 
 The scenario specifications defining the simulations presented in this work 
@@ -239,6 +339,7 @@ French La Hague and MELOX sites \cite{schneider_spent_2008, hugelmann_melox_1999
     \end{tabularx}
     \label{tab:gen}
 \end{table}
+
 
 
 \pagebreak
