@@ -1,0 +1,39 @@
+
+\section{Limitations of the database approach}
+The limitations of this database approach is that it does not
+take into account the changing incoming fuel compositions due to decay.
+The separated \gls{TRU} composition may vary depending on the time
+a \gls{LWR} \gls{UNF} has been cooled, thus affecting the performance
+of the \gls{MSR}. The database approach assumes a fixed input salt
+composition, which is not the case in this simulation, for reprocessed
+\gls{TRU} spends varying amounts of time until it is fabricated and
+put in the \gls{MSR}.
+
+A way to overcome this limitation is to use a database of databases 
+that contain Saltproc simulation results with varying initial \gls{TRU}
+vectors. When the reactor archetype receives the fuel, it will find the
+Saltproc simulation result that used initial fuel closest to that
+of the received fuel salt, minimizing error stemming from varying
+\gls{TRU}.
+
+This limitation is similar to that of batch-wise recipe reactors, where the 
+pre-generated recipe already has a notion of the composition of initial fuel.
+This results in a depleted fuel composition that is agnostic to the incoming
+fuel composition in the simulation. For example, a batch-wise recipe reactor
+depleting a \gls{MOX} fuel would depleted the \gls{MOX} fuel to a same
+composition regardless of its plutonium vector. This is mediated by using
+fuel fabrication facility that modifies the plutonium enrichment to
+meet a certain fissile value (in Cyclus, the Cycamore \texttt{FuelFab} archetype).
+
+The same method can be applied, where, instead of using a fixed mass ratio
+to fabricate fuel for \glspl{MSR}, the fuel fabrication is done by modifying
+the \gls{TRU} enrichment to match a certain fissile value. However, this is
+not a solution to solve the accuracy problem for depletion and errors
+in neutronics calculations.
+
+The best solution is to have a built-in depletion calculation model. However,
+as mentioned before, this requires too much computational burden. Another
+interesting method is to implement a reduced-order-model of \gls{MSR} depletion
+behavior created by training from a large dataset of Saltproc simulations. This
+way the computationally heavy work can be outsourced, and the variations
+in the initial fuel composition can be taken into account.

@@ -131,7 +131,7 @@ properties.
 The REBUS-3700 initial fuel and equilibrium \gls{TRU} isotopic composition is
 shown in table \ref{tab:rebus_comp}. The \gls{TRU} isotopic composition
 matches that of the \gls{LWR} \gls{UNF} after 8.5 years of decay (shown
-in figure \ref{fig:trutru}). 
+in figure \ref{fig:trutru}).
 
 
 \begin{figure}[htbp!]
@@ -162,40 +162,34 @@ in figure \ref{fig:trutru}).
 	\end{tabular}
 \end{table}
 
-I performed a preliminary feasibility study of the two initial fuel compositions using Saltproc.
-Results (in figure \ref{fig:rebus_diff}) show that the core with \gls{LWR} \gls{UNF} \gls{TRU}
-composition has a higher $k_{eff}$ value in the beginning, but shows little difference after
-the first ten years. A lifetime of 40 years for the REBUS-3700 reactor is set since the $k_{eff}$
-value drops below 1.01 after 40 years of operation. The \gls{TRU} composition for the end-of-life
-fuel salt is shown in table \ref{tab:eol_comp}.
+The change in $K_{eff}$ values in the REBUS-3700 core is shown in figure \ref{fig:keff}.
+A lifetime of 40 years for the REBUS-3700 reactor is set since the $k_{eff}$
+value drops below 1.01 after 40 years of operation. Also, the REBUS reactor discharges
+waste (reprocessed elements - in table \ref{tab:rebus_reproc}) at an average rate of 
+$90.34 \frac{kg}{month}$ (figure \ref{fig:rebus_waste}). 
 
 
-\begin{table}[h]
-	\centering
-	\caption{Beginning-of-life and end-of-life \gls{TRU} composition in the REBUS-3700 design with modified initial fuel composition.}
-	\label{tab:eol_comp}
-	\begin{tabular}{lll}
-		\hline
-		Isotope & Beginning of Life & End of Life \\ 
-		\hline
-		Np237 & 4.80E-02 & 8.24E-03\\ 
-		Np239 & 0.00E+00 & 5.49E-04\\ 
-		Pu238 & 2.13E-02 & 2.72E-02\\ 
-		Pu239 & 4.84E-01 & 5.53E-01\\ 
-		Pu240 & 2.22E-01 & 2.84E-01\\ 
-		Pu241 & 9.05E-02 & 3.29E-02\\ 
-		Pu242 & 6.38E-02 & 4.56E-02\\ 
-		Am241 & 5.17E-02 & 1.87E-02\\ 
-		Am243 & 1.48E-02 & 1.39E-02\\ 
-		Cm242 & 0.00E+00 & 7.62E-04\\ 
-		Cm244 & 4.30E-03 & 1.11E-02\\ 
-		Cm245 & 4.00E-05 & 2.76E-03\\ 
-		Cm246 & 0.00E+00 & 9.63E-04\\ 
-		Cm247 & 0.00E+00 & 1.23E-04\\ 
-		\hline
-	\end{tabular}
-\end{table}
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/keff.png}
+	\end{center}
+	\caption{Change in $K_{eff}$ value in the REBUS-3700 core. The $K_{eff}$ drops below
+			1.01 after 40 years of operation.}
+	\label{fig:keff}
+\end{figure}
 
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/rebus_waste.png}
+	\end{center}
+	\caption{Mass of waste discharged from a single REBUS reactor. The peaks
+		are due to the timestep differences in Cyclus and Saltproc, where Cyclus
+		uses 30.43 days for a month (1/12 of 365.25), and Saltproc uses 30-day
+		timesteps. The peaks occur when two Saltproc timestep-worth of waste is discharged
+		per one Cyclus timestep.
+		}
+	\label{fig:rebus_waste}
+\end{figure}
 
 \begin{table}[h]
 	\centering
@@ -443,6 +437,136 @@ used for running SERPENT and Saltproc are shown in table \ref{tab:saltproc-run-p
 	\label{tab:saltproc-run-params}
 	
 \end{table}
+
+
+[keff and logic for lifetime]
+
+
 \section{Results}
+Results show that the United States can transition into a
+fully \gls{MSR} fleet, while reducing final repository
+burden by reducing \gls{TRU} and depleted uranium
+inventory.
+
+\subsection{\gls{LWR} \gls{UNF} inventory}
+
+Table \ref{tab:us_lwr_unf} lists the U.S. nuclear inventory.
+Since major deployment of \glspl{MSR} do not begin until 2110,
+the U.S. has a long time to prepare and accumulate the \glspl{TRU}
+required for \gls{MSR} fuel salt fabrication. The U.S. accumulates
+an additional $196,976$ \gls{MTHM} of \gls{LWR} \gls{UNF}
+from 2013 to 2130, the year when the last \gls{LWR} decommissions.
+
+Figure \ref{fig:us_lwr_unf} shows the accumulation of \gls{LWR} \gls{UNF}.
+This figure does not take into account the \gls{LWR} \gls{UNF} reprocessed.
+The large discharge quantities prior to 2040 is because the legacy \glspl{LWR}
+are deployed in the first timestep, thus discharging their fuel in sync.
+The later deployed \glspl{LWR} are not in sync, which makes the monthly
+discharge more averaged out.
+
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/us_lwr_unf.png}
+	\end{center}
+	\caption{U.S. \gls{LWR} \gls{UNF} accumulation. The red is the
+			amount discharged per timestep, and the blue is the cumulative
+			inventory.}
+	\label{fig:us_lwr_unf}
+\end{figure}
+
+\begin{table}[h]
+	\centering
+	\caption{U.S. \gls{LWR} \gls{UNF} material flow and inventory}
+	\begin{tabular}{lrl}
+		\hline
+		\textbf{Category} & \textbf{Value [MTHM]} \\
+		\hline
+		US \gls{UNF} UOX generated in 2013-2050 & 78,281 \\
+		US legacy \gls{LWR} \gls{UNF} in 2013 & 68,072 \\
+		Total US \gls{LWR} \gls{UNF} inventory in 2050 & 146,353 \\
+		Total US \gls{LWR} \gls{UNF} created from 2013 & 196,976 \\
+		\hline
+	\end{tabular}
+	\label{tab:us_lwr_unf}
+\end{table}
+
+
+\subsection{Reprocessing and fabrication material flow}
+
+Metrics for reprocessing \gls{LWR} \gls{UNF} to
+separate \gls{TRU} to fabricate \gls{MSR} fuel salt
+is shown in table \ref{tab:us_rep}. A total of
+$19,015$ MTHM of fuel salt is sent to the \glspl{MSR}.
+This used a total of $132,953$ MTHM of \gls{LWR} \gls{UNF}
+to extract the \gls{TRU} for the fuel.
+
+Figure \ref{fig:lwr_unf_reproc} shows the cumulative amount of \gls{LWR}
+\gls{UNF} reprocessed over time. The initial stage (2050-2100) is characterized
+by a small amount of reprocessing due to the small number of \glspl{MSR} deployed.
+On the other hand, from 2100, aggressive deployment of \glspl{MSR} causes
+a large increase in the amount of \gls{LWR} \gls{UNF} reprocessing. This sudden
+jump in demand can be mediated by reprocessing the \gls{LWR} \gls{UNF} beforehand.
+
+\begin{table}[h]
+	\centering
+	\caption{U.S. reprocessing metrics}
+	\begin{tabular}{lrl}
+		\hline
+		\textbf{Category} & \textbf{Value [MTHM]} \\
+		\hline
+		Total fuel salt mass sent to \gls{MSR}s & 19,015 \\
+		Total TRU extracted from \gls{LWR} \gls{UNF} & 1,815 \\
+		Total \gls{LWR} \gls{UNF} reprocessed & 132,953 \\
+		Average monthly reprocessing demand of \gls{LWR} \gls{UNF} & 92.77 \\
+		Average monthly fabrication of fuel salt & 13.26 \\
+		Total raffinate stockpile & 3,927 \\
+		\hline
+	\end{tabular}
+	\label{tab:us_rep}
+\end{table}
+
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/lwr_unf_reproc.png}
+	\end{center}
+	\caption{Cumulative mass of \gls{LWR} \gls{UNF} reprocessed for \gls{MSR}
+			salt fabrication.}
+	\label{fig:lwr_unf_reproc}
+\end{figure}
+
+\subsection{Waste inventory and resource usage}
+
+Table \ref{tab:us_waste} shows the amount of various nuclear waste
+inventory at the end of the simulation. Large amounts of \gls{LWR}
+\gls{UNF} ($132,094$ MTHM) and depleted uranium ($~1.1$ million tons)
+remain unused, meaning that more \glspl{MSR} could have been deployed.
+The tails usage from the \glspl{MSR} are not significant compared to
+the amount of tails accumulated ($~0.2\%$). One way to use more tails
+is to use depleted uranium instead of natural uranium for initial
+fuel salt fabrication. This would mean increasing the \gls{TRU} composition
+in the fuel salt to make up for the lost $^{235}U$, which is favorable,
+since there is still $132,094$ MTHM of \gls{LWR} \gls{UNF} leftover.
+
+\begin{table}[h]
+	\centering
+	\caption{U.S. waste metrics.}
+	\begin{tabular}{lrl}
+		\hline
+		\textbf{Category} & \textbf{Value [MTHM]} \\
+		\hline
+			\gls{LWR} \gls{UNF} leftover inventory & 132,094 \\
+			Total waste from \gls{MSR}s & 2,972 \\
+			Total tails created & 1,192,722 \\
+			Total reprocessed uranium stockpile & 260,867 \\
+			Total tails used & 2,969 \\
+			Total remaining tails inventory & 1,189,753 \\
+			Total natural U used & 1,389,698 \\
+		\hline
+	\end{tabular}
+	\label{tab:us_waste}
+\end{table}
+
 
 \section{Conclusion}
