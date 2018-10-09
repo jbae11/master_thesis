@@ -1,6 +1,6 @@
 
-The United States have been the forerunner of nuclear energy, with a currently 
-installed nuclear capacity of 100,350 \gls{MWe} \cite{iaea_nuclear_2017}.
+The United States has been the forerunner of nuclear energy, with a currently 
+installed nuclear capacity of 99,221 \gls{MWe} \cite{iaea_nuclear_2017}.
 With its size and long history of nuclear
 energy, the United States have accumulated about $70,000$ \gls{MTHM} of \gls{UNF}.
 
@@ -25,18 +25,18 @@ from a \gls{LWR} fleet into a \gls{MSR} fleet.
 
 For the French scenario, the \gls{UNF} inventory at the present
 time is calculated by simulating the nuclear operational history from 1970.
-However, this is unnecessary for the U.S. scenario because there is a 
-detailed database that describes the U.S. \gls{UNF} inventory up to May of 2013.
+However, this is unnecessary for the U.S. scenario because a detailed
+database exists that describes the U.S. \gls{UNF} inventory up to May of 2013.
 The \gls{UNF-STANDARDS} is a comprehensive,
 controlled source of \gls{UNF} information, including dry cask attributes, assembly
 data, and economic attributes \cite{peterson_unf-st&dards_2017}. This database
 allows the transition scenario simulation to start from 2013, instead of 1970,
 as in the French simulation. The \gls{UNF} inventory mass and composition in 2013
 is imported from \gls{UNF-STANDARDS} and is `initiated' in the simulation
-as a \texttt{Source} facility. The total mass of \gls{UNF} listed
-in the \gls{UNF-STANDARDS} database is 68,072 MTHM.
+as a \texttt{Source} facility with an inventory of 68,072 MTHM,
+the total mass of the \gls{LWR} \gls{UNF} in the \gls{UNF-STANDARDS}.
 
-Furthermore U.S. currently has additional uranium resource in the
+Furthermore U.S. currently has additional uranium resources in the
 form of more than $700,000$ MTHM of depleted uranium \cite{office_nuclear_2011},
 which is a waste product of enrichment. The depleted uranium inventory
 is currently a liability and waste, but can be utilized as fertile material
@@ -57,13 +57,6 @@ of the current U.S. nuclear from 2013 (shown in figure \ref{fig:us_legacy}).
 	\label{fig:us_legacy}
 \end{figure}
 
-The U.S. had 101 reactor units operating in 2013. Two reactors -
-Vermont Yankee and Fort Calhoun One - has shut down since 2013.
-Vermont Yankee was shut down in December, 2014, and Fort
-Calhoun One was shut down in October, 2016. At the date of this
-work, the United States has 99 commercial reactors with a 
-net capacity of 100,350 \gls{MWe} \cite{iaea_nuclear_2017}.
-
 
 \subsection{Energy Demand Prediction}
 The reference for the energy demand prediction is the 
@@ -75,7 +68,7 @@ predicts that nuclear capacity will decrease from 99 GWe
 to 79GWe in 2050, with no new plants beyond 2020.
 However, for this work,
 I assume that the U.S. nuclear power capacity is kept at the
-current capacity, and new reactors are deployed to make up for the
+current capacity of 99GWe, and new reactors are deployed to make up for the
 decommissioned capacity.
 
 \subsection{\gls{MSR} Design and Availability}
@@ -88,7 +81,7 @@ considerations. For this work, I choose a fast, U-Pu cycle, burner \gls{MSR} des
 named REBUS-3700 \cite{mourogov_potentialities_2006} to deploy for the
 transition analysis.
 
-The REBUS-3700 \gls{MSR} design offers four principal
+The REBUS-3700 \gls{MSR} design offers five principal
 advantages over other \gls{MSR} designs:
 \begin{itemize}
 	\item Fast spectrum - no need for moderator rods 
@@ -104,8 +97,8 @@ advantages over other \gls{MSR} designs:
 
 The U.S. has a large inventory of \gls{LWR} \gls{UNF} and tails. The benefits
 of the REBUS-3700 design aligns with the waste management interest
-of the U.S of reducing final geological repository burden. The U.S. can dramatically reduce its repository
-burden by:
+of the U.S of reducing final geological repository burden, which can be 
+accomplished by:
 
 \begin{itemize}
 	\item Reduction of \gls{TRU} inventory by transmutation in the reactor (table \ref{tab:rebus_comp})
@@ -128,7 +121,7 @@ in table \ref{tab:rebus_reproc}.
 This self-sustained and closed operation increases its non-proliferation
 properties.
 
-The REBUS-3700 initial fuel and equilibrium \gls{TRU} isotopic composition is
+The initial fuel and equilibrium \gls{TRU} isotopic composition of REBUS-3700 is
 shown in table \ref{tab:rebus_comp}. The \gls{TRU} isotopic composition
 matches that of the \gls{LWR} \gls{UNF} after 8.5 years of decay (shown
 in figure \ref{fig:trutru}).
@@ -139,7 +132,7 @@ in figure \ref{fig:trutru}).
 		\includegraphics[scale=0.6]{./images/us/trutru.png}
 	\end{center}
 	\caption{\gls{TRU} vector of REBUS-3700 initial fuel from Mourogov et al. \cite{mourogov_potentialities_2006}
-		with \gls{LWR} \gls{UNF} after 8.5 years of decay}
+		with \gls{LWR} \gls{UNF} after 51 GWdth/MTHM burnup and 8.5 years of decay}
 	\label{fig:trutru}
 \end{figure}
 
@@ -162,34 +155,6 @@ in figure \ref{fig:trutru}).
 	\end{tabular}
 \end{table}
 
-The change in $K_{eff}$ values in the REBUS-3700 core is shown in figure \ref{fig:keff}.
-A lifetime of 40 years for the REBUS-3700 reactor is set since the $k_{eff}$
-value drops below 1.01 after 40 years of operation. Also, the REBUS reactor discharges
-waste (reprocessed elements - in table \ref{tab:rebus_reproc}) at an average rate of 
-$90.34 \frac{kg}{month}$ (figure \ref{fig:rebus_waste}). 
-
-
-\begin{figure}[htbp!]
-	\begin{center}
-		\includegraphics[scale=0.6]{./images/us/keff.png}
-	\end{center}
-	\caption{Change in $K_{eff}$ value in the REBUS-3700 core. The $K_{eff}$ drops below
-			1.01 after 40 years of operation.}
-	\label{fig:keff}
-\end{figure}
-
-\begin{figure}[htbp!]
-	\begin{center}
-		\includegraphics[scale=0.6]{./images/us/rebus_waste.png}
-	\end{center}
-	\caption{Mass of waste discharged from a single REBUS reactor. The peaks
-		are due to the timestep differences in Cyclus and Saltproc, where Cyclus
-		uses 30.43 days for a month (1/12 of 365.25), and Saltproc uses 30-day
-		timesteps. The peaks occur when two Saltproc timestep-worth of waste is discharged
-		per one Cyclus timestep.
-		}
-	\label{fig:rebus_waste}
-\end{figure}
 
 \begin{table}[h]
 	\centering
@@ -271,7 +236,7 @@ the \Cyclus archetypes that were used to model each facility.
 		\node [cloud, left of=stor] (tl) {Dep U};
 		
 		\node [cloud, right of=mxr] (waste) {Waste};
-		\node [cloud, right of=fs] (es) {End-of-life Salt};
+		\node [cloud, below of=waste] (eols) {End-of-life salt};
 		
 		\draw[->, thick] (sr) -- (nu);
 		\draw[->, thick] (nu) -- (enr);
@@ -301,8 +266,8 @@ the \Cyclus archetypes that were used to model each facility.
 			
 		\draw[->, thick] (mxr) -- (waste);
 		\draw[->, thick] (waste) to [bend right=80] (sk);
-		\draw[->, thick] (mxr) -- (es);
-		\draw[->, thick] (es) -- (rep);
+		\draw[->, thick] (mxr) -- (eols);
+		\draw[->, thick] (eols) to [bend right=80] (sk);		
 		
 		\end{tikzpicture}
 		
@@ -320,8 +285,7 @@ the enrichment plant is stored in a storage facility to be used as a fertile str
 Natural uranium is mixed with the reprocessed \gls{TRU} to create fuel salt.
 Lastly, instead of a single
 stream of \gls{MOX} \gls{UNF} from the \gls{MOX} reactors, the \gls{MSR}
-outputs two streams - waste and end-of-life salt - that is disposed
-and reprocessed, respectively.
+outputs two streams - waste and end-of-life salt - which are both disposed.
 
 \FloatBarrier
 
@@ -348,7 +312,6 @@ are listed in table \ref{tab:us_sim_specs}.
 		Reprocessing streams & \gls{TRU} and U & - \\
 		Reprocessing capacity & $\infty$ & $\frac{\text{metric tons of \gls{UNF}}}{month}$\\
 		\gls{MSR} fuel salt fabrication throughput & No limit ($\infty$) & $\frac{\text{metric tons}}{month}$ \\
-		\gls{MSR} fuel salt recycling & $\infty$-pass & - \\
 		\hline
 	\end{tabularx}
 	\label{tab:us_sim_specs}
@@ -381,13 +344,11 @@ specifications are shown in \ref{tab:us-reactor-specs}.
 		Discharge Burnup [GWd/tHM] & 51 & N/A \\
 		Assemblies per core & 157  & N/A \\
 		Batches per core & 3 & N/A \\
-		Initial Fissile Loading [t] & 3.1  $^{235}$U & 18.06 \gls{TRU} \\
+		Initial Fissile Loading [t] & 3.1  $^{235}$U & 19.13 \gls{TRU} \\
 		Fuel & \gls{UOX} & \gls{TRU}-U Cl Salt \\
 		\hline
 	\end{tabular}
-	
 	\label{tab:us-reactor-specs}
-	
 \end{table}
 
 
@@ -401,7 +362,38 @@ For fresh \gls{LWR} fuel, I assume a fuel enrichment of 3.1\% U235.
 
 For depletion calculations for \gls{MSR} fuel, I use Saltproc (section \ref{sec:saltproc})
 to obtain depleted fuel compositions and waste stream composition in a continuously
-reprocessing reactor operation.
+reprocessing reactor operation. The initial composition for the REBUS-3700
+reactor is shown in table \ref{tab:rebus_init}.
+
+
+\begin{table}[h]
+	\centering
+	\caption{Initial fuel salt composition for REBUS-3700}
+	\begin{tabular}{lr}
+		\hline
+		\textbf{Isotope} & \textbf{Mass \%}\\
+		\hline
+		Na23	&	6.752	\\
+		Cl35	&	26.753	\\
+		Cl37	&	9.227	\\
+		U235	&	0.343	\\
+		U238	&	47.362	\\
+		Np237	&	0.459	\\
+		Pu238	&	0.204	\\
+		Pu239	&	4.623	\\
+		Pu240	&	2.12	\\
+		Pu241	&	0.866	\\
+		Pu242	&	0.61	\\
+		Am241	&	0.494	\\
+		Am243	&	0.142	\\
+		Cm244	&	0.041	\\
+		Cm245	&	0.004	\\
+		\hline
+	\end{tabular}
+	
+	\label{tab:rebus_init}
+	
+\end{table}
 
 \section{Database Generation}
 The HDF5 database for this simulation is generated using Saltproc
@@ -438,8 +430,35 @@ used for running SERPENT and Saltproc are shown in table \ref{tab:saltproc-run-p
 	
 \end{table}
 
+The change in $K_{eff}$ values in the REBUS-3700 core is shown in figure \ref{fig:keff}.
+A lifetime of 40 years for the REBUS-3700 reactor is set since the $k_{eff}$
+value drops below 1.01 after 40 years of operation. Also, the REBUS reactor discharges
+waste (reprocessed elements - in table \ref{tab:rebus_reproc}) at an average rate of 
+$90.34 \frac{kg}{month}$ (figure \ref{fig:rebus_waste}). 
 
-[keff and logic for lifetime]
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/keff.png}
+	\end{center}
+	\caption{Change in $K_{eff}$ value in the REBUS-3700 core. The $K_{eff}$ drops below
+		1.01 after 40 years of operation.}
+	\label{fig:keff}
+\end{figure}
+
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/rebus_waste.png}
+	\end{center}
+	\caption{Mass of waste discharged from a single REBUS reactor. The peaks
+		are due to the timestep differences in Cyclus and Saltproc, where Cyclus
+		uses 30.43 days for a month (1/12 of 365.25), and Saltproc uses 30-day
+		timesteps. The peaks occur when two Saltproc timestep-worth of waste is discharged
+		per one Cyclus timestep.
+	}
+	\label{fig:rebus_waste}
+\end{figure}
+
 
 
 \section{Results}
@@ -456,13 +475,8 @@ the U.S. has a long time to prepare and accumulate the \glspl{TRU}
 required for \gls{MSR} fuel salt fabrication. The U.S. accumulates
 an additional $196,976$ \gls{MTHM} of \gls{LWR} \gls{UNF}
 from 2013 to 2130, the year when the last \gls{LWR} decommissions.
-
 Figure \ref{fig:us_lwr_unf} shows the accumulation of \gls{LWR} \gls{UNF}.
-This figure does not take into account the \gls{LWR} \gls{UNF} reprocessed.
-The large discharge quantities prior to 2040 is because the legacy \glspl{LWR}
-are deployed in the first timestep, thus discharging their fuel in sync.
-The later deployed \glspl{LWR} are not in sync, which makes the monthly
-discharge more averaged out.
+This figure does not subtract the \gls{LWR} \gls{UNF} reprocessed.
 
 
 \begin{figure}[htbp!]
@@ -471,7 +485,10 @@ discharge more averaged out.
 	\end{center}
 	\caption{U.S. \gls{LWR} \gls{UNF} accumulation. The red is the
 			amount discharged per timestep, and the blue is the cumulative
-			inventory.}
+			inventory. The large discharge quantities prior to 2040 is because the legacy \glspl{LWR}
+			are deployed in the first timestep, thus discharging their fuel in sync.
+			The later deployed \glspl{LWR} are not in sync, which makes the monthly
+			discharge values more averaged out.}
 	\label{fig:us_lwr_unf}
 \end{figure}
 
@@ -549,6 +566,11 @@ fuel salt fabrication. This would mean increasing the \gls{TRU} composition
 in the fuel salt to make up for the lost $^{235}U$, which is favorable,
 since there is still $132,094$ MTHM of \gls{LWR} \gls{UNF} leftover.
 
+Figure \ref{fig:msr_waste} shows the monthly discharge and cumulative
+inventory of waste from \glspl{MSR}. The discharge mass increases with
+\gls{MSR} deployment. The mass of tails sent to \glspl{MSR} coincide
+with the waste outflux, since the mass in the \gls{MSR} is kept constant.
+
 \begin{table}[h]
 	\centering
 	\caption{U.S. waste metrics.}
@@ -569,4 +591,44 @@ since there is still $132,094$ MTHM of \gls{LWR} \gls{UNF} leftover.
 \end{table}
 
 
+\begin{figure}[htbp!]
+	\begin{center}
+		\includegraphics[scale=0.6]{./images/us/msr_waste.png}
+	\end{center}
+	\caption{Monthly discharged waste and cumulative waste inventory from
+			\glspl{MSR}.}
+	\label{fig:msr_waste}
+\end{figure}
+
+
 \section{Conclusion}
+The United States can transition into a fully \gls{MSR} fleet with
+installed capacity of 100 GWe by 2130. With the deployment
+scheme used in the simulation, the U.S. will have sufficient
+time to prepare the fuel salt necessary for major \gls{MSR} deployment
+beginning in 2110. Supporting the \gls{MSR} fleet requires an average
+reprocessing capacity of $92.77$ MTHM per month, and an average
+fabrication capacity of $13.26$ MTHM per month. 
+
+The deployment of the REBUS-3700 \gls{MSR} design allows a reduction
+in final repository burden, by transmuting the \gls{TRU} and reducing depleted uranium inventory.
+However, \gls{TRU} extraction requires more advanced methods than the currently
+widely-deployed PUREX method. Resource utilization can be improved if depleted
+uranium is used instead of natural uranium to fabricated initial fuel, since
+there is still more than a million tons of depleted uranium available at the
+end of the simulation. This would require a higher \gls{TRU} concentration
+in the fuel, which is also plausible since $132.094$ MTHM of \gls{LWR} \gls{UNF}
+are still available for reprocessing.
+
+In reality, however, complications with \gls{TRU} vectors and changes in \gls{MSR}
+performance will occur, due to radioactive decay and differences in \gls{LWR} \gls{UNF}
+cooling time. This would require careful fabrication of the initial fuel salt
+so that the desired reactor parameters - multiplication factor, power density - are achieved.
+
+In conclusion, the U.S. can reduce its waste inventory by transitioning into
+burner \glspl{MSR}. Choosing a U-Pu cycle instead of a Th-$^{233}U$ cycle
+eliminates the need to introduce new resources (thorium), usage of moderators,
+and allows utilization of depleted uranium, which would otherwise be waste.
+Fissile (separated \gls{TRU})and fertile (depleted uranium) material are
+not limiting factors in the simulation, and a large inventory of \gls{LWR} \gls{UNF}
+and depleted uranium remained at the end of the simulation.
