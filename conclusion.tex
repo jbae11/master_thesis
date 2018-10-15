@@ -44,3 +44,43 @@ that the U.S. can easily transition into a fully
 
 
 \section{Future Work}
+Continued reserach into better methods of modeling fuel cycle
+transition scenarios and fuel cycle facilities can progress
+in multiple directions. 
+
+First, efforts can be made to incorporate
+uncertainties in the fuel cycle simulation by adding functionalities
+in Cyclus where the parameters are governed by an equation
+or sampled from a distribution. Parameters such as \gls{LWR} fuel
+burnup and enrichment evolve in time, and can be better modeled
+by a function of time than a static parameter. Similarly, reactor parameters
+such as refuel time and cycle time can be better described by sampling
+from a distribution (e.g. gaussian) rather than the current static
+value.
+
+Second, better depletion calculation models can be developed to increase
+fuel depletion resolution in reactors. The currently used method for
+\glspl{LWR} and \glspl{SFR} are batch-wise, meaning that an average
+depleted composition is used for the entire batch, while in reality,
+assemblies in a batch do not have the same burnup.
+
+Third, improvements on the \gls{MSR} model can be made so that it
+takes into account the varying initial fuel composition. Due to delays
+in reprocessing, fuel fabrication, and deployment of \glspl{MSR}, \gls{MSR}
+initial fuels contain varying \gls{TRU} vectors. This should be taken into
+account by having a database that contains lifetime depletion calculations
+of varying initial fuel compositions. Alternatively, an in-simulator
+depletion module can be developed (if computational resources allow).
+
+
+\section{Closing Remarks}
+The \gls{ANS} chose closing the \gls{NFC} as its grand challenge. \gls{ANS}
+proposes to do so by ``firmly establish the pathway that leads to closing
+the nuclear fuel cycle to support the demonstration and deployment of
+advanced fission reactors, accelerators, and material recycling technologies
+to obtain maximum value while minimizing environmental impact 
+from using nuclear fuel.'' The research and development of such technolgoies
+need to be deliberate. \gls{NFC} transition scenario simulation and 
+analysis is the first step in identifying the technological needs
+and goals.  As demonstrated by this thesis, Cyclus, with its
+modular structure and expandable nature, is essential in that effort.
