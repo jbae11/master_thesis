@@ -1,18 +1,18 @@
 \section{Cyclus}
 
-\Cyclus is an agent-based fuel cycle simulation framework 
+\Cyclus is an agent-based nuclear fuel cycle simulation framework 
 \cite{huff_fundamental_2016}, meaning
 that each reactor, reprocessing plant, and fuel fabrication plant is modeled as an agent.
 A \Cyclus simulation contains prototypes, which are fuel cycle facility models (archetypes) with
-pre-defined parameters, that are deployed in the simulation as \texttt{facility} agents.
-Encapsulating the \texttt{facility} agents are the \texttt{Institution} and \texttt{Region}.
+pre-defined parameters, that are deployed in the simulation as \texttt{Facility} agents.
+Encapsulating the \texttt{Facility} agents are the \texttt{Institution} and \texttt{Region}.
 A \texttt{Region} agent holds a set of \texttt{Institution}s. 
-An \texttt{Institution} agent can deploy or decommission \texttt{facility} agents.
+An \texttt{Institution} agent can deploy or decommission \texttt{Facility} agents.
 The \texttt{Institution} agent is part of a \texttt{Region} agent,
 which can contain multiple \texttt{Institution} agents. Several versions of \texttt{Institution}
-and \texttt{Region} agents exist, varying in complexity and functions \cite{huff_extensions_2014}.
-\texttt{DeployInst} is used as the institution archetype for this work, where the institution
-deploys agents at user-defined timesteps. 
+and \texttt{Region} agents exist, varying in complexity and purpose \cite{huff_extensions_2014}.
+\texttt{DeployInst}, which deploys agents at user-defined timesteps, serves
+as the \texttt{Institution} archetype in this work.
 
 At each timestep,
 agents make requests for materials or bid to supply them and exchange
@@ -30,8 +30,8 @@ modeling ecosystem, the suite of agents and other
 physics plug-in libraries compatible with it, incorporate
 modern insights from simulation science and software
 architecture \cite{huff_fundamental_2016}. Cyclus
-has a multitude of benefits from other available
-\glspl{NFCS} codes - open-sourceness, modularity,
+has multiple advantages over other available
+\glspl{NFCS} codes - open-source distribution, modularity,
 and extensibility. Its agent-based modeling approach
 is ideal for modeling coupled, physics dependent
 supply chain problems common in \glspl{NFC}.
@@ -42,28 +42,26 @@ simulation.
 
 \subsection{Open Source}
 License agreements and institutional
-approval is needed for most \glspl{NFCS} like COSI, DANESS, DESAE, EVOLCODE,
-FAMILY21, NFCSim, ORION and VISION \cite{jacobson_verifiable_2010}, making
-it hard for both usage and development in an academic setting.
+approval are needed for most \glspl{NFCS} like COSI, DANESS, DESAE, EVOLCODE,
+FAMILY21, NFCSim, ORION and VISION \cite{jacobson_verifiable_2010}, challenging
+ both use and development in an academic setting.
 On the other hand, Cyclus relies completely on open source,
 free libraries, allowing all users to both use and develop the
-Cylcus framework and existing libraries. The open-sourceness
+Cylcus framework and existing libraries. The open-source distribution
 of Cyclus encourages collaboration - any user can propose
-improvements or provide input for Cyclus.
+improvements or contribute extensions for Cyclus.
 
 \subsection{Modularity and Extensibility}
 In most modern \glspl{NFCS}, the facilities and their
-behavior (and its fidelity) is confined in the software.
-Also, most modern \glspl{NFCS} are restricted to model
-a set of fuel cycles (once-through, continuous reprocessing)
-with restrictions to connections between facilities. On the
-other hand, Cyclus allows users to plug-and-play different libraries
-that contain different fidelity modules within the Cyclus framework
-(shown in figure \ref{fig:core}).
-Also, the Cyclus simulation relies on a market-based model
+behaviors (and its fidelity) are confined in the software.
+Also, most modern \glspl{NFCS} model
+fuel cycles (once-through, continuous reprocessing)
+with immutable restrictions to connections between facilities. On the
+other hand, Cyclus allows users to plug-and-play various agent models
+within the Cyclus framework (shown in figure \ref{fig:core}).
+Also, Cyclus relies on a market-based model
 for material trades between facilities, so the user can design
-any novel fuel cycle. Also, this gives Cyclus the option to not
-be limited to nuclear fuel cycles, but any system analysis
+any novel fuel cycle. This enables Cyclus to simulate any system analysis
 involving multiple connected facilities with physics-based
 calculations.
 
@@ -72,25 +70,25 @@ calculations.
 	\begin{center}
 		\includegraphics[scale=0.2]{./images/cyclus_core.png}
 	\end{center}
-	\caption{The Cyclus core provides APIs that allows the archetypes
-			to be loaded into the simulation in a module fashion
+	\caption{The Cyclus core provides APIs that the archetypes
+			can be loaded into the simulation in a modular fashion
 			\cite{huff_fundamental_2016}.}
 	\label{fig:core}
 \end{figure}
 
-The connection between the framework and the agents is
-the dynamic resource exchange (DRE), where the agents
-interact with each other through material offers and requests.
-The kernel solves the material offers and requests, and executes
+Within the Cyclus kernel, the \gls{DRE} connects
+the framework and the agents by mediating agent material
+offers and requests.
+The kernel solves the multicommodity exchange problem
+posed by the material offers and requests and executes
 the transaction between two agents.
 
 \subsection{Cyclus' fitness for real-world \gls{NFC} transition scenario}
 The Cyclus framework and its extension libraries fulfill all the functionalities
 specified by Brown et al. \cite{brown_identification_2016}.  Additionally,
 its text-based input structure and discrete facility modeling capabilities
-allow modeling of real-world, individual reactors. Finally, 
-the addition of an \gls{MSR} model can be achieved without altering
-Cyclus due to its modularity. The details of the implementation
-of these capabilities are shown in the next chapter.
-
+allow modeling of real-world, individual reactors. 
+Modularity in Cyclus enables adding an \gls{MSR} model without altering Cyclus
+itself. The next chapter describes the \gls{MSR} capability implementation
+in detail.
 

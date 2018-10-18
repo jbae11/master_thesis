@@ -9,7 +9,7 @@ behavior using an HDF5 database generated from SaltProc.
 
 \section{write\_input.py}
 \label{sec:writeinput}
-The objective for the \texttt{write\_input.py} module
+The objective for \texttt{write\_input.py}
 is to automate the generation of Cyclus input files
 to model the state of reactor fleets at a given
 point in time.
@@ -21,7 +21,7 @@ first criticality date, first grid date, commercial date,
 and shutdown date (if applicable). The user inputs simulation
 configurations such as start year, start month, and
 simulation duration. The module uses the collected data to
-fill out a template into a Cyclus input file. The logic flow of the module is 
+fill out a template into a Cyclus input file. The logical flow of the module is 
 shown in diagram \ref{diag:log_flow}
 
 
@@ -82,12 +82,25 @@ is deployed at the defined start date with 60 years of lifetime.
 
 The module calculates the core sizes of various reactor
 types by using a linear core size model. It assumes that
-reactor cores scale linearly from a model reactor design.
+reactor cores scale linearly from a model reactor design,
+as shown in the equation below.
 The model reactor designs are listed in table \ref{tab:lin_core}.
-For example, a 1,200 MWe PWR has $157 \times \frac{1,200}{1,000} = 188$ Uranium Oxide Fuel (UOX)
-assemblies, each weighing 446 kg. After each 18 month cycle, one-third of the core
-(77 assemblies) discharges. Refueling is assumed to take two months to complete,
-during which the reactor is shut down.
+
+\[
+N_{assem} = N_{assem.ref} * \frac{\text{P}}{P_{ref}}
+\]
+\[
+N_{assem.pwr} = 157 * \frac{\text{P}}{1,100}
+\]
+\[
+N_{assem.bwr} = 764 * \frac{\text{P}}{10,098}
+\]
+\[
+N_{assem.phwr} = 4,560 * \frac{\text{P}}{700}
+\]
+\[
+P = \text{power capacity of reactor}
+\]
 
 \begin{table}[h]
 	\centering
@@ -108,7 +121,7 @@ during which the reactor is shut down.
 
 \section{HDF5-reactor}
 The HDF5 reactor is a Cyclus facility archetype designed to 
-model \gls{MSR} behavior using a database. It roughly couples Saltproc \cite{rykhlevskii_online_2017}
+model \gls{MSR} behavior using a database. It roughly couples ``Saltproc'' \cite{rykhlevskii_online_2017}
 and Cyclus, by using the output from SaltProc to mimic \gls{MSR}
 feed and removal behavior in Cyclus. Most of the computationally heavy
 work (neutron transport calculations, fuel depletion calculation) is done in SERPENT (driven  by Saltproc)
@@ -171,21 +184,34 @@ nature of liquid-fueled reactors like \glspl{MSR}.
 \end{figure}
 
 \subsection{Code Description}
-The user inputs only of the commodity names
+The user provides only of the commodity names
 for each stream (e.g. waste, fertile), and the database path, since the
 HDF5 database already contains the notion of reactor design,
 reprocessing scheme, and other reactor parameters (shown in
 figure \ref{diag:hdf5_flow}). The commodity names are needed
-for reactor agent to communicate with other Cyclus agents
+for reactor agents to communicate with other Cyclus agents
 in exchanging material.
 
 At every timestep, 
 The \texttt{HDF5 Reactor} calculates the material mass
-and composition accumulated during the Cyclus timestep.
-For example, if the Saltproc timestep was three days and the Cyclus
-timestep is 30 days, the reactor adds the waste streams in 10 saltproc timesteps
-and offers the combined material to the market. The same logic applies to requesting
-or offering other streams, such as requesting fertile material.
+and composition accumulated during the Cyclus timestep,
+as shown in equation below.
+
+\[
+M_{T} = \sum m_T
+\]
+\[
+m_{T} = \sum_{t=(T-1)}^{T} m_{t}
+\]
+\[
+M_T = \text{total mass of stream in one Cyclus timestep}
+\]
+\[
+m_T = \text{mass of isotope in one Cyclus timestep}
+\]
+\[
+m_t = \text{mass of isotope in one Saltproc timestep}
+\]
 
 
 \section{Limitations of the database approach}
@@ -198,7 +224,6 @@ of the \gls{MSR}. The database approach assumes a fixed input salt
 composition, which is not the case in this simulation, because reprocessed
 \gls{TRU} spends varying amounts of time until it is fabricated and
 put in the \gls{MSR}.
-
 
 This limitation is similar to that of batch-wise recipe reactors, where the 
 pre-generated recipe already has a notion of the composition of initial fuel.
@@ -220,7 +245,7 @@ that contain multiple Saltproc simulation results with varying initial \gls{TRU}
 vectors. When the reactor archetype receives the fuel, it will find the
 Saltproc simulation result with the initial fuel composition closest to that
 of the received fuel salt, minimizing error stemming from varying
-\gls{TRU} compositions. 
+\gls{TRU} compositions.
 
 The best solution is to have a built-in depletion calculation model. However,
 as mentioned before, this requires too much computational burden for a fuel cycle simulation,

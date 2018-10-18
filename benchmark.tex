@@ -1,16 +1,16 @@
 This chapter demonstrates Cyclus' agreement with other
 \glspl{NFCS} by benchmarking the results of Cyclus to
-a previous verification study by Feng et al \cite{feng_standardized_2016}.
+a previous verification study by Feng et al. \cite{feng_standardized_2016}.
 This verification study compared four well-known \glspl{NFCS}
 DYMOND \cite{yacout_modeling_2005},
 VISION \cite{jacobson_verifiable_2010},
 ORION \cite{gregg_analysis_2012}, and
 MARKAL \cite{shay_epa_2006}. The results from each code were compared to a
-set of `model solutions' that were generated from an excel worksheet 
-for different metrics (e.g. fuel loading in reactor, \gls{UNF} inventory)
-in a transition scenario. I take the input parameters from this study
-and reproduce the transition scenario in Cyclus, and compare the results.
-Results show that Cylcus results are in good agreement with the results
+set of `model solutions' that were generated from a spreadsheet
+for various metrics (e.g. fuel loading in reactor, \gls{UNF} inventory)
+in a transition scenario. I took the input parameters from this study,
+and reproduced the transition scenario in Cyclus, and compare the results.
+Results show that Cylcus' results are in good agreement with the results
 from Feng et al., with minor differences caused by reactor module behavior.
 
 \section{Methodology}
@@ -19,42 +19,33 @@ Feng et al. comprehensively defines simulation parameters
 sufficient to reproduce the transition scenario in \Cyclus.
 In this study, we used the \Cycamore \cite{huff_fundamental_2016}
 archetype library to model
-all fuel cycle facilities. \Cycamore libraries contain
-simple fuel cycle facility models.
+all fuel cycle facilities. \Cycamore libraries are
+archetypes maintained by the core developer team.
 
 \Cyclus results are output in either \texttt{.sqlite} or
 \texttt{.h5} format. In this study, we used the
 \texttt{.sqlite} format and analyzed the results
-using a python script. The post-processed
-output data, was overlapped with the results with the
+using python. The post-processed
+output data was overlapped with the results with the
 model solution from the verification study \cite{feng_standardized_2016}.
-The input file and analysis procedures are all in [zenodo].
+The input file and analysis procedures are all available on Github \cite{bae_arfc/transition-scenarios:_2018}.
 
-The analysis and benchmark were performed iteratively,
-where we improve the original result by communicating
-with the authors of the benchmark. 
-We analyzed the reasons for the differences from the original
-result, and made small edits in the source code.
-Major differences in the facility behavior algorithms were not edited but
-simply explained in detail as to how they contributed
-to the difference in the results.
 
 \section{Fundamental Modeling Differences in \Cyclus}
 
-\Cyclus has fundamental code differences from the fuel cycle analysis codes
+\Cyclus has fundamental modeling choice differences from the fuel cycle analysis codes
 used in the benchmark \cite{feng_standardized_2016}.
 
 \Cyclus has a default time step of a month.
 The verification study solutions are evaluated with 1-year time steps, so cumulative and annual averages
 were used.
-For example, decommissioning of
-facilities occurs at the end of a timestep, and building of facilities
+For example, decommissioning
+facilities occurs at the end of a timestep, and building facilities
 occurs at the beginning of a timestep.
 
-The \Cycamore recipe reactor depletes half of its core when decommissioned,
+The \Cycamore recipe reactor depletes half of its core when decommissioned mid-cycle,
 whereas the codes in the benchmark \cite{feng_standardized_2016} deplete all their reactors' fuel when decommissioned.
-This causes a major
-discrepancy for the \gls{TRU} inventory. For this study, we changed
+For this study, we changed
 the \Cycamore source code to deplete all its assemblies to the depleted recipe.
 Also, the \Cycamore recipe reactor treats each batch (and assembly) as a discrete
 material, while some codes have continuous fuel discharge. This produces
@@ -71,7 +62,7 @@ The differences are listed in table \ref{tab:diff}.
 	\caption{Difference in Batch number and core size}
 	\begin{tabularx}{\textwidth}{bss}
 		\hline
-		\textbf{Category} & \textbf{Model Solution \cite{feng_standardized_2016}} & \textbf{\Cyclus} \\
+		\textbf{Category} & \textbf{Benchmark\cite{feng_standardized_2016}} & \textbf{\Cyclus} \\
 		\hline
 		LWR Batches & 4.5 & 3 \\
 		LWR Batch size [tHM] & 19.91 & 29.86 \\
@@ -84,9 +75,9 @@ The differences are listed in table \ref{tab:diff}.
 	\end{tabularx}
 	\label{tab:diff}
 	\end {table}
-	
-Note that all these differences could have been resolved by changing the
-archetype source code. However, the only change made was the reactor
+
+Note that the Cyclus framework code would never need to be changed.
+However, the only change made was the reactor
 depletion behavior at decommission due to its large impact on plutonium inventory.
 The goal of this
 study is to show current \Cyclus agreement with other codes and identify
@@ -94,13 +85,8 @@ differences, not to alter \Cyclus to match the other codes.
 
 \section{Results}
 
-We represent each \Cyclus result as a solid line, and the benchmark solution
-as a dotted line for visualization. The results are
-simply a reproduction of the plots displayed in the benchmark. 
 We obtained the benchmark solutions through personal contact with
 benchmark author Bo Feng at Argonne National Laboratory.
-
-
 
 Figure \ref{fig:pow_plot} shows the deployed reactor capacity, and
 figure \ref{fig:dep} shows the \gls{LWR} retirement and \gls{SFR}
@@ -109,31 +95,31 @@ benchmark solutions.
 
 \begin{figure}[htbp!]
 	\begin{center}
-		\includegraphics[scale=0.5]{./images/results_18/power_plot.png}
+		\includegraphics[scale=0.7]{./images/results_18/power_plot.png}
 	\end{center}
-	\caption{Deployed reactor capacities at the end of each year.}
+	\caption{Deployed reactor capacities at the end of each year from Cyclus.}
 	\label{fig:pow_plot}
 \end{figure}
 
 
 \begin{figure}[htbp!]
 	\begin{center}
-		\includegraphics[scale=0.5]{./images/results_18/dep.png}
+		\includegraphics[scale=0.7]{./images/results_18/dep.png}
 	\end{center}
 	\caption{\glspl{LWR} retired and \glspl{SFR} started up each year.}
 	\label{fig:dep}
 \end{figure}
 
 Figure \ref{fig:fuel_load} shows the annual fuel loading rate.
-The initial fuel loading for 100 \gls{LWR} reactors was edited to match
-the plot in the verification
-study results. The oscillations caused by the 18 month refueling period
+The initial fuel loading for 100 \gls{LWR} reactors are not shown in
+the plot for both the benchmark and the Cyclus results.
+The oscillations caused by the 18 month refueling period
 were aggregated into 12 month groups. As a result the total fuel loaded
-are equal for both plots.
+is equal for both plots.
 
 Although indistinguishable in figure \ref{fig:fuel_load},
 there is a small difference between \gls{SFR} fuel loading proportional
-to the core mass difference, as mentioned in the previous section.
+to the core mass difference, because Cyclus only has integer batch numbers.
 Figure \ref{fig:fuel_load_diff_norm} shows the
 differences normalized by the core mass differences, overlapped with the
 \gls{SFR} deployment. This shows that the differences only occur during
@@ -150,8 +136,8 @@ deployment due to the difference in core mass.
 
 Figure \ref{fig:fuel_discharge_monthly} shows the inventory of discharged
 \gls{UNF} in the mandatory cooling stage (four years for \gls{LWR}, one year for \gls{SFR}).
-It also oscillates between the benchmark's
-solution and converges, caused by the influx and the outflux of \gls{UNF}
+It also oscillates around the benchmark's
+solution and converges, due to the influx and the outflux of \gls{UNF}
 into and out of the storage facility.
 The \gls{SFR} inventory and fuel loading
 solutions exactly matches the benchmark solutions, minus the small ($1.07\%$) difference due to core
