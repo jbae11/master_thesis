@@ -155,6 +155,9 @@ size.
 Figure \ref{fig:waiting_monthly} shows the amount of cooled \gls{UNF} waiting for
 reprocessing. The value is calculated by subtracting the cumulative difference between
 the cooled inventory and the \gls{UNF} reprocessing throughput.
+
+\[ M_{wait, t} = M_{cooled, t} - M_{rep, t} \]
+
 The oscillation is between the cooled inventory in the storage facility before (high)
 and after (low) it sends its inventory for reprocessing.
 
@@ -177,7 +180,7 @@ and after (low) it sends its inventory for reprocessing.
 
 
 Figure \ref{fig:rep} shows the reprocessing throughput, which oscillates around
-the benchmark solution. No oscillation exists in the beginning because the
+the benchmark solution. No oscillation exists from 2030 to 2055 because the
 \gls{LWR} \gls{UNF} reprocessing plant throughput peaks at 2,000 tons per year.
 
 \begin{figure}[htbp!]
@@ -191,11 +194,9 @@ the benchmark solution. No oscillation exists in the beginning because the
 
 Figure \ref{fig:tru} shows the inventory of unused \gls{TRU} recovered from \gls{UNF}.
 The \Cyclus results follow the benchmark solutions closely. However,
-the larger \gls{SFR} core size causes \Cyclus results to be smaller than the benchmark results,
+the larger \gls{SFR} core size in Cyclus causes \Cyclus results to be 1.07\% smaller than the benchmark results,
 since more \gls{TRU} is used to
-start up the newly deployed \glspl{SFR}. The difference decreases as the
-\glspl{SFR} decommission, discharging more \gls{UNF} (and hence \gls{TRU}) than
-the benchmark.
+start up the newly deployed \glspl{SFR}.
 
 \begin{figure}[htbp!]
 	\begin{center}
@@ -207,7 +208,7 @@ the benchmark.
 
 \section{Discussion}
 
-We benchmarked \Cyclus with results from an established
+We verified \Cyclus with results from an established
 verification study and saw good agreement
 in a transition scenario.
 
@@ -218,8 +219,7 @@ the \Cycamore reactor depletes only half of its core
 when decommissioned. Second, \Cyclus, unlike other
 codes examined in the benchmark (except ORION), fully resolves
 discrete batches for fuel discharge.
-We resolve the first discrepancy by changing one line in the source code.
+We resolve the first discrepancy by changing one line in the Cycamore source code.
 
-This study proves \Cyclus as a capable tool for modeling
-fuel cycle transition scenarios, and shows promise for
-expansion and future development.
+This study proves that \Cyclus is a capable tool for modeling
+fuel cycle transition scenarios.
