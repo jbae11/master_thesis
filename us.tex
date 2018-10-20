@@ -2,15 +2,16 @@
 The United States has been the forerunner of nuclear energy, with a currently 
 installed nuclear capacity of 99,221 \gls{MWe} \cite{iaea_nuclear_2017}.
 With its size and long history of nuclear
-energy, the United States have accumulated about $70,000$ \gls{MTHM} of \gls{UNF}.
+energy, the United States has accumulated about $70,000$ \gls{MTHM} of \gls{UNF}.
 
-The problem with modeling the U.S. transition scenario is that the U.S. does not have
-a defined advanced reactor, whereas France has a central plan to transition into \glspl{ASTRID} \cite{boullis_french_2015, varaine_pre-conceptual_2012}.
-Previous analyses \cite{worrall_utilization_2013, sunny_transition_2015} focused on transitioning into
-fast-spectrum \glspl{SFR}.
+The complication with modeling the U.S. transition scenario is that the U.S. does not have
+a defined advanced reactor design, whereas France has a central plan to transition into \gls{ASTRID} reactors \cite{boullis_french_2015, varaine_pre-conceptual_2012}.
+Previous analyses \cite{worrall_utilization_2013, sunny_transition_2015}
+of the United States \gls{NFC} transition scenario
+assumed transition to fast-spectrum \glspl{SFR}.
 However, the fact that the U.S. nuclear reactor fleet
-is decided by economic interests (industries), this leads to
-a need to explore different options, such as transitioning into \glspl{MSR}.
+is decided by economic interests (industries), necessitates
+exploration of different options, such as transitioning into \glspl{MSR}.
 
 As explained in section \ref{sec:msr}, rising interests in \gls{MSR} designs
 led to a proliferation of U.S. corporations aiming to commercialize
@@ -30,8 +31,7 @@ database exists that describes the U.S. \gls{UNF} inventory up to May of 2013.
 The \gls{UNF-STANDARDS} is a comprehensive,
 controlled source of \gls{UNF} information, including dry cask attributes, assembly
 data, and economic attributes \cite{peterson_unf-st&dards_2017}. This database
-allows the transition scenario simulation to start from 2013, instead of 1970,
-as in the French simulation. The \gls{UNF} inventory mass and composition in 2013
+allows the transition scenario simulation to start from 2013. The \gls{UNF} inventory mass and composition in 2013
 is imported from \gls{UNF-STANDARDS} and is `initiated' in the simulation
 as a \texttt{Source} facility with an inventory of 68,072 MTHM,
 the total mass of the \gls{LWR} \gls{UNF} in the \gls{UNF-STANDARDS}.
@@ -76,7 +76,7 @@ decommissioned capacity.
 \gls{MSR} designs can be categorized depending on their operating
 neutron spectrum (e.g. fast, thermal), fuel cycle (e.g. Th-$^{233}U$, U-Pu),
 and transmutation goals (e.g. breeder, burner). Selection of an \gls{MSR}
-design depends on various factors like economics, safety, and fuel cycle
+design depends on factors like economics, safety, and fuel cycle
 considerations. For this work, I choose a fast, U-Pu cycle, burner \gls{MSR} design
 named REBUS-3700 \cite{mourogov_potentialities_2006} to deploy for the
 transition analysis.
@@ -111,7 +111,7 @@ accomplished by:
 
 Additionally, the REBUS-3700 does not have, at any moment in
 operation, separated fissile streams, like other \gls{MSR} designs
-such as the \gls{MSBR} design \cite{robertson_conceptual_1971} (protactinium tank for
+such as the \gls{MSBR} design \cite{robertson_conceptual_1971} (separated 
 $^{233}U$),
 or the \gls{MCSFR} design \cite{smith_assessment_1974} (separated Pu stream from the blanket region).
 The REBUS-3700 only takes in depleted uranium and processes out
@@ -398,8 +398,8 @@ reactor is shown in table \ref{tab:rebus_init}.
 \end{table}
 
 \section{Database Generation}
-The HDF5 database for this simulation is generated using Saltproc
-and a unit cell model of the REBUS-3700 reactor. The parameters
+The database used to model \glspl{MSR} is generated using Saltproc
+with a unit cell model of the REBUS-3700 reactor. The parameters
 used for running SERPENT and Saltproc are shown in table \ref{tab:saltproc-run-params}.
 
 \begin{table}[h]
@@ -430,12 +430,12 @@ used for running SERPENT and Saltproc are shown in table \ref{tab:saltproc-run-p
 	\label{tab:saltproc-run-params}
 \end{table}
 
-The change in $K_{eff}$ values in the REBUS-3700 core is shown in figure \ref{fig:keff}.
+The change in $K_{eff}$ values in the REBUS-3700 core in its lifetime is shown in figure \ref{fig:keff}.
 A lifetime of 40 years is set for the REBUS-3700 reactor since the $k_{eff}$
 value drops below 1.01 after 40 years of operation, according to the Saltproc results.
 The REBUS reactor discharges
-waste (reprocessed elements - in table \ref{tab:rebus_reproc}) at an average rate of 
-$90.34 \frac{kg}{month}$ (figure \ref{fig:rebus_waste}). 
+waste (reprocessed elements - in table \ref{tab:rebus_reproc}) at an average rate of
+$90.34 \frac{kg}{month}$ (figure \ref{fig:rebus_waste}).
 
 
 \begin{figure}[htbp!]
@@ -472,7 +472,7 @@ inventory.
 
 \subsection{\gls{LWR} \gls{UNF} inventory}
 
-Table \ref{tab:us_lwr_unf} lists the U.S. nuclear inventory.
+Table \ref{tab:us_lwr_unf} lists the U.S. \gls{LWR} \gls{UNF} inventory.
 Since major deployment of \glspl{MSR} do not begin until 2110,
 the U.S. has a long time to prepare and accumulate the \glspl{TRU}
 required for \gls{MSR} fuel salt fabrication. The U.S. accumulates
@@ -515,19 +515,18 @@ This figure does not subtract the \gls{LWR} \gls{UNF} reprocessed.
 
 \subsection{Reprocessing and fabrication material flow}
 
-Metrics for reprocessing \gls{LWR} \gls{UNF} to
-separate \gls{TRU} to fabricate \gls{MSR} fuel salt
-are shown in table \ref{tab:us_rep}. A total of
-$19,015$ MTHM of fuel salt is sent to the \glspl{MSR}.
-This used a total of $134,927$ MTHM of \gls{LWR} \gls{UNF}
-to extract the \gls{TRU} for the fuel.
+Metrics for \gls{LWR} \gls{UNF} reprocessing
+is shown in table \ref{tab:us_rep}. A total of
+$19,015$ MTHM of fuel salt is sent to \glspl{MSR}.
+A total of $134,927$ MTHM of \gls{LWR} \gls{UNF}
+is reprocessed to extract the \gls{TRU} for the fuel.
 
 Figure \ref{fig:lwr_unf_reproc} shows the cumulative amount of \gls{LWR}
 \gls{UNF} reprocessed over time. The initial stage (2050-2100) is characterized
 by a small amount of reprocessing due to the small number of \glspl{MSR} deployed.
 On the other hand, from 2100, aggressive deployment of \glspl{MSR} causes
 a large increase in the amount of \gls{LWR} \gls{UNF} reprocessing. This sudden
-jump in demand can be mediated by reprocessing the \gls{LWR} \gls{UNF} beforehand.
+jump in demand is mediated by reprocessing the \gls{LWR} \gls{UNF} beforehand.
 
 \begin{table}[h]
 	\centering
@@ -564,11 +563,13 @@ inventory at the end of the simulation. Large amounts of \gls{LWR}
 \gls{UNF} ($132,094$ MTHM) and depleted uranium ($~1.1$ million tons)
 remain unused, meaning that more \glspl{MSR} could have been deployed.
 The tails usage from the \glspl{MSR} are not significant compared to
-the amount of tails accumulated ($~0.2\%$). One way to use more tails
+the amount of tails accumulated ($~0.2\%$ of the total tails inventory).
+One way to use more tails
 is to use depleted uranium instead of natural uranium for initial
 fuel salt fabrication. This would mean increasing the \gls{TRU} composition
-in the fuel salt to make up for the lost $^{235}U$, which is favorable,
-since there is still $132,094$ MTHM of \gls{LWR} \gls{UNF} leftover.
+in the fuel salt to make up for the decrease in $^{235}U$, which is favorable,
+since there is still $132,094$ MTHM of \gls{LWR} \gls{UNF} leftover
+to extract \gls{TRU} from.
 
 Figure \ref{fig:msr_waste} shows the monthly discharge and cumulative
 inventory of waste from \glspl{MSR}. The discharge mass increases with
