@@ -20,7 +20,7 @@ led to a proliferation of U.S. corporations aiming to commercialize
 most likely to be commercially deployed in the United States.
 
 In this chapter, I explore the U.S. transition scenario
-from a \gls{LWR} fleet into a \gls{MSR} fleet.
+from an \gls{LWR} fleet into an \gls{MSR} fleet.
 
 \section{Initial Conditions and Scenario Parameters}
 
@@ -36,7 +36,7 @@ is imported from \gls{UNF-STANDARDS} and is `initiated' in the simulation
 as a \texttt{Source} facility with an inventory of 68,072 MTHM,
 the total mass of the \gls{LWR} \gls{UNF} in the \gls{UNF-STANDARDS}.
 
-Furthermore U.S. currently has additional uranium resources in the
+Furthermore, U.S. currently has additional uranium resources in the
 form of more than $700,000$ MTHM of depleted uranium \cite{office_nuclear_2011},
 which is a waste product of enrichment. The depleted uranium inventory
 is currently a liability and waste, but can be utilized as fertile material
@@ -357,7 +357,7 @@ specifications are shown in \ref{tab:us-reactor-specs}.
 \section{Material Definitions}
 Depletion calculations for the \gls{LWR} nuclear fuel are recipe-based, such 
 that a fresh and used fuel recipe is calculated beforehand using ORIGEN (see table \ref{tab:comp}).
-ORIGEN calculates buildup, decay and processing of radioactive materials
+ORIGEN calculates buildup, decay, and processing of radioactive materials
 \cite{parks_overview_1992}. This recipe has also been used for
 repository performance modeling \cite{wilson_adoption_2009}.
 For fresh \gls{LWR} fuel, I assume a fuel enrichment of 3.1\% U235.
@@ -487,8 +487,8 @@ This figure does not subtract the \gls{LWR} \gls{UNF} reprocessed.
 		\includegraphics[scale=0.7]{./images/us/us_lwr_unf.png}
 	\end{center}
 	\caption{U.S. \gls{LWR} \gls{UNF} accumulation. The red is the
-			amount discharged per timestep, and the blue is the cumulative
-			inventory. The large discharge quantities prior to 2040 is because the legacy \glspl{LWR}
+			mass discharged per timestep, and the blue is the cumulative
+			inventory. The large discharge quantity prior to 2040 is because the legacy \glspl{LWR}
 			are deployed in the first timestep, thus discharging their fuel in sync.
 			The later deployed \glspl{LWR} are not in sync, which makes the monthly
 			discharge values more averaged out.}
@@ -521,7 +521,7 @@ $19,015$ MTHM of fuel salt is sent to \glspl{MSR}.
 A total of $134,927$ MTHM of \gls{LWR} \gls{UNF}
 is reprocessed to extract the \gls{TRU} for the fuel.
 
-Figure \ref{fig:lwr_unf_reproc} shows the cumulative amount of \gls{LWR}
+Figure \ref{fig:lwr_unf_reproc} shows the cumulative quantity of \gls{LWR}
 \gls{UNF} reprocessed over time. The initial stage (2050-2100) is characterized
 by a small amount of reprocessing due to the small number of \glspl{MSR} deployed.
 On the other hand, from 2100, aggressive deployment of \glspl{MSR} causes
@@ -551,19 +551,18 @@ jump in demand is mediated by reprocessing the \gls{LWR} \gls{UNF} beforehand.
 	\begin{center}
 		\includegraphics[scale=0.7]{./images/us/lwr_unf_reproc.png}
 	\end{center}
-	\caption{Cumulative mass of \gls{LWR} \gls{UNF} reprocessed for \gls{MSR}
-			salt fabrication.}
+	\caption{The Cumulative mass of \gls{LWR} \gls{UNF} reprocessed for \gls{MSR} salt fabrication.}
 	\label{fig:lwr_unf_reproc}
 \end{figure}
 
 \subsection{Waste inventory and resource usage}
 
-Table \ref{tab:us_waste} shows the amount of various nuclear waste
-inventory at the end of the simulation. Large amounts of \gls{LWR}
+Table \ref{tab:us_waste} shows the mass of various nuclear waste
+inventory at the end of the simulation. Large quantities of \gls{LWR}
 \gls{UNF} ($132,094$ MTHM) and depleted uranium ($~1.1$ million tons)
 remain unused, meaning that more \glspl{MSR} could have been deployed.
-The tails usage from the \glspl{MSR} are not significant compared to
-the amount of tails accumulated ($~0.2\%$ of the total tails inventory).
+The tails usage from the \glspl{MSR} is not significant compared to
+the quantity of tails accumulated ($~0.2\%$ of the total tails inventory).
 One way to use more tails
 is to use depleted uranium instead of natural uranium for initial
 fuel salt fabrication. This would mean increasing the \gls{TRU} composition
@@ -573,7 +572,7 @@ to extract \gls{TRU} from.
 
 Figure \ref{fig:msr_waste} shows the monthly discharge and cumulative
 inventory of waste from \glspl{MSR}. The discharge mass increases with
-\gls{MSR} deployment. The mass of depleted uranium sent to \glspl{MSR} coincide
+\gls{MSR} deployment. The mass of depleted uranium sent to \glspl{MSR} coincides
 with the waste outflux, since the mass in the \gls{MSR} is kept constant.
 
 \begin{table}[h]
@@ -608,7 +607,7 @@ with the waste outflux, since the mass in the \gls{MSR} is kept constant.
 
 
 \section{Conclusion}
-The United States can transition into a fully \gls{MSR} fleet with
+The United States can transition into a fully \gls{MSR} fleet with an
 installed capacity of 100 GWe by 2130. With the deployment
 scheme used in the simulation, the U.S. will have sufficient
 time to prepare the fuel salt necessary for major \gls{MSR} deployment
