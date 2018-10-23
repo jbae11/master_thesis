@@ -121,10 +121,10 @@ P = \text{power capacity of reactor}
 
 \section{HDF5-reactor}
 The HDF5 reactor is a Cyclus facility archetype designed to 
-model \gls{MSR} behavior using a database. It roughly couples ``Saltproc'' \cite{rykhlevskii_online_2017}
+model \gls{MSR} behavior using a database. It roughly couples ``SaltProc'' \cite{rykhlevskii_online_2017}
 and Cyclus, by using the output from SaltProc to mimic \gls{MSR}
 feed and removal behavior in Cyclus. Most of the computationally heavy
-work (neutron transport calculations, fuel depletion calculation) is done in SERPENT (driven  by Saltproc)
+work (neutron transport calculations, fuel depletion calculation) is done in SERPENT (driven  by SaltProc)
 in generating the database, which avoids the large computational burden
 when running Cyclus. 
 
@@ -144,7 +144,7 @@ nature of liquid-fueled reactors like \glspl{MSR}.
 	\node (repro) [object, right of = msr] {Reprocessing Scheme};
 	\node (timesteps) [object, right of = repro] {Timesteps};
 	
-	\node (saltproc) [process, below of = repro] {Saltproc};
+	\node (saltproc) [process, below of = repro] {SaltProc};
 	\node (serpent) [process, right of = saltproc] {SERPENT 2};
 	
 	\node (hdf5) [object, below of = saltproc] {HDF5 Database};
@@ -210,7 +210,7 @@ M_T = \text{total mass of stream in one Cyclus timestep}
 m_T = \text{mass of isotope in one Cyclus timestep}
 \]
 \[
-m_t = \text{mass of isotope in one Saltproc timestep}
+m_t = \text{mass of isotope in one SaltProc timestep}
 \]
 
 
@@ -241,9 +241,9 @@ not a solution to solve the accuracy problem for depletion and errors
 in neutronics calculations.
 
 Another way to overcome this limitation is to use a set of databases 
-that contain multiple Saltproc simulation results with varying initial \gls{TRU}
+that contain multiple SaltProc simulation results with varying initial \gls{TRU}
 vectors. When the reactor archetype receives the fuel, it will find the
-Saltproc simulation result with the initial fuel composition closest to that
+SaltProc simulation result with the initial fuel composition closest to that
 of the received fuel salt, minimizing error stemming from varying
 \gls{TRU} compositions.
 
@@ -252,6 +252,6 @@ as mentioned before, this requires too much computational burden for a fuel cycl
 where there are multiple reactors `at play' at any given time. Another
 interesting method is to implement a reduced-order-model of \gls{MSR} depletion
 behavior created by training from a large dataset of \gls{MSR} simulations, such
-as Saltproc. This
+as SaltProc. This
 way, the computationally heavy work can be outsourced, and the variations
 in the initial fuel composition can be taken into account.

@@ -8,11 +8,10 @@ pre-defined parameters, that are deployed in the simulation as \texttt{Facility}
 Encapsulating the \texttt{Facility} agents are the \texttt{Institution} and \texttt{Region}.
 A \texttt{Region} agent holds a set of \texttt{Institution}s. 
 An \texttt{Institution} agent can deploy or decommission \texttt{Facility} agents.
-The \texttt{Institution} agent is part of a \texttt{Region} agent,
-which can contain multiple \texttt{Institution} agents. Several versions of \texttt{Institution}
+Several versions of \texttt{Institution}
 and \texttt{Region} agents exist, varying in complexity and purpose \cite{huff_extensions_2014}.
 \texttt{DeployInst}, which deploys agents at user-defined timesteps, serves
-as the \texttt{Institution} archetype in this work.
+as the main \texttt{Institution} archetype in this work.
 
 At each timestep,
 agents make requests for materials or bid to supply them and exchange
@@ -20,20 +19,14 @@ with one another. A market-like mechanism called the dynamic resource exchange
 \cite{gidden_agent-based_2015} governs the exchanges.
 For output analysis, each material resource has a quantity, composition, name, and a unique identifier.
 
-In this work, each nation is represented as a distinct \texttt{Region} agent,
-that contains \texttt{Institution} agents, each deploying  \texttt{Facility} 
-agents. The \texttt{Institution} agents then deploy agents according to 
-a user-defined deployment scheme.
+In this work, each nation is represented as a \texttt{Region} agent,
+that contains \texttt{Institution} agents, which deploy \texttt{Facility} 
+agents according to a user-defined deployment scheme.
 
-The Cyclus \gls{NFCS} framework and its
-modeling ecosystem, the suite of agents and other
-physics plug-in libraries compatible with it, incorporate
-modern insights from simulation science and software
-architecture \cite{huff_fundamental_2016}. Cyclus
-has multiple advantages over other available
+Cyclus has multiple advantages over other available
 \glspl{NFCS} codes - open-source distribution, modularity,
 and extensibility. Its agent-based modeling approach
-is ideal for modeling coupled, physics dependent
+is ideal for modeling coupled, physics-dependent
 supply chain problems common in \glspl{NFC}.
 The framework allows for dynamic loading of 
 external libraries, which allows the users to plug-and-play
@@ -44,7 +37,7 @@ simulation.
 License agreements and institutional
 approval are needed for most \glspl{NFCS} like COSI, DANESS, DESAE, EVOLCODE,
 FAMILY21, NFCSim, ORION and VISION \cite{jacobson_verifiable_2010}, challenging
- both use and development in an academic setting.
+both use and development in an academic setting.
 On the other hand, Cyclus relies completely on open source,
 free libraries, allowing all users to both use and develop the
 Cylcus framework and existing libraries. The open-source distribution
@@ -68,7 +61,7 @@ calculations.
 
 \begin{figure}[htbp!]
 	\begin{center}
-		\includegraphics[scale=0.2]{./images/cyclus_core.png}
+		\includegraphics[scale=0.3]{./images/cyclus_core.png}
 	\end{center}
 	\caption{The Cyclus core provides APIs that the archetypes
 			can be loaded into the simulation in a modular fashion
@@ -89,6 +82,4 @@ specified by Brown et al. \cite{brown_identification_2016}.  Additionally,
 its text-based input structure and discrete facility modeling capabilities
 allow modeling of real-world, individual reactors. 
 Modularity in Cyclus enables adding an \gls{MSR} model without altering Cyclus
-itself. The next chapter describes the \gls{MSR} capability implementation
-in detail.
-
+itself.
