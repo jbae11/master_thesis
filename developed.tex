@@ -14,7 +14,7 @@ is to automate the generation of Cyclus input files
 to model the state of reactor fleets at a given
 point in time.
 
-The module reads from the \gls{PRIS} database \cite{iaea_nuclear_2018}
+The script reads from the \gls{PRIS} database \cite{iaea_nuclear_2018}
 and extracts data on each reactor's country, reactor unit,
 type, net capacity (MWe), status, operator, construction date,
 first criticality date, first grid date, commercial date,
@@ -22,7 +22,7 @@ and shutdown date (if applicable). The user inputs simulation
 configurations such as start year, start month, and
 simulation duration. The module uses the collected data to
 fill out a template into a Cyclus input file. The logical flow of the module is 
-shown in diagram \ref{diag:log_flow}
+shown in diagram \ref{diag:log_flow}.
 
 
 \begin{figure}
@@ -74,7 +74,7 @@ the reactor is not written in the input. If the reactor was
 operational prior to the simulation start date,
 and its shutdown date later than simulation start date,
 the reactor is deployed at the beginning of simulation with its remaining lifetime.
-If the reactor is reactor's start date is later than the simulation
+If the reactor's start date is later than the simulation
 start date, and the shutdown time is undefined, the reactor
 is deployed at the defined start date with 60 years of lifetime.
 
@@ -82,8 +82,10 @@ is deployed at the defined start date with 60 years of lifetime.
 
 The module calculates the core sizes of various reactor
 types by using a linear core size model. It assumes that
-reactor cores scale linearly from a model reactor design,
-as shown in the equation below.
+the number of assemblies in a 
+reactor core scales linearly from a model reactor design,
+as shown in the equation below. The mass per assembly
+is kept constant.
 The model reactor designs are listed in table \ref{tab:lin_core}.
 
 \[
@@ -109,8 +111,8 @@ P = \text{power capacity of reactor}
 		\hline
 		\textbf{Category} & \textbf{Model Reactor} & \textbf{Power [MWe]} & \textbf{Assembly Mass [kg]} & \textbf{Assemblies in Core} & \textbf{Reference}  \\
 		\hline
-		\gls{PWR} & AP-1000 & 1110 & 446 & 157 & \cite{schulz_westinghouse_2006} \\
-		\gls{BWR} & 4-MK I & 1098 &180 & 764 & \cite{moore_physical_1989} \\
+		\gls{PWR} & AP-1000 & 1,110 & 446 & 157 & \cite{schulz_westinghouse_2006} \\
+		\gls{BWR} & 4-MK I & 1,098 &180 & 764 & \cite{moore_physical_1989} \\
 		\gls{PHWR} & CANDU6 & 700 & 24.17 & 4,560 & \cite{galeriu_technical_nodate} \\
 		\hline
 	\end{tabularx}
@@ -119,8 +121,8 @@ P = \text{power capacity of reactor}
 
 
 
-\section{HDF5-reactor}
-The HDF5 reactor is a Cyclus facility archetype designed to 
+\section{SaltProc-reactor}
+The SaltProc reactor is a Cyclus facility archetype designed to 
 model \gls{MSR} behavior using a database. It roughly couples ``SaltProc'' \cite{rykhlevskii_online_2017}
 and Cyclus, by using the output from SaltProc to mimic \gls{MSR}
 feed and removal behavior in Cyclus. Most of the computationally heavy
@@ -132,8 +134,7 @@ This method is similar to the simplified implementation of
 recipe reactors, where the depletion calculation is performed outside of the
 fuel cycle simulation. Instead of a single depletion calculation
 used in a recipe reactor, this reactor uses a database of recipes
-to capture the continuously varying
-nature of liquid-fueled reactors like \glspl{MSR}. 
+to capture the continuously varying state of liquid-fueled reactors like \glspl{MSR}. 
 
 
 \begin{figure}
@@ -229,7 +230,7 @@ This limitation is similar to that of batch-wise recipe reactors, where the
 pre-generated recipe already has a notion of the composition of initial fuel.
 This results in a depleted fuel composition that is agnostic to the incoming
 fuel composition in the simulation. For example, a batch-wise recipe reactor
-depleting a \gls{MOX} fuel would depleted the \gls{MOX} fuel to a same
+depleting a \gls{MOX} fuel would deplete the \gls{MOX} fuel to a same
 composition regardless of its plutonium vector. This is mediated by using
 fuel fabrication facility that modifies the plutonium enrichment to
 meet a certain fissile value (in Cyclus, the Cycamore \texttt{FuelFab} archetype).
@@ -250,8 +251,6 @@ of the received fuel salt, minimizing error stemming from varying
 The best solution is to have a built-in depletion calculation model. However,
 as mentioned before, this requires too much computational burden for a fuel cycle simulation,
 where there are multiple reactors `at play' at any given time. Another
-interesting method is to implement a reduced-order-model of \gls{MSR} depletion
-behavior created by training from a large dataset of \gls{MSR} simulations, such
-as SaltProc. This
-way, the computationally heavy work can be outsourced, and the variations
-in the initial fuel composition can be taken into account.
+possible method is to implement a reduced-order-model of \gls{MSR} depletion
+behavior created by training from a large dataset of \gls{MSR} depletion
+calculations. 
