@@ -19,7 +19,7 @@ nuclear energy and its sustainability.
 
 This work will demonstrate the capability of a system-level
 analysis tool, Cyclus, which can model a more advanced \gls{NFC} that
-possibly solves the three concerned mentioned above. 
+possibly solves the three concerns mentioned above. 
 The modeling capability will aid in planning a strategy for
 transitioning into an advanced fuel cycle.
 
@@ -28,13 +28,14 @@ The nuclear fuel cycle is described as a set of facilities
 that interact with one another to either provide or consume
 fuel services \cite{gidden_agent-based_2015}. The general goal of
 the cycle is to produce power economically, while minimizing
-waste and natural resource used. The discharge
-\gls{UNF} from the reactors is eventually sent back to facilities for
+waste and natural resource used. Other specialized goals of the \gls{NFC} are
+weapons material production and waste profile reduction through transmutation.
+The discharge \gls{UNF} from the reactors is eventually sent back to facilities for
 either recycling or disposal.
 
 The fuel cycle evaluation and screening study was
 conducted by Wigeland et al. to identify potential
-fuel cycles and to categorize them into `evaluation groups' \cite{wigeland_nuclear_2014}.
+fuel cycles and categorize them into `evaluation groups' \cite{wigeland_nuclear_2014}.
 Wigeland et al. identified 40 fuel cycle groups, categorized by the extent of recycling
 (no recycle, limited recycle, and continuous recycle), fuel composition
 (e.g. thorium-U233, uranium-plutonium), and the type of reactors (fast/thermal critical
@@ -117,9 +118,20 @@ breed (produce more TRU), or break-even (maintain TRU amount).
 Selection of the fast-spectrum reactor design depends on the
 goal of the deploying institution.
 
-In this work, I only transition into fuel cycles with
-continuous recycle of U/Pu or U/TRU with U fuel in fast critical reactors
-(Evaluation Group 23 or 24 from the Evaluation and Screening study\cite{wigeland_nuclear_2014}).
+
+\subsubsection{Fuel cycle with limited recycling}
+Fuel cycle with limited recycling is when the \gls{UNF}
+is recycled for a limited number of times. 
+The purposes for recycling the irradiated fuel include
+reusing the separated material in a nuclear reactor, or 
+separating long-lived highly radioactive elements
+for repository burden reduction \cite{wigeland_nuclear_2014}.
+The difference
+between limited recycling and `closed' fuel cycles (continuous
+recycling) is that continuous recycling always reprocesses
+irradiated fuel and only disposes \gls{HLW}, while limited
+recycling fuel cycles dispose some irradiated fuel.
+
 
 \subsection{Fuel Cycle Transition Scenarios}
 Fuel cycle transition scenarios, in this work, are when
