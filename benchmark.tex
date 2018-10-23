@@ -38,8 +38,7 @@ used in the benchmark \cite{feng_standardized_2016}.
 
 \Cyclus has a default time step of a month.
 The verification study solutions are evaluated with 1-year time steps, so cumulative and annual averages
-were used.
-For example, decommissioning
+were used. For example, decommissioning
 facilities occurs at the end of a timestep, and building facilities
 occurs at the beginning of a timestep.
 
@@ -77,7 +76,7 @@ The differences are listed in table \ref{tab:diff}.
 	\end {table}
 
 Note that the Cyclus framework code would never need to be changed.
-However, the only change made was the reactor
+The only change made was the \Cycamore reactor
 depletion behavior at decommission due to its large impact on plutonium inventory.
 The goal of this
 study is to show current \Cyclus agreement with other codes and identify
@@ -206,6 +205,8 @@ start up the newly deployed \glspl{SFR}.
 	\label{fig:tru}
 \end{figure}
 
+\FloatBarrier
+
 \section{Discussion}
 
 We verified \Cyclus with results from an established
@@ -219,7 +220,8 @@ the \Cycamore reactor depletes only half of its core
 when decommissioned. Second, \Cyclus, unlike other
 codes examined in the benchmark (except ORION), fully resolves
 discrete batches for fuel discharge.
-We resolve the first discrepancy by changing one line in the Cycamore source code.
+We resolve the first discrepancy by changing one line in the Cycamore module
+source code.
 
 This study proves that \Cyclus is a capable tool for modeling
 fuel cycle transition scenarios.

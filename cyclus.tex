@@ -8,10 +8,16 @@ pre-defined parameters, that are deployed in the simulation as \texttt{Facility}
 Encapsulating the \texttt{Facility} agents are the \texttt{Institution} and \texttt{Region}.
 A \texttt{Region} agent holds a set of \texttt{Institution}s. 
 An \texttt{Institution} agent can deploy or decommission \texttt{Facility} agents.
+
 Several versions of \texttt{Institution}
 and \texttt{Region} agents exist, varying in complexity and purpose \cite{huff_extensions_2014}.
 \texttt{DeployInst}, which deploys agents at user-defined timesteps, serves
-as the main \texttt{Institution} archetype in this work.
+as the main \texttt{Institution} archetype in this work. All reactor \texttt{Facility} agents,
+fuel reprocessing, and fabrication \texttt{Facility} agents
+are deployed through \texttt{DeployInst}, while basic fuel cycle \texttt{Facility} agetns
+such as sink, source, enrichment, and storage facilities are deployed 
+through \texttt{NullInst}, which simply deploys \texttt{Facility}
+agents at the beginning of the simulation.
 
 At each timestep,
 agents make requests for materials or bid to supply them and exchange
