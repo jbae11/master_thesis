@@ -3,7 +3,7 @@
 
 SaltProc is the on-line reprocessing simulation
 driver for SERPENT2 \cite{leppanen_serpent_2015},
-for simulating liquid-fueled \gls{MSR} operation [??? new zenodo].
+for simulating liquid-fueled \gls{MSR} operation \cite{rykhlevskii_arfc/saltproc:_2018}.
 SaltProc uses a semi-continuous approach to simulate
 continuous \gls{MSR} material feed and removal \cite{rykhlevskii_online_2017}.
 It is coded in Python (compatible with both Python 2 and 3), and
@@ -50,10 +50,10 @@ Also, using a Monte Carlo code such as SEPRENT allows users to vary
 geometric fidelity, from a single cell model to a full core model.
 
 \subsection{Use in this work}
-SaltProc's output, the HDF5 database, can be imported through a Cyclus
-module that can mimic the \gls{MSR} feed and removal
-behavior throughout its lifetime. The composition in the core can
-be ignored since the data of interest for a system-level \gls{NFC} simulation
+SaltProc's output (in HDF5 \cite{the_hdf_group_hierarchical_1997} format) can be imported through a Cyclus
+module to mimic the \gls{MSR} feed and removal
+behavior throughout its lifetime. The composition in the core is
+not important here since the data of interest for a system-level \gls{NFC} simulation
 is the material flow in and out of the reactor. This method can
 then effectively model \glspl{MSR} in a large system-scale \gls{NFC}
 simulation without a large computational burden for the \gls{NFC} simulation.
