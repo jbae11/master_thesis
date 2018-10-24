@@ -195,7 +195,10 @@ Figure \ref{fig:tru} shows the inventory of unused \gls{TRU} recovered from \gls
 The \Cyclus results follow the benchmark solutions closely. However,
 the larger \gls{SFR} core size in Cyclus causes \Cyclus results to be 1.07\% smaller than the benchmark results,
 since more \gls{TRU} is used to
-start up the newly deployed \glspl{SFR}.
+start up the newly deployed \glspl{SFR}. Note that since
+batch numbers are integer by their nature, it is unrealistic
+to have a non-integer batch number. Therefore, the integer
+restriction in Cyclus more accurately represents reality.
 
 \begin{figure}[htbp!]
 	\begin{center}

@@ -2,7 +2,7 @@ The scope of this work includes development and demonstration of
 various methods and tools to leverage Cyclus' existing
 capabilities to model real-world fuel cycle transition scenarios.
 
-\section{Background and motivation}
+\section{Background}
 Increasing climate change concerns have directed attention
 to nuclear energy, which produces reliable base load energy
 with negligible CO$_2$ emission. To reduce CO$_2$ emissions,
@@ -24,10 +24,10 @@ The modeling capability will aid in planning a strategy for
 transitioning into an advanced fuel cycle.
 
 \subsection{The Nuclear Fuel Cycle}
-The nuclear fuel cycle is described as a set of facilities
-that interact with one another to either provide or consume
-fuel services \cite{gidden_agent-based_2015}. The general goal of
-the cycle is to produce power economically, while minimizing
+The nuclear fuel cycle is the complete nuclear energy
+system from mining to disposal \cite{tsoulfanidis_nuclear_2013}.
+The general goal of
+a \gls{NFC} is to produce power economically, while minimizing
 waste and natural resource used. Other specialized goals of the \gls{NFC} are
 weapons material production and waste profile reduction through transmutation.
 The discharge \gls{UNF} from the reactors is eventually sent back to facilities for
@@ -134,11 +134,19 @@ recycling fuel cycles dispose some irradiated fuel.
 
 
 \subsection{Fuel Cycle Transition Scenarios}
-Fuel cycle transition scenarios, in this work, are when
-once-through fuel cycles transition to closed fuel
+Fuel cycle transition scenarios are when an initial
+fleet of technologies and corresponding fuel cycle strategies
+dynamically evolve into a different final state \cite{oecd_nuclear_2009}.
+In this work, I focus on the transition from
+once-through fuel cycles to closed fuel
 cycles through the progressive replacement of previous technology
-(e.g. \glspl{LWR}) with an advanced technology (e.g. reprocessing
-and fast-spectrum reactors). Analysis of transition scenarios requires
+(i.e. \glspl{LWR}) with an advanced technology (i.e. reprocessing
+and fast-spectrum reactors). Other transition scenarios include
+a general transition into a different fuel cycle (evaluation group
+defined by Wigeland et al.) or to a mixture of fuel cycles, or
+a complete nuclear energy phaseout.
+
+Analysis of transition scenarios requires
 deliberate tracking of materials and facilities in order
 to accurately calculate the resources necessary for a
 successful transition.
@@ -192,6 +200,23 @@ fuel cycle transition scenarios, and demonstrate Cyclus'
 capabilities by using the developed tools to perform
 \gls{NFC} transition scenarios relevant to France and the United
 States.
+
+\section{Motivation}
+
+There are two major motivations for accurately simulating
+real-world \gls{NFC} transition scenarios.
+First, \gls{NFC} transitions require strategized reactors
+and fuel cycle deployment to meet fuel demand for advanced systems.
+Material availability and fuel cycle facility
+throughput need to be strategized 
+to assure fuel availability for future advanced systems.
+An accurate simulation can calculate the material
+and facility throughput requirement of a transition scenario.
+Second, \gls{NFC} transition scenarios need to optimize
+existing investment and technology. For example, with a \gls{NFCS},
+analysts can determine the best reactor technology
+to leverage current \gls{LWR} \gls{UNF} inventory in a nation.
+
 
 \section{Methods}
 This thesis accomplishes the objective in three steps. 
