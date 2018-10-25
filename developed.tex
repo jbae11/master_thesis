@@ -7,10 +7,11 @@ nuclear fleet at any point in time. The second extension
 is a Cyclus archetype that mimics \gls{MSR} feed and removal
 behavior using an HDF5 database generated from SaltProc.
 
-\section{write\_input.py}
+\section{cyclus-input-gen}
 \label{sec:writeinput}
-The objective for \texttt{write\_input.py}
-is to automate the generation of Cyclus input files
+The python package \texttt{cyclus-input-gen} contains
+multiple submodules for automating Cyclus input generation.
+The submodule \texttt{from\_pris} automates the generation of Cyclus input files
 to model the state of reactor fleets at a given
 point in time.
 
@@ -36,7 +37,7 @@ shown in diagram \ref{diag:log_flow}.
 	
 	\node (template) [process, right of=user] {Cyclus input template files};
 	
-	\node (script) [object, below of=input] {write\_input.py};
+	\node (script) [object, below of=input] {\texttt{from\_pris}};
 	
 	\node (lifetime) [process, below of=script] {Calculated reactor lifetime};
 	\node (coresize) [process, right of=lifetime] {Interpolated core size};
@@ -59,7 +60,7 @@ shown in diagram \ref{diag:log_flow}.
 	\draw [arrow] (region) -- (output);
 	
 	\end{tikzpicture}
-	\caption{ Logic flow of \texttt{write\_input.py}.
+	\caption{ Logic flow of \texttt{from\_pris}.
 		Green circles and blue boxes represent files and data, respectively.}
 	\label{diag:log_flow}
 \end{figure}

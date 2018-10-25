@@ -245,12 +245,13 @@ from the model solutions.
 
 \subsection{Tool development}
 In order to model real-world transition into an advanced
-fuel cycle, I developed two major tools. First, I developed \texttt{write\_input.py}
+fuel cycle, I developed two major tools. First, I developed a python package \texttt{cyclus-input-gen},
+which includes the submodule \texttt{from\_pris}
 that automates extraction from the curated \gls{IAEA} \gls{PRIS} database
 \cite{iaea_nuclear_2018}. The database lists each nuclear reactor's
 country, name, type, net capacity (\gls{MWe}), status, operator, construction
 date, first criticality date, first grid date, commercial date, and shutdown
-date (if applicable). \texttt{write\_input.py} extracts the information from this file
+date (if applicable). \texttt{from\_pris} extracts the information from this file
 to generate a Cyclus compatible input file, which lists the individual
 reactor units as agents. Second, I developed a module that models \glspl{MSR}
 in Cyclus using a database generated from a high-fidelity \gls{MSR} depletion calculation.
@@ -267,7 +268,7 @@ large amounts of data \cite{the_hdf_group_hierarchical_1997}.
 Finally I constructed the fuel cycle transition scenario for France and the United States.
 I made different assumptions for the two scenarios to account for each nation's different goals,
 initial conditions (i.e. currently existing fleet, \gls{UNF} inventory), and their potential reactor
-technology. I used the \texttt{write\_input.py} to construct the initial Cyclus input file,
+technology. I used \texttt{from\_pris} to construct the initial Cyclus input file,
 followed by iterations to account for new reactor deployment. The workflow driving the analyses is shown in diagram \ref{diag:workflow}.
 
 
@@ -275,7 +276,7 @@ followed by iterations to account for new reactor deployment. The workflow drivi
         \centering
 \begin{tikzpicture}[node distance=1.5cm]
 \node (database) [object] {Database (\texttt{.csv})};
-\node (script) [process, below of=database] {Input Generation Script (\texttt{write\_input.py})};
+\node (script) [process, below of=database] {Input Generation Module (\texttt{from\_pris})};
 \node (input) [object, below of=script] {\Cyclus Input File (\texttt{.xml})};
 \node (cyclus) [process, below of=input]{\Cyclus};
 \node (output) [object, below of=cyclus]{\texttt{Output File (\texttt{.Sqlite})}};
