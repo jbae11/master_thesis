@@ -1,0 +1,257 @@
+I developed two extensions to leverage 
+the capabilities of Cyclus to model
+real-world fuel cycle transition scenarios.
+The first extension is a python input-generating module
+that automates scenario generation of the real-world 
+nuclear fleet at any point in time. The second extension
+is a Cyclus archetype that mimics \gls{MSR} feed and removal
+behavior using an HDF5 database generated from SaltProc.
+
+\section{cyclus-input-gen}
+\label{sec:writeinput}
+The python package \texttt{cyclus-input-gen} contains
+multiple submodules for automating Cyclus input generation.
+The submodule \texttt{from\_pris} automates the generation of Cyclus input files
+to model the state of reactor fleets at a given
+point in time.
+
+The script reads from the \gls{PRIS} database \cite{iaea_nuclear_2018}
+and extracts data on each reactor's country, reactor unit,
+type, net capacity (MWe), status, operator, construction date,
+first criticality date, first grid date, commercial date,
+and shutdown date (if applicable). The user inputs simulation
+configurations such as start year, start month, and
+simulation duration. The module uses the collected data to
+fill out a template into a Cyclus input file. The logical flow of the module is 
+shown in diagram \ref{diag:log_flow}.
+
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[node distance=3.5cm and 2cm, on grid, auto, text width=2cm]
+	\node (database) [object] {PRIS Database (\texttt{.csv})};
+	\node (data) [process, below of=database] {Reactor data (net capacity, reactor size)};
+	
+	\node (user) [object, right of=database] {User};
+	\node (input) [process, below of=user] {Start year, month,  Simulation duration};
+	
+	\node (template) [process, right of=user] {Cyclus input template files};
+	
+	\node (script) [object, below of=input] {\texttt{from\_pris}};
+	
+	\node (lifetime) [process, below of=script] {Calculated reactor lifetime};
+	\node (coresize) [process, right of=lifetime] {Interpolated core size};
+	\node (region) [process, left of=lifetime] {Calculated deployment scheme};
+	
+	\node (output) [object, below of=lifetime] {Generated Cyclue Input File (.xml)};
+	
+	\draw [arrow] (database) -- (data); 
+	\draw [arrow] (user) -- (input); 
+	\draw [arrow] (data) -- (script);
+	\draw [arrow] (input) -- (script);
+	\draw [arrow] (template) -- (script);
+	
+	\draw [arrow] (script) -- (lifetime);
+	\draw [arrow] (script) -- (coresize);
+	\draw [arrow] (script) -- (region);
+	
+	\draw [arrow] (lifetime) -- (output);
+	\draw [arrow] (coresize) -- (output);
+	\draw [arrow] (region) -- (output);
+	
+	\end{tikzpicture}
+	\caption{ Logic flow of \texttt{from\_pris}.
+		Green circles and blue boxes represent files and data, respectively.}
+	\label{diag:log_flow}
+\end{figure}
+
+\subsection{Reactor deployment calculation}
+The module calculates the deployment
+scheme of reactors and their lifetimes by assuming
+that all reactors shut down after 60 years of operation.
+If the expected shutdown date is later than the user-input
+simulation start date,
+the reactor is not written in the input. If the reactor was
+operational prior to the simulation start date,
+and its shutdown date later than simulation start date,
+the reactor is deployed at the beginning of simulation with its remaining lifetime.
+If the reactor's start date is later than the simulation
+start date, and the shutdown time is undefined, the reactor
+is deployed at the defined start date with 60 years of lifetime.
+
+\subsection{Reactor parameter calculation}
+
+The module calculates the core sizes of various reactor
+types by using a linear core size model. It assumes that
+the number of assemblies in a 
+reactor core scales linearly from a model reactor design,
+as shown in the equation below. The mass per assembly
+is kept constant.
+The model reactor designs are listed in table \ref{tab:lin_core}.
+
+\[
+N_{assem} = N_{assem.ref} * \frac{\text{P}}{P_{ref}}
+\]
+\[
+N_{assem.pwr} = 157 * \frac{\text{P}}{1,100}
+\]
+\[
+N_{assem.bwr} = 764 * \frac{\text{P}}{10,098}
+\]
+\[
+N_{assem.phwr} = 4,560 * \frac{\text{P}}{700}
+\]
+\[
+P = \text{power capacity of reactor}
+\]
+
+\begin{table}[h]
+	\centering
+	\caption{Reactor model designs used for the linear core size model.}
+	\begin{tabularx}{\textwidth}{bsssss}
+		\hline
+		\textbf{Category} & \textbf{Model Reactor} & \textbf{Power [MWe]} & \textbf{Assembly Mass [kg]} & \textbf{Assemblies in Core} & \textbf{Reference}  \\
+		\hline
+		\gls{PWR} & AP-1000 & 1,110 & 446 & 157 & \cite{schulz_westinghouse_2006} \\
+		\gls{BWR} & 4-MK I & 1,098 &180 & 764 & \cite{moore_physical_1989} \\
+		\gls{PHWR} & CANDU6 & 700 & 24.17 & 4,560 & \cite{galeriu_technical_nodate} \\
+		\hline
+	\end{tabularx}
+	\label{tab:lin_core}
+\end {table}
+
+
+
+\section{SaltProc-reactor}
+The SaltProc reactor is a Cyclus facility archetype designed to 
+model \gls{MSR} behavior using a database. It roughly couples ``SaltProc'' \cite{rykhlevskii_online_2017}
+and Cyclus, by using the output from SaltProc to mimic \gls{MSR}
+feed and removal behavior in Cyclus. Most of the computationally heavy
+work (neutron transport calculations, fuel depletion calculation) is done in SERPENT (driven  by SaltProc)
+in generating the database, which avoids the large computational burden
+when running Cyclus. 
+
+This method is similar to the simplified implementation of
+recipe reactors, where the depletion calculation is performed outside of the
+fuel cycle simulation. Instead of a single depletion calculation
+used in a recipe reactor, this reactor uses a database of recipes
+to capture the continuously varying state of liquid-fueled reactors like \glspl{MSR}. 
+
+
+\begin{figure}
+	\centering
+	\begin{tikzpicture}[node distance=3.5cm and 2cm, on grid, auto, text width=2cm]
+	
+	\node (msr) [object] {\gls{MSR} design};
+	\node (repro) [object, right of = msr] {Reprocessing Scheme};
+	\node (timesteps) [object, right of = repro] {Timesteps};
+	
+	\node (saltproc) [process, below of = repro] {SaltProc};
+	\node (serpent) [process, right of = saltproc] {SERPENT 2};
+	
+	\node (hdf5) [object, below of = saltproc] {HDF5 Database};
+	
+	\node (hdf5 reactor) [process, below of = hdf5] {HDF5-reactor};
+	
+	\node (bid) [object, below of = hdf5 reactor] {Feed Material request};
+	\node (request) [object, right of = bid] {Waste Material bid};
+	\node (power) [object, left of = bid] {Power};
+	
+	\node (cyclus) [process, below of = bid] {Cyclus};
+
+
+	\draw [arrow] (msr) -- (saltproc); 
+	\draw [arrow] (repro) -- (saltproc); 
+	\draw [arrow] (timesteps) -- (saltproc);
+	
+	\draw [arrow] (saltproc) -- (serpent);
+	\draw [arrow] (serpent) -- (saltproc);
+		
+	\draw [arrow] (saltproc) -- (hdf5);
+	\draw [arrow] (hdf5) -- (hdf5 reactor);
+	
+	\draw [arrow] (hdf5 reactor) -- (bid);
+	\draw [arrow] (hdf5 reactor) -- (request);
+	\draw [arrow] (hdf5 reactor) -- (power);
+	
+	\draw [arrow] (bid) -- (cyclus);
+	\draw [arrow] (request) -- (cyclus);
+	\draw [arrow] (power) -- (cyclus);
+	
+	
+	\end{tikzpicture}
+	\caption{ Logic flow of \texttt{HDF5 Reactor}.
+		Green circles and blue boxes represent files and data, respectively.}
+	\label{diag:hdf5_flow}
+\end{figure}
+
+\subsection{Code Description}
+The user provides only of the commodity names
+for each stream (e.g. waste, fertile), and the database path, since the
+HDF5 database already contains the notion of reactor design,
+reprocessing scheme, and other reactor parameters (shown in
+figure \ref{diag:hdf5_flow}). The commodity names are needed
+for reactor agents to communicate with other Cyclus agents
+in exchanging material.
+
+At every timestep, 
+The \texttt{HDF5 Reactor} calculates the material mass
+and composition accumulated during the Cyclus timestep,
+as shown in equation below.
+
+\[
+M_{T} = \sum m_T
+\]
+\[
+m_{T} = \sum_{t=(T-1)}^{T} m_{t}
+\]
+\[
+M_T = \text{total mass of stream in one Cyclus timestep}
+\]
+\[
+m_T = \text{mass of isotope in one Cyclus timestep}
+\]
+\[
+m_t = \text{mass of isotope in one SaltProc timestep}
+\]
+
+
+\section{Limitations of the database approach}
+\label{sec:limit}
+The limitations of this database approach is that it does not
+take into account the changing incoming fuel compositions due to decay.
+The separated \gls{TRU} composition may vary depending on the time
+an \gls{LWR} \gls{UNF} has been cooled, thus affecting the performance
+of the \gls{MSR}. The database approach assumes a fixed input salt
+composition, which is not the case in this simulation, because reprocessed
+\gls{TRU} spends varying amounts of time until it is fabricated and
+put in the \gls{MSR}.
+
+This limitation is similar to that of batch-wise recipe reactors, where the 
+pre-generated recipe already has a notion of the composition of initial fuel.
+This results in a depleted fuel composition that is agnostic to the incoming
+fuel composition in the simulation. For example, a batch-wise recipe reactor
+depleting a \gls{MOX} fuel would deplete the \gls{MOX} fuel to a same
+composition regardless of its plutonium vector. This is mediated by using
+fuel fabrication facility that modifies the plutonium enrichment to
+meet a certain fissile value (in Cyclus, the Cycamore \texttt{FuelFab} archetype).
+
+The same method can be applied, where, instead of using a fixed mass ratio
+to fabricate fuel for \glspl{MSR}, the fuel fabrication is done by modifying
+the \gls{TRU} enrichment to match a certain fissile value. However, this is
+not a solution to solve the accuracy problem for depletion and errors
+in neutronics calculations.
+
+Another way to overcome this limitation is to use a set of databases 
+that contain multiple SaltProc simulation results with varying initial \gls{TRU}
+vectors. When the reactor archetype receives the fuel, it will find the
+SaltProc simulation result with the initial fuel composition closest to that
+of the received fuel salt, minimizing error stemming from varying
+\gls{TRU} compositions.
+
+The best solution is to have a built-in depletion calculation model. However,
+as mentioned before, this requires too much computational burden for a fuel cycle simulation,
+where there are multiple reactors `at play' at any given time. Another
+possible method is to implement a reduced-order-model of \gls{MSR} depletion
+behavior created by training from a large dataset of \gls{MSR} depletion
+calculations. 

@@ -17,6 +17,8 @@
 \usepackage{multirow}
 \usepackage{fourier}
 \usepackage{booktabs}
+\newcommand\tab[1][1cm]{\hspace*{#1}}
+
 \usepackage{threeparttable, tablefootnote}
 
 %tikzpicture fit to page width
@@ -38,6 +40,7 @@
 \newcolumntype{s}{>{\hsize=.5\hsize}X}
 \newcolumntype{m}{>{\hsize=.75\hsize}X}
 \usepackage{graphics}
+\newcommand{\Cycamore}{\textsc{Cycamore}\xspace}%
 \newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
 \newcommand{\uthree}{\xspace $^{233}_{92}U$ \xspace}
 \newcommand{\ufive}{\xspace $^{235}_{92}U$\xspace}%%
@@ -63,7 +66,8 @@
 
 \begin{document}
 
-\title{Key Parameters and Metrics of Fuel Cycle Transitions}
+\title{Fuel cycle transition simulation capabilities in Cyclus}
+
 \author{Jin Whan Bae}
 %\department{Department of Nuclear, Plasma, Radiological Engineering}
 %\schools{B.S., University of Illinois - Urbana Champaign, 2017}
@@ -77,40 +81,61 @@
 %% Create an abstract that can also be used for the ProQuest abstract.
 %% Note that ProQuest truncates their abstracts at 350 words.
 \begin{abstract}
-This work identifies important metrics and parameters in
-nuclear fuel cycle transition scenarios. First, the agent-based
-fuel cycle simulator \Cyclus is benchmarked against \gls{ORION}.
-Second, important fuel cycle transition metrics are identified
-by extensive literature review.
-Third, I run sensitivity studies on two regional fuel cycle
-transition scenarios (U.S. and France) to identify important
-parameters and how they affect the metrics.
-[results]
+
+Recent interest in advanced reactors and the following need for techno-economic
+transitions has increased the demand for tools necessary
+to model complex \glspl{NFC} and advanced reactor technologies.
+This thesis demonstrates the capability of Cyclus, the
+agent-based fuel cycle simulator, to model, simulate, and analyze
+real-life fuel cycle transition scenarios. I introduce new methods
+and tools that use various databases to model and simulate real-world
+nuclear fuel cycle transition scenarios involving advanced reactor
+technologies.
+
+The development of the capability takes
+three steps: (1) benchmarking
+Cyclus to other \glspl{NFCS};
+(2) developing new methods and tools necessary for modeling and simulating
+real-world fuel cycle transition scenarios; (3)
+simulation of both domestic and international nuclear technology
+transitions.
+
+The methods and tools developed for such capabilities include:
+(1) modeling and simulating past and current
+nuclear fleets using historic nuclear reactor operations
+database; (2) modeling individual reactors and its operating history
+to calculate nuclear material inventory; (3) modeling \gls{MSR} behavior
+in a large-scale fuel cycle simulation.
+
+Benchmark work shows that Cyclus results coincide
+with results from other \glspl{NFCS} with minor differences
+due to modeling reactor behavior.
+Additionally, this thesis demonstrates the Cyclus capability to effectively
+model and simulate real-life \gls{NFC} transition scenarios
+that involve advanced reactor technologies such as \glspl{MSR}.
 
 \end{abstract}
 
-%% Create a dedication in italics with no heading, centered vertically
-%% on the page.
-%% Create an Acknowledgements page, many departments require you to
-%% include funding support in this.
 \chapter*{Acknowledgments}
 
-I consider all my output as a result of me standing on the shoulder
+
+I consider all my output as a result of me standing on the shoulders
 of giants. There have been multiple giants that were kind enough
 to lend me their shoulders. Notably, the tallest of all, my advisor
 and mentor Kathryn Huff, who patiently guided me from my academic
 infancy. Also, I owe the world to my parents and loving brother who
 brought me up with love
 from my actual infancy.  I also thank the staff of Oak Ridge National Laboratory
-Joushua L. Peterson-Droogh, Eva Davidson, and Andrew Worrall for their
+Joushua L. Peterson-Droogh, Eva Davidson, Ben Betzler and Andrew Worrall for their
 guidance over the summer.
 
 I also cannot express enough gratitude to my friends and colleagues. My greatest
 assets and partners that I have had the privilege to cohabitate with, Daniel
 O'Grady and Steven Stemmley, who were the logical anchor in my life. Also, my colleagues
 Andrei Rykhlevskii, Gwendolyn Chee, Gregory Westphal, Gyu Tae Park, Sun Myung Park, and
-Anshuman Chuabe have been of great help. Last but not least I thank my long friends Jieon Kim,
-Eric Bae, Daniel Stewart, Corey Burden, Shane Riew, my comrades from the 12DIV Engineering 3CO, Gyum Hurr and Jae Man Jung.
+Anshuman Chuabe have been of great help. Last but not least I thank my long-time friends Jieon Kim,
+Eric Bae, Daniel Stewart, Corey Burden, Shane Riew, Steve Chung, my comrades from the 12DIV Engineering 3CO,
+Christine Song, Gyum Hurr and Jae Man Jung.
 
 
 %% The thesis format requires the Table of Contents to come
@@ -130,41 +155,42 @@ Eric Bae, Daniel Stewart, Corey Burden, Shane Riew, my comrades from the 12DIV E
 
 %% Create a List of Abbreviations. The left column
 %% is 1 inch wide and left-justified
-\chapter{List of Abbreviations}
-\printglossaries
+%\chapter{List of Abbreviations}
+%\printglossaries
 %% Create a List of Symbols. The left column
 %% is 0.7 inch wide and centered
-\chapter{List of Symbols}
-
 
 \pagebreak
-
-\chapter{Background}
-\input{background}
 
 \chapter{Introduction}
 \input{introduction}
 
-\chapter{Literature Review}
-\input{litrev}
+\chapter{Nuclear Fuel Cycle Simulators}
+\input{fcs.tex}
 
-\chapter{\Cyclus}
-\input{cyclus}
 
-\chapter{Method}
-\input{method}
+\chapter{Tools Used for this work}
+\input{cyclus.tex}
+\input{saltproc.tex}
+
+\chapter{Tools developed for this work}
+\input{developed.tex}
+
+\chapter{Cyclus benchmark Study}
+\input{benchmark.tex}
 
 \FloatBarrier
 
 
-\chapter{France}
+
+\chapter{French \gls{NFC} Transition Scenario with \gls{EU} Regional Analysis}
 \input{france}
 
 
-\chapter{United States}
+\chapter{United States \gls{NFC} Transition Scenario}
 \input{us}
 
-\chapter{Conclusion and Discussion}
+\chapter{Conclusion and Future Work}
 \input{conclusion}
 
 \chapter{Appendix}
