@@ -1,0 +1,160 @@
+
+%%
+%% This is file `thesis-ex.tex',
+%% generated with the docstrip utility.
+%%
+%% The original source files were:
+%%
+%% uiucthesis2014.dtx  (with options: `example')
+%% 
+\def\fileversion{v2.25b} \def\filedate{2018/06/10}
+%% Package and Class "uiucthesis2014" for use with LaTeX2e.
+\documentclass[edeposit,fullpage]{uiucthesis2014}
+
+\usepackage[acronym,toc]{glossaries}
+\include{acros}
+\usepackage{placeins}
+\usepackage{booktabs} % nice rules (thick lines) for tables
+\usepackage{microtype} % improves typography for PDF
+\usepackage{xspace}
+\usepackage[hidelinks]{hyperref}
+\usepackage{xspace}
+\usepackage{setspace}
+\usepackage{hhline}
+\usepackage{amsmath}
+\usepackage{color}
+\usepackage{multirow}
+\usepackage{fourier}
+\usepackage{booktabs}
+\usepackage{threeparttable, tablefootnote}
+
+\usepackage{graphics}
+\newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
+\newcommand{\uthree}{\xspace $^{233}_{92}U$ \xspace}
+\newcommand{\ufive}{\xspace $^{235}_{92}U$\xspace}%%
+\newcommand{\utwo}{\xspace $^{232}_{92}U$\xspace}
+\newcommand{\ueight}{\xspace $^{238}_{92}U$\xspace}
+\newcommand{\pu}{\xspace$^{239}_{94}Pu$\xspace}
+\newcommand{\thor}{\xspace $^{232}_{90}Th$\xspace}
+\graphicspath{ {images/} }
+\usepackage[affil-it]{authblk}
+\usepackage[numbers]{natbib}
+\usepackage{notoccite}
+\usepackage{tikz}
+\usetikzlibrary{positioning, arrows, decorations, shapes}
+
+\usetikzlibrary{shapes.geometric,arrows}
+\tikzstyle{process} = [rectangle, rounded corners, minimum width=2.5cm, minimum height=1cm,text centered, draw=black, fill=blue!30]
+\tikzstyle{object} = [ellipse, rounded corners, minimum width=3cm, minimum height=1cm,text centered, draw=black, fill=green!30]
+\tikzstyle{empty} =  [rectangle, rounded corners, minimum width=2.5cm, minimum height=0.7cm,text centered, draw=black, fill=white!30]
+\tikzstyle{arrow} = [thick,->,>=stealth]
+\usepackage{cleveref}
+\usepackage{datatool}
+
+
+\begin{document}
+
+\title{Key Parameters and Metrics of Fuel Cycle Transitions}
+\author{Jin Whan Bae}
+\department{Nuclear, Plasma, Radiological Engineering}
+\schools{B.S., University of Illinois at Urbana-Champaign, 2017}
+\msthesis
+\advisor{Kathryn Huff}
+\degreeyear{2018}
+\committee{Professor Kathryn Huff, Advisor}
+\maketitle
+
+\frontmatter
+
+%% Create an abstract that can also be used for the ProQuest abstract.
+%% Note that ProQuest truncates their abstracts at 350 words.
+\begin{abstract}
+This work identifies important metrics and parameters in
+nuclear fuel cycle transition scenarios. First, the agent-based
+fuel cycle simulator \Cyclus is benchmarked against \gls{ORION}.
+Second, important fuel cycle transition metrics are identified
+by extensive literature review.
+Third, I run sensitivity studies on two regional fuel cycle
+transition scenarios (U.S. and France) to identify important
+parameters and how they affect the metrics.
+[results]
+\end{abstract}
+
+%% Create a dedication in italics with no heading, centered vertically
+%% on the page.
+\begin{dedication}
+To children worldwide.
+\end{dedication}
+
+%% Create an Acknowledgements page, many departments require you to
+%% include funding support in this.
+\chapter*{Acknowledgments}
+
+I consider all my output as a result of me standing on the shoulder
+of giants. There have been multiple giants that were kind enough
+to lend me their shoulders. Notably, the tallest of all, my advisor
+and mentor Kathryn Huff, who patiently guided me from my academic
+infancy. Also, I owe the world to my parents and loving brother brought me up with love
+from my actual infancy.  I also thank the staff of Oak Ridge National Laboratory
+Joushua L. Peterson-Droogh, Eva Davidson, and Andrew Worrall for their
+guidance over the summer.
+
+I also cannot express enough gratitude to my friends and colleagues. My greatest
+assets and partners that I have had the privilege to cohabitate with, Daniel
+O'Grady and Steven Stemmley, who were the logical anchor in my life. Also, my colleagues
+Andrei Rykhlevskii, Gwendolyn Chee, Gregory Westphal, Gyu Tae Park, Sun Myung Park, and
+Anshuman Chuabe have been of great help. Lastly thanks to my long friends Shane Riew,
+Eric Bae, Daniel Stewart, and all my comrades from the 12DIV Engineering 3CO.
+
+\tableofcontents
+\listoftables
+\listoffigures
+
+%% Create a List of Abbreviations. The left column
+%% is 1 inch wide and left-justified
+\chapter{List of Abbreviations}
+
+\begin{symbollist*}
+\printglossaries
+\end{symbollist*}
+
+\mainmatter
+
+
+\chapter{Background}
+\input{background}
+
+\chapter{Introduction}
+\input{introduction}
+
+\chapter{Literature Review}
+\input{litrev}
+
+\chapter{\Cyclus}
+\input{cyclus}
+
+\chapter{Method}
+\input{method}
+
+\FloatBarrier
+
+
+\chapter{France}
+\input{france}
+
+
+\chapter{United States}
+\input{us}
+
+\chapter{Appendix}
+\input{appendix}
+
+
+
+\bibliographystyle{unsrtnat}
+\bibliography{bibliography}
+
+\end{document}
+\endinput
+%%
+%% End of file `thesis-ex.tex'.
