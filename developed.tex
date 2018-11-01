@@ -7,7 +7,7 @@ nuclear fleet at any point in time. The second extension
 is a Cyclus archetype that mimics \gls{MSR} feed and removal
 behavior using an HDF5 database generated from SaltProc.
 
-\section{cyclus-input-gen}
+\section{\texttt{cyclus-input-gen}}
 \label{sec:writeinput}
 The python package \texttt{cyclus-input-gen} contains
 multiple submodules for automating Cyclus input generation.
@@ -148,7 +148,7 @@ to capture the continuously varying state of liquid-fueled reactors like \glspl{
 	
 	\node (hdf5) [object, below of = saltproc] {HDF5 Database};
 	
-	\node (hdf5 reactor) [process, below of = hdf5] {HDF5-reactor};
+	\node (hdf5 reactor) [process, below of = hdf5] {SaltProc -reactor};
 	
 	\node (bid) [object, below of = hdf5 reactor] {Feed Material request};
 	\node (request) [object, right of = bid] {Waste Material bid};
@@ -177,12 +177,12 @@ to capture the continuously varying state of liquid-fueled reactors like \glspl{
 	
 	
 	\end{tikzpicture}
-	\caption{ Logic flow of \texttt{HDF5 Reactor}.
+	\caption{ Logic flow of \texttt{SaltProc Reactor}.
 		Green circles and blue boxes represent files and data, respectively.}
 	\label{diag:hdf5_flow}
 \end{figure}
 
-\subsection{Code Description}
+\subsection{Code description}
 The user provides only of the commodity names
 for each stream (e.g. waste, fertile), and the database path, since the
 HDF5 database already contains the notion of reactor design,
@@ -192,7 +192,7 @@ for reactor agents to communicate with other Cyclus agents
 in exchanging material.
 
 At every timestep, 
-The \texttt{HDF5 Reactor} calculates the material mass
+The \texttt{SaltProc Reactor} calculates the material mass
 and composition accumulated during the Cyclus timestep,
 as shown in equation below.
 
@@ -251,4 +251,4 @@ as mentioned before, this requires too much computational burden for a fuel cycl
 in which there are multiple reactors `at play' at any given time. Another
 possible method is to implement a reduced-order-model of \gls{MSR} depletion
 behavior created by training from a large dataset of \gls{MSR} depletion
-calculations. 
+calculations.
