@@ -219,7 +219,7 @@ the \Cyclus archetypes that were used to model each facility.
 		% Place nodes
 		\node [block] (sr) {Mine (\texttt{SOURCE})};
 		\node [cloud, below of=sr] (nu) {Nat U};
-		\node [block, below of=nu] (enr) {Enrichment ({\footnotesize \texttt{ENRICHMENT}})};
+		\node [block, below of=nu] (enr) {\small Enrichment ({\scriptsize \texttt{ENRICHMENT}})};
 		\node [cloud, below of=enr] (uox) {\acrshort{UOX}};
 		\node [block, below of=uox] (lwr) {\gls{LWR} (\texttt{REACTOR})};
 		\node [cloud, right of=lwr] (snf) {\gls{UNF}};
@@ -229,12 +229,12 @@ the \Cyclus archetypes that were used to model each facility.
 		\node [block, right of=tl] (sk) {Repository (\texttt{SINK})};
 		\node [cloud, below of=sk] (cunf) {Cooled \gls{UNF}};
 		\node [cloud, below of=pool] (cunf2) {Cooled \gls{UNF}};
-		\node [block, below of=snf] (rep) {{\small Reprocessing ({\footnotesize \texttt{SEPARATIONS}})}};
+		\node [block, below of=snf] (rep) {{\footnotesize Reprocessing ({\scriptsize \texttt{SEPARATIONS}})}};
 		\node [cloud, below of=rep] (u) {Sep. U} ;
 		\node [cloud, left of=rep] (pu) {Sep. TRU};
 		\node [block, left of=pu] (mix) {Fabrication (\texttt{MIXER})};
 		\node [cloud, below of=mix] (fs) {Fuel Salt};
-		\node [block, below of=mox] (mxr) {\gls{MSR} (\texttt{HDF5-Reactor})};
+		\node [block, below of=mox] (mxr) {\gls{MSR} (\texttt{HDF5-} \\ \texttt{Reactor})};
 		\node [cloud, left of=stor] (tl) {Dep U};
 		
 		\node [cloud, right of=mxr] (waste) {Waste};

@@ -32,12 +32,10 @@ shown in diagram \ref{diag:log_flow}.
 	\node (database) [object] {PRIS Database (\texttt{.csv})};
 	\node (data) [process, below of=database] {Reactor data (net capacity, reactor size)};
 	
-	\node (user) [object, right of=database] {User};
+	\node (user) [object, right=7cm of database] {User};
 	\node (input) [process, below of=user] {Start year, month,  Simulation duration};
 	
-	\node (template) [process, right of=user] {Cyclus input template files};
-	
-	\node (script) [object, below of=input] {\texttt{from\_pris}};
+	\node (script) [object, below right= 2cm and 3.5cm of data] {\texttt{from\_pris}};
 	
 	\node (lifetime) [process, below of=script] {Calculated reactor lifetime};
 	\node (coresize) [process, right of=lifetime] {Interpolated core size};
@@ -49,7 +47,6 @@ shown in diagram \ref{diag:log_flow}.
 	\draw [arrow] (user) -- (input); 
 	\draw [arrow] (data) -- (script);
 	\draw [arrow] (input) -- (script);
-	\draw [arrow] (template) -- (script);
 	
 	\draw [arrow] (script) -- (lifetime);
 	\draw [arrow] (script) -- (coresize);
