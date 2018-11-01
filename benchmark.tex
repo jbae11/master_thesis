@@ -31,7 +31,7 @@ model solution from the verification study \cite{feng_standardized_2016}.
 The input file and analysis procedures are all available on Github \cite{bae_arfc/transition-scenarios:_2018}.
 
 
-\section{Fundamental Modeling Differences in \Cyclus}
+\section{Fundamental modeling differences in \Cyclus}
 
 \Cyclus has fundamental modeling choice differences from the fuel cycle analysis codes
 used in the benchmark \cite{feng_standardized_2016}.
@@ -155,7 +155,10 @@ Figure \ref{fig:waiting_monthly} shows the amount of cooled \gls{UNF} waiting fo
 reprocessing. The value is calculated by subtracting the cumulative difference between
 the cooled inventory and the \gls{UNF} reprocessing throughput.
 
-\[ M_{wait, t} = M_{cooled, t} - M_{rep, t} \]
+\[ M_{w}(t) = M_{c}(t) - M_{r}(t) \]
+\[ M_{w}(t) = \text{Mass of \gls{UNF} waiting for reprocessing at time t.}\]
+\[ M_{c}(t) = \text{Mass of \gls{UNF} under mandatory cooling at time t.}\]
+\[ M_{r}(t) = \text{Mass of \gls{UNF} reprocessed at time t.}\]
 
 The oscillation is between the cooled inventory in the storage facility before (high)
 and after (low) it sends its inventory for reprocessing.
