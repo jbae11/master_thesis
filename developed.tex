@@ -129,7 +129,7 @@ in generating the database, which avoids the large computational burden
 when running Cyclus. 
 
 This method is similar to the simplified implementation of
-recipe reactors, where the depletion calculation is performed outside of the
+recipe reactors, in which the depletion calculation is performed outside of the
 fuel cycle simulation. Instead of a single depletion calculation
 used in a recipe reactor, this reactor uses a database of recipes
 to capture the continuously varying state of liquid-fueled reactors like \glspl{MSR}. 
@@ -224,7 +224,7 @@ composition, which is not the case in this simulation, because reprocessed
 \gls{TRU} spends varying amounts of time until it is fabricated and
 put in the \gls{MSR}.
 
-This limitation is similar to that of batch-wise recipe reactors, where the 
+This limitation is similar to that of batch-wise recipe reactors, in which the 
 pre-generated recipe already has a notion of the composition of initial fuel.
 This results in a depleted fuel composition that is agnostic to the incoming
 fuel composition in the simulation. For example, a batch-wise recipe reactor
@@ -233,7 +233,7 @@ composition regardless of its plutonium vector. This is mediated by using
 fuel fabrication facility that modifies the plutonium enrichment to
 meet a certain fissile value (in Cyclus, the Cycamore \texttt{FuelFab} archetype).
 
-The same method can be applied, where, instead of using a fixed mass ratio
+The same method can be applied, that, instead of using a fixed mass ratio
 to fabricate fuel for \glspl{MSR}, the fuel fabrication is done by modifying
 the \gls{TRU} enrichment to match a certain fissile value. However, this is
 not a solution to solve the accuracy problem for depletion and errors
@@ -248,7 +248,7 @@ of the received fuel salt, minimizing error stemming from varying
 
 The best solution is to have a built-in depletion calculation model. However,
 as mentioned before, this requires too much computational burden for a fuel cycle simulation,
-where there are multiple reactors `at play' at any given time. Another
+in which there are multiple reactors `at play' at any given time. Another
 possible method is to implement a reduced-order-model of \gls{MSR} depletion
 behavior created by training from a large dataset of \gls{MSR} depletion
 calculations. 
