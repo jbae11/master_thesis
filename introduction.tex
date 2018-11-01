@@ -17,9 +17,34 @@ safety of the current reactor fleet, and the availability of
 uranium resources create a negative public perception of
 nuclear energy and its sustainability.
 
+Advanced fuel cycles with reprocessing of \gls{UNF} 
+provide an opportunity for solving those concerns while
+meeting energy demand. The \gls{ANS} \gls{FCWMD} selected
+three grand challenges \cite{huff_message_2017}, listed below:
+
+\begin{enumerate}
+	\item Establish used nuclear fuel recycle associated with the
+	``most promising'' fuel cycles that are economically competitive
+	with current electricity production
+	\item Leverage the findings of the U.S. \gls{DOE}'s Evaluation
+	and Screening Study to reconsider the U.S. approach to the whole
+	nuclear fuel cycle, and publicly establish the ``most promising''
+	nuclear fuel cycles and address some of the stretched ``truths''
+	about some fuel cycles.
+	\item Establish a logical incremental timeline toward a pilot
+	and full-scale recycling facility for current reactors, and
+	transition to future reactors from the ``most promising' fuel cycles.
+\end{enumerate}
+
+The three grand challenges can be summarized as a need to
+identify and plan for a ``most promising'' fuel cycle, while
+accurately calculating its impacts. For solving these challenges, a
+simulation tool capable of accurately calculating the metrics
+of a fuel cycle transition scenario is essential.
+
 This work will demonstrate the capability of a system-level
 analysis tool, Cyclus, which can model a more advanced \gls{NFC} that
-possibly solves the three concerns mentioned above. 
+possibly solves the three challenges mentioned above. 
 The modeling capability will aid in planning a strategy for
 transitioning into an advanced fuel cycle.
 
@@ -187,6 +212,20 @@ requires dynamic tracking of material flows from multiple facilities,
 as well as modeling of complex systems. This work
 determines material feasibility by calculating
 the material inventory of real-world \gls{NFC} transition scenarios.
+
+
+\subsection{Real-world fuel cycle simulation}
+Real-world fuel cycle simulation captures the non-uniformity of
+reactor facilities in the real world. Most work on fuel cycle
+simulation assumes a uniform fleet of reactors with the same
+parameters, such as core size and power capacity. This assumption
+does not reflect the current state of nuclear operation, with
+reactors with varying power capacity and core size, leading
+to errors in \gls{UNF} inventory and power demand calculations.
+Capturing the real-world nuclear fleet requires discrete
+modeling of facilities, with unique parameters for each facility
+as well as discrete material and facility event (e.g. refuel outage,
+decommission) modeling.
 
 
 \section{Objectives}
