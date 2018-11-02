@@ -7,7 +7,7 @@ nuclear fleet at any point in time. The second extension
 is a Cyclus archetype that mimics \gls{MSR} feed and removal
 behavior using an HDF5 database generated from SaltProc.
 
-\section{cyclus-input-gen}
+\section{\texttt{cyclus-input-gen}}
 \label{sec:writeinput}
 The python package \texttt{cyclus-input-gen} contains
 multiple submodules for automating Cyclus input generation.
@@ -32,12 +32,10 @@ shown in diagram \ref{diag:log_flow}.
 	\node (database) [object] {PRIS Database (\texttt{.csv})};
 	\node (data) [process, below of=database] {Reactor data (net capacity, reactor size)};
 	
-	\node (user) [object, right of=database] {User};
+	\node (user) [object, right=7cm of database] {User};
 	\node (input) [process, below of=user] {Start year, month,  Simulation duration};
 	
-	\node (template) [process, right of=user] {Cyclus input template files};
-	
-	\node (script) [object, below of=input] {\texttt{from\_pris}};
+	\node (script) [object, below right= 2cm and 3.5cm of data] {\texttt{from\_pris}};
 	
 	\node (lifetime) [process, below of=script] {Calculated reactor lifetime};
 	\node (coresize) [process, right of=lifetime] {Interpolated core size};
@@ -49,7 +47,6 @@ shown in diagram \ref{diag:log_flow}.
 	\draw [arrow] (user) -- (input); 
 	\draw [arrow] (data) -- (script);
 	\draw [arrow] (input) -- (script);
-	\draw [arrow] (template) -- (script);
 	
 	\draw [arrow] (script) -- (lifetime);
 	\draw [arrow] (script) -- (coresize);
@@ -132,7 +129,7 @@ in generating the database, which avoids the large computational burden
 when running Cyclus. 
 
 This method is similar to the simplified implementation of
-recipe reactors, where the depletion calculation is performed outside of the
+recipe reactors, in which the depletion calculation is performed outside of the
 fuel cycle simulation. Instead of a single depletion calculation
 used in a recipe reactor, this reactor uses a database of recipes
 to capture the continuously varying state of liquid-fueled reactors like \glspl{MSR}. 
@@ -151,7 +148,7 @@ to capture the continuously varying state of liquid-fueled reactors like \glspl{
 	
 	\node (hdf5) [object, below of = saltproc] {HDF5 Database};
 	
-	\node (hdf5 reactor) [process, below of = hdf5] {HDF5-reactor};
+	\node (hdf5 reactor) [process, below of = hdf5] {SaltProc -reactor};
 	
 	\node (bid) [object, below of = hdf5 reactor] {Feed Material request};
 	\node (request) [object, right of = bid] {Waste Material bid};
@@ -180,12 +177,12 @@ to capture the continuously varying state of liquid-fueled reactors like \glspl{
 	
 	
 	\end{tikzpicture}
-	\caption{ Logic flow of \texttt{HDF5 Reactor}.
+	\caption{ Logic flow of \texttt{SaltProc Reactor}.
 		Green circles and blue boxes represent files and data, respectively.}
 	\label{diag:hdf5_flow}
 \end{figure}
 
-\subsection{Code Description}
+\subsection{Code description}
 The user provides only of the commodity names
 for each stream (e.g. waste, fertile), and the database path, since the
 HDF5 database already contains the notion of reactor design,
@@ -195,7 +192,7 @@ for reactor agents to communicate with other Cyclus agents
 in exchanging material.
 
 At every timestep, 
-The \texttt{HDF5 Reactor} calculates the material mass
+The \texttt{SaltProc Reactor} calculates the material mass
 and composition accumulated during the Cyclus timestep,
 as shown in equation below.
 
@@ -227,7 +224,7 @@ composition, which is not the case in this simulation, because reprocessed
 \gls{TRU} spends varying amounts of time until it is fabricated and
 put in the \gls{MSR}.
 
-This limitation is similar to that of batch-wise recipe reactors, where the 
+This limitation is similar to that of batch-wise recipe reactors, in which the 
 pre-generated recipe already has a notion of the composition of initial fuel.
 This results in a depleted fuel composition that is agnostic to the incoming
 fuel composition in the simulation. For example, a batch-wise recipe reactor
@@ -236,7 +233,7 @@ composition regardless of its plutonium vector. This is mediated by using
 fuel fabrication facility that modifies the plutonium enrichment to
 meet a certain fissile value (in Cyclus, the Cycamore \texttt{FuelFab} archetype).
 
-The same method can be applied, where, instead of using a fixed mass ratio
+The same method can be applied, that, instead of using a fixed mass ratio
 to fabricate fuel for \glspl{MSR}, the fuel fabrication is done by modifying
 the \gls{TRU} enrichment to match a certain fissile value. However, this is
 not a solution to solve the accuracy problem for depletion and errors
@@ -251,7 +248,7 @@ of the received fuel salt, minimizing error stemming from varying
 
 The best solution is to have a built-in depletion calculation model. However,
 as mentioned before, this requires too much computational burden for a fuel cycle simulation,
-where there are multiple reactors `at play' at any given time. Another
+in which there are multiple reactors `at play' at any given time. Another
 possible method is to implement a reduced-order-model of \gls{MSR} depletion
 behavior created by training from a large dataset of \gls{MSR} depletion
-calculations. 
+calculations.
