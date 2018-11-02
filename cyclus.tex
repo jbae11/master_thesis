@@ -14,7 +14,7 @@ and \texttt{Region} agents exist, varying in complexity and purpose \cite{huff_e
 \texttt{DeployInst}, which deploys agents at user-defined timesteps, serves
 as the main \texttt{Institution} archetype in this work. All reactor \texttt{Facility} agents,
 fuel reprocessing, and fabrication \texttt{Facility} agents
-are deployed through \texttt{DeployInst}, while basic fuel cycle \texttt{Facility} agetns
+are deployed through \texttt{DeployInst}, while basic fuel cycle \texttt{Facility} agents
 such as sink, source, enrichment, and storage facilities are deployed 
 through \texttt{NullInst}, which simply deploys \texttt{Facility}
 agents at the beginning of the simulation.
@@ -70,7 +70,7 @@ calculations.
 		\includegraphics[scale=0.3]{./images/cyclus_core.png}
 	\end{center}
 	\caption{The Cyclus core provides APIs that the archetypes
-			can be loaded into the simulation in a modular fashion
+			can be loaded into the simulation modularly
 			\cite{huff_fundamental_2016}.}
 	\label{fig:core}
 \end{figure}

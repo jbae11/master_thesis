@@ -78,7 +78,7 @@ most nations with nuclear energy (e.g. U.S., Korea, Finland, Sweden).
 This fuel cycle begins with mining of uranium ore, which is extracted from the
 ground. The mined ore is milled to form yellowcake ($U_3O_8$).
 The yellowcake is then either converted to $UF_6$ and enriched, or converted
-to $UO_2$ directly. This is because some reactor designs (e.g. \glspl{CANDU} \cite{torgerson_candu_2006})
+to $UO_2$ directly. This is because some reactor designs (e.g. \gls{CANDU} designs\cite{torgerson_candu_2006})
 can operate with natural uranium, while others (e.g. \glspl{LWR}) need
 higher-than-natural levels of uranium-235. The processed $UO_2$ is
 then fabricated to pellets and loaded into fuel assemblies.
@@ -169,22 +169,12 @@ cycles through the progressive replacement of previous technology
 (i.e. \glspl{LWR}) with an advanced technology (i.e. reprocessing
 and fast-spectrum reactors). Other transition scenarios include
 a general transition into a different fuel cycle (evaluation group
-defined by Wigeland et al.) or to a mixture of fuel cycles, or
+defined by Wigeland et al.), or to a mixture of fuel cycles, or
 a complete nuclear energy phaseout.
 
-Analysis of transition scenarios requires
-deliberate tracking of materials and facilities in order
-to accurately calculate the resources necessary for a
-successful transition.
-
-The timescale and feasibility of a transition scenario
-varies by nation, depending on the nation's nuclear energy demand,
-fuel cycle strategies, and initial conditions.
-In this work, I only consider the material feasibility of the
-transition scenario. Economic and political feasibility analyses
-are out of the scope of this work. A fuel cycle transition is considered
-materially feasible if all the deployed reactors receive fuel
-in time.
+In this work, I analyze the material feasibility of fuel
+cycle transition scenarios, which is governed by whether
+all nuclear reactors received fuel on time.
 
 The fuel demand is determined by two factors - nuclear energy demand
 and the nation's fuel cycle strategy.
@@ -207,6 +197,13 @@ of advanced reactors. The energy demand is instead met by additional
 deployment of previous reactor technology (e.g. \glspl{LWR}),
 thereby increasing transition timescale but reducing the
 intensity of fissile material demand.
+
+Since fuel cycles involve multiple facilities at play,
+analyses of transition scenarios require
+deliberate and dynamic tracking of materials and facilities,
+in order to calculate available nuclear material
+inventory as well as the demand for the nuclear
+material.
 
 \subsection{Real-world fuel cycle simulation}
 Real-world fuel cycle simulation captures the non-uniformity of
@@ -286,19 +283,19 @@ country, name, type, net capacity (\gls{MWe}), status, operator, construction
 date, first criticality date, first grid date, commercial date, and shutdown
 date (if applicable). \texttt{from\_pris} extracts the information from this file
 to generate a Cyclus compatible input file, which lists the individual
-reactor units as agents. Second, I developed a module that models \glspl{MSR}
+reactor units as agents. Second, I developed \texttt{SaltProc\_Reactor}that models \glspl{MSR}
 in Cyclus using a database generated from a high-fidelity \gls{MSR} depletion calculation.
 The database is an output of SaltProc \cite{rykhlevskii_arfc/saltproc:_2018}, a python
 module that drives
 SERPENT 2 \cite{leppanen_serpentcontinuous-energy_2013} to model online reprocessing in an \gls{MSR}.
 The database contains the historic compositions of each stream in and out of the reactor,
-composition history inside the reactor, and $k_{eff}$ values. The developed tool then
+composition history inside the reactor, and $k_{eff}$ values. \texttt{SaltProc\_Reactor} then
 reads the database to mimic \gls{MSR} behavior by requesting and offering
 feed and waste material to the Cyclus framework. The database is in HDF5
 format, a hierarchical data format designed to store and organize
 large amounts of data \cite{the_hdf_group_hierarchical_1997}.
 
-Finally I constructed the fuel cycle transition scenario for France and the United States.
+Finally, I constructed the fuel cycle transition scenario for France and the United States.
 I made different assumptions for the two scenarios to account for each nation's different goals,
 initial conditions (i.e. currently existing fleet, \gls{UNF} inventory), and their potential reactor
 technology. I used \texttt{from\_pris} to construct the initial Cyclus input file,
