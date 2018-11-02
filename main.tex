@@ -15,6 +15,12 @@
 \usepackage{amsmath}
 \usepackage{color}
 \usepackage{multirow}
+\usepackage{siunitx}
+\sisetup{
+	input-decimal-markers = .,input-ignore = {,},table-number-alignment = right,
+	group-separator={,}, group-four-digits = true
+}
+
 \usepackage{fourier}
 \usepackage{booktabs}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
@@ -37,6 +43,8 @@
 
 \usepackage{tabularx}
 \newcolumntype{b}{>{\hsize=1.0\hsize}X}
+\newcolumntype{q}{>{\hsize=0.5\hsize}X}
+\newcolumntype{z}{>{\hsize=0.75\hsize}X}
 \newcolumntype{s}{>{\hsize=.5\hsize}X}
 \newcolumntype{m}{>{\hsize=.75\hsize}X}
 \usepackage{graphics}

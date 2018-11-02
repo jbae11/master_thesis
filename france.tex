@@ -350,7 +350,7 @@ French La Hague and MELOX sites \cite{schneider_spent_2008, hugelmann_melox_1999
 \begin{table}[h]
     \centering
     \caption{Simulation Specifications}
-    \begin{tabularx}{\linewidth}{bss}
+    \begin{tabularx}{\linewidth}{bqq}
         \hline
         \textbf{Specification} &\textbf{Value} & \textbf{Units}\\
         \hline
@@ -430,12 +430,12 @@ ORIGEN calculates buildup, decay, and processing of radioactive materials
     \centering
     \caption{Fresh fuel compositions in the simulation \cite{wilson_adoption_2009, varaine_pre-conceptual_2012}.}
 %   \scalebox{0.86}{
-        \begin{tabular}{lrrr}
+        \begin{tabular}{lSSS}
             \hline
              & \multicolumn{3}{c}{ Composition [\%]} \\
-            Recipe & U-235  & U-238  & Pu \\ 
+            Recipe & \text{U235}  & \text{U238}  & Pu \\ 
             \hline
-            Fresh \gls{UOX} Fuel & 4.29 & 95.71 & -   \\ 
+            Fresh \gls{UOX} Fuel & 4.29 & 95.71 & 0.0   \\ 
             Fresh \gls{LWR} \gls{MOX} Fuel & 0.2 & 90.7 & 9.1 \\ 
             Fresh \gls{ASTRID} Fuel & 0.3 & 77.7 & 22 \\
             \hline
@@ -559,15 +559,15 @@ can transition into a fully \gls{SFR} fleet without extra construction of
 \begin{table}[h]
     \centering
     \caption{Plutonium in the \gls{UNF} inventory.}
-    \begin{tabular}{lrr}
+    \begin{tabular}{lSS}
         \hline
         \textbf{Isotope} & \textbf{Mass Fraction in Used Fuel [\%]} & \textbf{Quantity [t]} \\ \hline
-        Pu238 & 0.0111 & 10.52 \\ 
+        Pu238 & 0.011 & 10.52 \\ 
         Pu239 & 0.518 & 545.05 \\ 
         Pu240 & 0.232 & 244.11 \\ 
         Pu241 & 0.126 & 132.58 \\ 
-        Pu242 & 0.0487 & 51.24 \\ \hline
-        \textbf{Total} & \textbf{0.9358} & \textbf{983.52} \\ \hline
+        Pu242 & 0.048 & 51.24 \\ \hline
+        \bfseries Total & 0.935 & 983.52 \\ \hline
     \end{tabular}
     
     \label{tab:pu}
@@ -630,19 +630,19 @@ Table \ref{tab:sfr_sim_result} lists French reprocessing and
                                   %thought there was only one simulation. . . 
                           }
     \scalebox{1}{
-        \begin{tabular}{llr}
+        \begin{tabular}{llS}
             \hline
             \textbf{Category} & \textbf{Unit} & \textbf{Value}  \\ \hline
             Total \gls{ASTRID} MOX used & MTHM & 63,452  \\ 
-            \textbf{Average UOX Reprocessing} & MTHM/month & \textbf{124.6} \\
-            \textbf{Average Total Reprocessing} & MTHM/month & \textbf{63.23} \\
-            \textbf{Average Fuel Fabrication} & MTHM/month & \textbf{45.32} \\
+            \textbf{Average UOX Reprocessing} & MTHM/month & \bfseries 124.6 \\
+            \textbf{Average Total Reprocessing} & MTHM/month & \bfseries 63.23 \\
+            \textbf{Average Fuel Fabrication} & MTHM/month & \bfseries 45.32 \\
             Total \glspl{SFR} Deployed & & 220 \\ 
             Total Plutonium Reprocessed & MTHM & 14,620 \\ 
             Total \gls{ASTRID} fuel from UOX Waste & MTHM & 2,856  \\ 
             Total \gls{ASTRID} fuel from MOX Waste & MTHM  & 60,596 \\ 
             Total Tails used & MTHM & 49,492 \\ 
-            \textbf{Total legacy UNF reprocessed} & MTHM & \textbf{52,874} \\ 
+            \textbf{Total legacy UNF reprocessed} & MTHM & 52,874 \\ 
             Total Reprocessed Uranium Stockpile & MTHM & 148,620 \\ 
             Total Raffinate & MTHM & 17,901 \\ \hline
         \end{tabular}}
