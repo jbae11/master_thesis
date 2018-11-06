@@ -1,13 +1,16 @@
 The scope of this work includes development and demonstration of
 various methods and tools to leverage Cyclus' existing
-capabilities to model real-world fuel cycle transition scenarios.
+capabilities to model and simulate real-world nuclear fuel cycle
+transition scenarios involving advanced reactor technologies.
+
+
 
 \section{Background}
 Increasing climate change concerns have directed attention
-to nuclear energy, which produces reliable base load energy
+to nuclear energy, which produces reliable baseload energy
 with negligible CO$_2$ emission. To reduce CO$_2$ emissions,
-the world will have to reduce fossil fuel based power plants.
-Also, the energy demand is expected to increase
+the world will have to reduce fossil fuel power plants.
+Also, the world energy demand is expected to increase
 (28\% growth between 2015 and 2040 \cite{conti_international_2016}).
 Given the two circumstances,
 nuclear power is expected to play a crucial role in the world energy portfolio.
@@ -19,13 +22,17 @@ nuclear energy and its sustainability.
 
 Advanced fuel cycles that recycle nuclear fuel 
 provide an opportunity for solving those concerns while
-meeting energy demand. The \gls{ANS} \gls{FCWMD} selected
-three grand challenges \cite{huff_message_2017}, listed below:
+meeting energy demand. Towards the effort to transition
+into advanced fuel cycles, the \gls{ANS} \gls{FCWMD} has identified
+three grand challenges \cite{huff_message_2017}, listed below. The grand
+challenges are technical goals that need to be resolved by
+2030 in order to help solve some of the economic, sociological,
+or political issues that the nuclear society face \cite{american_nuclear_society_ans_2017}.
 
 \begin{enumerate}
-	\item Establish used nuclear fuel recycle associated with the
+	\item Establish used nuclear fuel recycling associated with the
 	``most promising'' fuel cycles that are economically competitive
-	with current electricity production
+	with current electricity production.
 	\item Leverage the findings of the U.S. \gls{DOE}'s Evaluation
 	and Screening Study to reconsider the U.S. approach to the whole
 	nuclear fuel cycle, and publicly establish the ``most promising''
@@ -33,32 +40,33 @@ three grand challenges \cite{huff_message_2017}, listed below:
 	about some fuel cycles.
 	\item Establish a logical incremental timeline toward a pilot
 	and full-scale recycling facility for current reactors, and
-	transition to future reactors from the ``most promising' fuel cycles.
+	transition to future reactors from the ``most promising'' fuel cycles.
 \end{enumerate}
 
 The three grand challenges can be summarized as a need to
 identify and plan for a ``most promising'' fuel cycle, while
-accurately calculating its impacts. For solving these challenges, a
-simulation tool capable of accurately calculating the metrics
-of a fuel cycle transition scenario is essential.
+accurately calculating its impacts. 
+A simulation tool capable of accurately calculating the metrics
+of a fuel cycle transition scenario is essential for solving these challenges.
 
-This work will demonstrate the capability of a system-level
-analysis tool, Cyclus, which can model a more advanced \gls{NFC} that
-possibly solves the three challenges mentioned above. 
-The modeling capability will aid in planning a strategy for
-transitioning into an advanced fuel cycle.
+This work will demonstrate capabilities of a system-level
+analysis tool, Cyclus. The modeling capabilities of Cyclus 
+will aid in the effort of solving
+the grand challenges mentioned above.
 
 \subsection{The nuclear fuel cycle}
 The nuclear fuel cycle is the complete nuclear energy
 system from mining to disposal \cite{tsoulfanidis_nuclear_2013}.
-The general goal of
+A common goal of
 a \gls{NFC} is to produce power economically, while minimizing
-waste and natural resource used. Other specialized goals of the \gls{NFC} are
-weapons material production and waste profile reduction through transmutation.
+waste and natural resource used. Other specialized goals of \gls{NFC}s may involve
+weapons material production or repository burden reduction through transmutation.
 The discharge \gls{UNF} from the reactors is eventually sent back to facilities for
 either recycling or disposal.
 
-A study by Wigeland et al. identified potential fuel cycle groups and compared them
+In 2011, the \gls{DOE} commissioned a report based on the national priorities
+in order to plan the U.S. nuclear future.
+The report by Wigeland et al. identified potential fuel cycle groups and compared them
 to find the most `promising' fuel cycle \cite{wigeland_nuclear_2014}.
 The objective of the evaluation was to provide information about the
 potential benefits and challenges of nuclear fuel cycle options, in order to
