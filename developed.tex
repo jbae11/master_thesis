@@ -1,17 +1,17 @@
 I developed two extensions to leverage 
-the capabilities of Cyclus to model
+the capabilities of \Cyclus to model
 real-world fuel cycle transition scenarios.
 The first extension is a python input-generating module
 that automates scenario generation of the real-world 
 nuclear fleet at any point in time. The second extension
-is a Cyclus archetype that mimics \gls{MSR} feed and removal
+is a \Cyclus archetype that mimics \gls{MSR} feed and removal
 behavior using an HDF5 database generated from SaltProc.
 
 \section{\texttt{cyclus-input-gen}}
 \label{sec:writeinput}
 The python package \texttt{cyclus-input-gen} contains
-multiple submodules for automating Cyclus input generation.
-The submodule \texttt{from\_pris} automates the generation of Cyclus input files
+multiple submodules for automating \Cyclus input generation.
+The submodule \texttt{from\_pris} automates the generation of \Cyclus input files
 to model the state of reactor fleets at a given
 point in time.
 
@@ -22,7 +22,7 @@ first criticality date, first grid date, commercial date,
 and shutdown date (if applicable). The user inputs simulation
 configurations such as start year, start month, and
 simulation duration. \texttt{from\_pris} uses the collected data to
-fill out a template into a Cyclus input file. 
+fill out a template into a \Cyclus input file. 
 Diagram \ref{diag:low_flow} shows the logical flow of the module.
 
 
@@ -120,13 +120,13 @@ P = \text{power capacity of reactor}
 
 
 \section{SaltProc-reactor}
-The SaltProc reactor is a Cyclus facility archetype designed to 
+The SaltProc reactor is a \Cyclus facility archetype designed to 
 model \gls{MSR} behavior using a database. It roughly couples ``SaltProc'' \cite{rykhlevskii_online_2017}
-and Cyclus, by using the output from SaltProc to mimic \gls{MSR}
-feed and removal behavior in Cyclus. Most of the computationally heavy
+and \Cyclus, by using the output from SaltProc to mimic \gls{MSR}
+feed and removal behavior in \Cyclus. Most of the computationally heavy
 work (neutron transport calculations, fuel depletion calculation) is done in SERPENT (driven  by SaltProc)
 in generating the database, which avoids the large computational burden
-when running Cyclus. 
+when running \Cyclus. 
 
 This method is similar to the simplified implementation of
 recipe reactors, in which the depletion calculation is performed outside of the
@@ -188,12 +188,12 @@ for each stream (e.g. waste, fertile), and the database path, since the
 HDF5 database already contains the notion of reactor design,
 reprocessing scheme, and other reactor parameters (shown in
 figure \ref{diag:hdf5_flow}). The commodity names are needed
-for reactor agents to communicate with other Cyclus agents
+for reactor agents to communicate with other \Cyclus agents
 in exchanging material.
 
 At every timestep, 
 The \texttt{SaltProc Reactor} calculates the material mass
-and composition accumulated during the Cyclus timestep,
+and composition accumulated during the \Cyclus timestep,
 as shown in equation below.
 
 \[
@@ -203,10 +203,10 @@ M_{T} = \sum m_T
 m_{T} = \sum_{t=(T-1)}^{T} m_{t}
 \]
 \[
-M_T = \text{total mass of stream in one Cyclus timestep}
+M_T = \text{total mass of stream in one \Cyclus timestep}
 \]
 \[
-m_T = \text{mass of isotope in one Cyclus timestep}
+m_T = \text{mass of isotope in one \Cyclus timestep}
 \]
 \[
 m_t = \text{mass of isotope in one SaltProc timestep}
@@ -231,7 +231,7 @@ fuel composition in the simulation. For example, a batch-wise recipe reactor
 depleting a \gls{MOX} fuel would deplete the \gls{MOX} fuel to a same
 composition regardless of its plutonium vector. This is mediated by using
 fuel fabrication facility that modifies the plutonium enrichment to
-meet a certain fissile value (in Cyclus, the Cycamore \texttt{FuelFab} archetype).
+meet a certain fissile value (in \Cyclus, the Cycamore \texttt{FuelFab} archetype).
 
 The same method can be applied, that, instead of using a fixed mass ratio
 to fabricate fuel for \glspl{MSR}, the fuel fabrication is done by modifying

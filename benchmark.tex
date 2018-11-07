@@ -1,5 +1,5 @@
-This chapter demonstrates Cyclus' agreement with other
-\glspl{NFCS} by benchmarking the results of Cyclus to
+This chapter demonstrates \Cyclus' agreement with other
+\glspl{NFCS} by benchmarking the results of \Cyclus to
 a previous verification study by Feng et al. \cite{feng_standardized_2016}.
 This verification study compared four well-known \glspl{NFCS}
 DYMOND \cite{yacout_modeling_2005},
@@ -9,7 +9,7 @@ MARKAL \cite{shay_epa_2006}. The results from each code were compared to a
 set of `model solutions' that were generated from a spreadsheet
 for various metrics (e.g. fuel loading in reactor, \gls{UNF} inventory)
 in a transition scenario. I took the input parameters from this study,
-and reproduced the transition scenario in Cyclus, and compare the results.
+and reproduced the transition scenario in \Cyclus, and compare the results.
 Results show that Cylcus' results are in good agreement with the results
 from Feng et al., with minor differences caused by reactor module behavior.
 
@@ -75,7 +75,7 @@ The differences are listed in table \ref{tab:diff}.
 	\label{tab:diff}
 	\end {table}
 
-Note that the Cyclus framework code would never need to be changed.
+Note that the \Cyclus framework code would never need to be changed.
 The only change made was the \Cycamore reactor
 depletion behavior at decommission due to its large impact on plutonium inventory.
 The goal of this
@@ -96,7 +96,7 @@ benchmark solutions.
 	\begin{center}
 		\includegraphics[scale=0.7]{./images/results_18/power_plot.png}
 	\end{center}
-	\caption{Deployed reactor capacities at the end of each year from Cyclus.}
+	\caption{Deployed reactor capacities at the end of each year from \Cyclus.}
 	\label{fig:pow_plot}
 \end{figure}
 
@@ -111,14 +111,14 @@ benchmark solutions.
 
 Figure \ref{fig:fuel_load} shows the annual fuel loading rate.
 The initial fuel loading for 100 \gls{LWR} reactors are not shown in
-the plot for both the benchmark and the Cyclus results.
+the plot for both the benchmark and the \Cyclus results.
 The oscillations caused by the 18 month refueling period
 were aggregated into 12 month groups. As a result the total fuel loaded
 is equal for both plots.
 
 Although indistinguishable in figure \ref{fig:fuel_load},
 there is a small difference between \gls{SFR} fuel loading proportional
-to the core mass difference, because Cyclus only has integer batch numbers.
+to the core mass difference, because \Cyclus only has integer batch numbers.
 Figure \ref{fig:fuel_load_diff_norm} shows the
 differences normalized by the core mass differences, overlapped with the
 \gls{SFR} deployment. This shows that the differences only occur during
@@ -196,12 +196,12 @@ the benchmark solution. No oscillation exists from 2030 to 2055 because the
 
 Figure \ref{fig:tru} shows the inventory of unused \gls{TRU} recovered from \gls{UNF}.
 The \Cyclus results follow the benchmark solutions closely. However,
-the larger \gls{SFR} core size in Cyclus causes \Cyclus results to be 1.07\% smaller than the benchmark results,
+the larger \gls{SFR} core size in \Cyclus causes \Cyclus results to be 1.07\% smaller than the benchmark results,
 since more \gls{TRU} is used to
 start up the newly deployed \glspl{SFR}. Note that since
 batch numbers are integer by their nature, it is unrealistic
 to have a non-integer batch number. Therefore, the integer
-restriction in Cyclus more accurately represents reality.
+restriction in \Cyclus more accurately represents reality.
 
 \begin{figure}[htbp!]
 	\begin{center}

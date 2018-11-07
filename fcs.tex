@@ -1,5 +1,5 @@
 \glspl{NFCS} are system-level analysis tools
-that allow tracking of material flow in a \gls{NFC}. Their
+that allow tracking of material flow in an \gls{NFC}. Their
 functionalities include, but are not limited to, isotopic decay,
 depletion calculations, and separation of material streams.
 The goal of a \gls{NFCS} is to calculate \textit{metrics} - quantitative
@@ -179,10 +179,10 @@ models actual U.S. nuclear fleets using the \gls{PRIS} database, which is the sa
 method used for this work. However, the analysis is done using an extensive
 network of spreadsheets, and not a \gls{NFCS}.
 
-Modeling real-world fleets is possible in Cyclus, for two
-reasons. First, Cyclus models
+Modeling real-world fleets is possible in \Cyclus, for two
+reasons. First, \Cyclus models
 discrete facilities with their own events and material flow.
-Second, Cyclus has a text-based input file structure, meaning that
+Second, \Cyclus has a text-based input file structure, meaning that
 the input files (and thus the scenario) can be generated from 
 a database and a script, as in this work.
 
@@ -242,7 +242,7 @@ This challenge of large computational time in an \gls{NFCS} can be overcome by `
 heavy work to the higher-fidelity reactor physics and depletion codes. 
 A high-fidelity code simulates a certain
 \gls{MSR} design for its lifetime, while recording the history of its feed and waste in a
-database. A Cyclus facility module reads this database and mimics the feed and removal
+database. A \Cyclus facility module reads this database and mimics the feed and removal
 behavior listed in the database, effectively modeling \gls{MSR} interactions with the `market'.
 This allows \gls{MSR} modeling in a larger-scale system analysis without heavy computational
 burden, while securing fidelity of the depletion calculation.

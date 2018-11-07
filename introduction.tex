@@ -1,5 +1,5 @@
 The scope of this work includes development and demonstration of
-various methods and tools to leverage Cyclus' existing
+various methods and tools to leverage \Cyclus' existing
 capabilities to model and simulate real-world nuclear fuel cycle
 transition scenarios involving advanced reactor technologies.
 
@@ -49,7 +49,7 @@ A simulation tool capable of accurately calculating the metrics
 of a fuel cycle transition scenario is essential for solving these challenges.
 
 This work will demonstrate capabilities of a system-level
-analysis tool, Cyclus. The modeling capabilities of Cyclus 
+analysis tool, \Cyclus. The modeling capabilities of \Cyclus 
 will aid in the effort of solving
 the grand challenges mentioned above.
 
@@ -229,13 +229,63 @@ modeling of facilities, with unique parameters for each facility
 as well as discrete material and facility event (e.g. refuel outage,
 decommission) modeling.
 
+\section{Nuclear fuel cycle simulators}
+\glspl{NFCS} are system-level analysis tools
+that allow tracking of material flow in an \gls{NFC}. Their
+functionalities include, but are not limited to, isotopic decay,
+depletion calculations, and separation of material streams.
+The goal of a \gls{NFCS} is to calculate \textit{metrics} - quantitative
+measures of performance that can be compared among fuel cycle
+options \cite{huff_fundamental_2016}.
+
+The obtained metrics can then be optimized to the interests
+of different stakeholders. Passerini et al. \cite{passerini_systematic_2014}
+identified categories and criteria for \gls{NFC} optimization and
+weighted the criteria for different stakeholders (e.g. Industry, laboratories).
+This approach can help decide which metric is important to stakeholders
+and optimize the fuel cycle for that metric.
+
+Table \ref{tab:fcs} lists the \glspl{NFCS}
+considered in this section. The listed \glspl{NFCS}
+generally focus on one functionality
+(e.g. multi-regional analysis, detailed isotopic tracking,
+demand-driven deployment, cost analysis, sensitivity study)
+but lack in the flexibility to perform other
+functionalities \cite{huff_next_2010}. In
+other words, no \gls{NFCS} has all the functionalities to
+perform the superset of analysis types.
+
+\begin{table}[h]
+	\centering
+	\caption{List of \glspl{NFCS} considered in this paper.
+		Reproduced from \cite{huff_next_2010}}
+	\label{tab:fcs}
+	\begin{tabular}{lll}
+		\hline
+		Name & Developer & Reference(s) \\
+		\hline
+		CAFCA & MIT & \cite{guerin_benchmark_2009}\\
+		COSI6 & CEA (Frane) & \cite{meyer_new_2009} \\
+		DANESS & ANL & \cite{van_den_durpel_daness:_2006}\\
+		DESAE2.1 & Rosatom (Russia) & \cite{tsibulskiy_desae_2006}\\
+		EVOLCODE2 & CIEMAT (Spain) & \cite{alvarez-velarde_validation_2014}\\
+		FAMILY21 & JAEA (Japan) & \cite{oecd_nuclear_2009}\\
+		GENIUSv1 & INL & \cite{dunzik-gougar_global_2007}\\
+		GENIUSv2 & Univ of Wisconsin & \cite{dunn_genius_2009}\\
+		NFCSS & IAEA & \cite{iaea_guidance_2008}\\
+		NFCSim & LANL & \cite{schneider_nfcsim:_2005} \\
+		VISION & ANL/INL & \cite{jacobson_verifiable_2010} \\
+		\hline
+	\end{tabular}
+\end{table}
+
 
 \section{Objectives}
 
 This thesis demonstrates and extends the real-world \gls{NFC} transition
-scenario modeling capabilities in Cyclus. 
+scenario modeling capabilities in \Cyclus. 
 The goal of this thesis to
-develop tools that leverage Cyclus' modularity to
+develop tools that leverage \Cyclus' modularity to
 add capabilities required for modeling real-world
 fuel cycle transition scenarios. The added capabilities are then
 demonstrated through \gls{NFC} transition scenarios relevant to France and the United
@@ -253,6 +303,205 @@ Second, \gls{NFC} transition scenarios need to optimize
 existing investment and technology. For example, with an \gls{NFCS},
 analysts can determine the best reactor technology
 to leverage current \gls{LWR} \gls{UNF} inventory in a nation.
+
+
+\subsection{Capabilities required for modeling transition scenarios}
+To meet the two goals mentioned above, a \gls{NFCS} needs to have
+specific capabilities.
+A study by Brown et al. \cite{brown_identification_2016}
+identified nine common functionalities of \glspl{NFCS} for modeling
+transition scenarios - material compositions, deployment of fuel
+cycle facilities, front-end facility models, separations and material
+recycle facilities, reactor facilities, back-end features, starting
+the new fuel cycle, materials queuing and prioritization under
+capacity limitations, and energy demand algorithms. Brown et al.
+categorize each functionality into three tiers - basic, integral,
+and exemplary. The functionalities, features, and their hierarchies
+are organized in table \ref{tab:ffh}.
+
+\begin{table}[h]
+	\centering
+	\caption {Nine common functionalities identified for \gls{NFCS} to perform
+		fuel cycle transition scenarios. Reproduced from Brown et al. \cite{brown_identification_2016}}
+	\label{tab:ffh}
+	\begin{tabularx}{\textwidth}{lXl}
+		\hline
+		\textbf{Functionality}&\textbf{Feature} &\textbf{Hierarchy} \\
+		\hline
+		\multirow{6}{*}{\shortstack{Composition \\ Features}} & Modeling of implicit consideration of fuel materials including primary fissile and fertile actinide isotopes & Basic \\
+		& Fuel's initial heavy metal mass modeled as lumped masses  of the remaining actinides and fission products to conserve mass & Basic \\
+		& Isotopic decay of materials in storage & Exemplary \\
+		& Modeling of intermediate isotopes (e.g. Pa-233) & Exemplary \\
+		& Tracking of fission products beyond a simple lumped sum & Exemplary \\
+		& Modeling of compounding materials in fuels and waste forms & Exemplary\\
+		
+		\hline
+		
+		\multirow{3}{*}{\shortstack{Fuel Cycle \\ Facility \\ Deployment}} & Facility deployment and retirement & Basic \\
+		& Construction time delays & Basic \\
+		& Strategic deployment to meet demand &Integral \\
+		
+		\hline
+		
+		\multirow{6}{*}{\shortstack{Front-end \\ Facilities}} & Source (mining and milling) & Basic \\
+		& Details of mines and mills including annual and total quantities available & Exemplary \\
+		& Conversion and enrichment facilities & Basic \\
+		& Timing and capacity of recycle facilities & Basic \\
+		& Fuel fabrication & Basic \\
+		& Time delays and losses in separations and fabrication & Basic \\
+		
+		\hline
+		
+		\multirow{4}{*}{\shortstack{Separations \\ and \\ Material \\ Recycling}} & Separations facilities may be required for \gls{UNF} & Basic \\
+		& Cooling time & Basic \\
+		& Losses in separations & Basic \\
+		& Material selection from the \gls{UNF} supply & Basic \\
+		
+		\hline
+		
+		\multirow{6}{*}{\shortstack{Reactor \\ Facility}} & Fueling: number of batches, cycle length and fuel per batch & Basic \\
+		& Multiple fuel types in reactor facility (driver, blanket) & Basic \\
+		& Pre-generated charge and discharge isotopic compositions & Basic \\
+		& Real time calculations based on reactor physics models & Exemplary \\
+		& Reactor facility lifetime, construction time, and decommissioning time & Basic \\
+		& Initial charge for first core and discharge for final core & Basic \\
+		
+		\hline
+	\end{tabularx}
+\end{table}
+\pagebreak
+\begin{table}[h]
+	\centering
+	\begin{tabularx}{\textwidth}{lXl}
+		\hline
+		\multirow{2}{*}{Back-end} & Cooling of used fuel & Basic \\
+		& \shortstack{Conservation of mass - consistency with\\ charged mass and generated power} & Basic \\
+		
+		\hline
+		
+		\multirow{3}{*}{\shortstack{Fuel Cycle \\ Startup}} & External source of fissile material & Basic \\
+		& Startup on recycled fuel from other facilities &Integral \\
+		& Primary and back-up fuel types & Exemplary \\
+		
+		\hline
+		
+		\multirow{3}{*}{\shortstack{Material \\ Prioritization}} & Material accumulation & Basic \\
+		& Material prioritization &Integral \\
+		& Radioactive decay & Exemplary \\
+		
+		\hline
+		
+		\multirow{2}{*}{\shortstack{Energy Demand \\ Algorithm}} & Technology allocation accounting for availability &Integral \\
+		& Ordering and deployment of multiple reactor technologies &Integral \\
+		\hline
+	\end{tabularx}
+\end{table}
+
+\FloatBarrier
+
+\subsection{Additional capabilities identified for real-world fuel cycle transition scenarios}
+I have identified three additional functionalities beyond the ones identified by Brown et al \cite{brown_identification_2016}
+for modeling real-world \gls{NFC} transition scenario -
+integrating historical data, modeling discrete facilities and events, and modeling liquid-fueled
+reactors with continuous reprocessing.
+
+
+\subsubsection{Integrating historical data}
+In modeling real-world nuclear fuel cycle transition scenarios, initial
+conditions (e.g. existing fissile inventory, existing reactor fleet) 
+strongly impact the transition scenario parameters, such as reactor deployment
+schemes, fuel types, and reactor designs.
+This requires the \gls{NFCS} to correctly model the current fleet and its
+remaining lifetime. The purpose of a fuel cycle is to produce power, thus the objective
+function of a fuel cycle simulation is generally to meet a certain power demand.
+Once the required installed capacity of the current fleet is calculated,
+the analyst can determine the deployment scheme of future reactors to meet a future
+power demand. 
+
+\subsubsection{Past work on modeling real-world fleets}
+Modeling real-world fleets requires data about the current existing fleet,
+such as power capacity, first criticality date, core size, and expected shutdown date.
+
+A study by Sunny et al. modeled the current U.S. nuclear fleet
+using ORION \cite{sunny_transition_2015}. However, the fleet represented
+by Sunny et al. is far from
+modeling real-world U.S. nuclear fleet since it assumed a deployed \gls{LWR} capacity
+of 90 GWe in 2015, which decreases by 5 GWe every year starting from 2030,
+meaning that no consideration is given to the actual shutdown dates of
+existing reactors. This simplification stems from ORION modeling reactors as
+a fleet governed by a power demand, not as discrete facilities.
+
+Another U.S. \gls{NFC} transition scenario simulation by Worrall \cite{worrall_utilization_2013}
+models actual U.S. nuclear fleets using the \gls{PRIS} database, which is the same
+method used for this work. However, the analysis is done using an extensive
+network of spreadsheets, and not a \gls{NFCS}.
+
+Modeling real-world fleets is possible in \Cyclus, for two
+reasons. First, \Cyclus models
+discrete facilities with their own events and material flow.
+Second, \Cyclus has a text-based input file structure, meaning that
+the input files (and thus the scenario) can be generated from 
+a database and a script, as in this work.
+
+
+\subsubsection{Discrete reactor facility modeling}
+Discrete modeling of reactors allows a higher resolution of the power supply and
+material flow. In the real world, especially in the United States, existing
+reactors do not have the same power output or core size. This means that
+lumping the reactor fleet together causes a loss in accuracy. The loss in
+accuracy occurs by not capturing phenomena such as anisotropic fresh fuel
+fabrication requirements, spent fuel isotopics of a fleet of reactors
+with greatly varying burnups, and chaotic isotopic balance in fuel
+cycles involving multiple recycling passes \cite{huff_next_2010}.
+COSI 6 \cite{meyer_new_2009}, EVOLCODE \cite{alvarez-velarde_validation_2014},
+FAMILY21 \cite{oecd_nuclear_2009},
+have discrete facility modeling capabilities, while
+DESAE2.2\cite{tsibulskiy_desae_2006}, and VISION \cite{jacobson_verifiable_2010} do
+not \cite{boucher_international_2010}.
+
+Similarly, most \glspl{NFCS} do not treat disruption events (lack of fuel supply
+or decommissioning of a reactor)
+discretely. For example, ORION shuts down the entire simulation if there
+is a lack of fuel supply, and cannot decommission reactors mid-cycle.
+DESAE `borrows' lacking fuel from storage (leaving a
+negative mass value) instead of shutting down the reactor \cite{mccarthy_benchmark_2012}.
+COSI models reactors operating in sync \cite{boucher_benchmark_2012}.
+
+
+\subsubsection{Modeling liquid-fueled reactors with continuous reprocessing}
+\label{sec:msr}
+\gls{MSR} designs have recently gained attention due to 
+their potential to be 
+safer, more efficient in heat conversion, and sustainable \cite{serp_molten_2014}.
+Multiple companies in the U.S. are now pursuing
+commercialization of \gls{MSR} design reactors, such as Terrapower, Terrestrial \cite{leblanc_18_2017}, and
+Thorcon \cite{jorgensen_19_2017}. Other parties such as China (TMSR-LF \cite{dai_17_2017}) ,
+France (REBUS-3700 \cite{mourogov_potentialities_2006}),
+and the European Union (MSFR \cite{heuer_towards_2014}, MOSART \cite{ignatiev_molten_2014})
+are developing \gls{MSR} designs.
+
+However, modeling an \gls{MSR} is challenging due to its on-line reprocessing
+and continuously flowing fuel.
+The material flow in and out of the reactor is continuous and dynamic, as well as the
+composition inside the core.
+Neutronics and depletion calculations have to be performed continuously while
+the composition of the fuel changes via depletion and reprocessing.
+Reactor physics and depletion calculations
+on \glspl{MSR} have been done. For example,
+Oak Ridge National Laboratory researchers developed
+ChemTriton \cite{powers_new_2013}, a python script that drives SCALE,
+to perform semi-continuous reprocessing of the fuel \cite{powers_inventory_2014, betzler_fuel_2018}.
+However, modeling \glspl{MSR} in a \gls{NFCS} is a challenge
+due to the large computational burden associated with frequent depletion calculations.
+
+This challenge of large computational time in an \gls{NFCS} can be overcome by `outsourcing' the computationally
+heavy work to the higher-fidelity reactor physics and depletion codes. 
+In such a workflow, the high-fidelity code simulates a certain
+\gls{MSR} design for its lifetime, while recording the history of its feed and waste in a
+database. A \Cyclus facility module reads this database and mimics the feed and removal
+behavior listed in the database, effectively modeling \gls{MSR} material flow.
+This allows \gls{MSR} modeling in a larger-scale system analysis without heavy computational
+burden, while securing fidelity of the depletion calculation.
 
 
 
@@ -279,7 +528,7 @@ MARKAL \cite{shay_epa_2006}. The results from each code were
 compared to a set of `model solutions' that were generated
 from a spreadsheet for various metrics (e.g. fuel loading
 in reactor, \gls{UNF} inventory). I reproduced the transition
-scenario in Cyclus, and compare the Cyclus results with those
+scenario in \Cyclus, and compare the \Cyclus results with those
 from the model solutions.
 
 \subsection{Tool development}
@@ -288,13 +537,13 @@ fuel cycle, I developed two major tools. First, I developed a python package \te
 which includes the submodule \texttt{from\_pris}
 that automates extraction from the curated \gls{IAEA} \gls{PRIS} database
 \cite{iaea_nuclear_2018}. Second, I developed \texttt{SaltProc\_Reactor}that models \glspl{MSR}
-in Cyclus using a database generated from a high-fidelity \gls{MSR} depletion calculation.
+in \Cyclus using a database generated from a high-fidelity \gls{MSR} depletion calculation.
 
 \subsection{Real-world fuel cycle transition scenario simulation}
 I constructed the fuel cycle transition scenario for France and the United States.
 I made different assumptions for the two scenarios to account for each nation's different goals,
 initial conditions (i.e. currently existing fleet, \gls{UNF} inventory), and their potential reactor
-technology. I used \texttt{from\_pris} to construct the initial Cyclus input file,
+technology. I used \texttt{from\_pris} to construct the initial \Cyclus input file,
 followed by iterations to account for new reactor deployment. The workflow driving the analyses is shown in diagram \ref{diag:workflow}.
 
 
@@ -321,11 +570,11 @@ processes, respectively, in the computational workflow.}
 
 
 The structure of this thesis is as follows. In chapter 2, I review other fuel cycle simulation
-tools and their gaps, and explain the unique capability Cyclus
+tools and their gaps, and explain the unique capability \Cyclus
 has for transition scenario simulation.
 Chapter 3 discusses the design and
 development of capabilities needed for \gls{NFC} transition simulation.
-Chapter 4 describes the results from the benchmark study, in which Cyclus results are compared
+Chapter 4 describes the results from the benchmark study, in which \Cyclus results are compared
 to results from other fuel cycle simulation tools.
 Chapter 5 and 6 details the results from the France and United States fuel cycle
 transition scenarios, in which each nation's \gls{LWR} fleet transitions into
