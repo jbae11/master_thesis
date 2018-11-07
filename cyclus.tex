@@ -53,10 +53,10 @@ improvements or contribute extensions for \Cyclus.
 
 \subsection{Modularity and extensibility}
 In most modern \glspl{NFCS}, the facilities and their
-behaviors (and its fidelity) are confined in the software.
+behaviors (and their fidelities) are confined in the software.
 Also, most modern \glspl{NFCS} model
 fuel cycles (once-through, continuous reprocessing)
-with immutable restrictions to connections between facilities. On the
+with immutable connections between facilities. On the
 other hand, \Cyclus allows users to plug-and-play various agent models
 within the \Cyclus framework (shown in figure \ref{fig:core}).
 Also, \Cyclus relies on a market-based model
@@ -83,10 +83,11 @@ The kernel solves the multicommodity exchange problem
 posed by the material offers and requests and executes
 the transaction between two agents.
 
-\subsection{Cyclus' fitness for real-world \gls{NFC} transition scenario}
+\subsection{Cyclus' fitness for real-world \gls{NFC} transition scenarios}
 The \Cyclus framework and its extension libraries fulfill all the functionalities
 specified by Brown et al. \cite{brown_identification_2016}.  Additionally,
-its text-based input structure and discrete facility modeling capabilities
+\Cyclus capability to read text-based input structure and model facilities discretely
 allow modeling of real-world, individual reactors. 
 Modularity in \Cyclus enables adding an \gls{MSR} model without altering \Cyclus
 itself.
+
