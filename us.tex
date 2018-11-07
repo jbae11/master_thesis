@@ -61,7 +61,7 @@ of the current U.S. nuclear from 2013 (shown in figure \ref{fig:us_legacy}).
 \end{figure}
 
 
-\subsection{Energy Demand Prediction}
+\subsection{Energy demand prediction}
 A reference for the energy demand prediction is the 
 \gls{EIA} Annual Energy Outlook \cite{u.s._eia_annual_2018}.
 The 2018 Annual Energy Outlook report predicts an annual electricity demand growth
@@ -74,7 +74,7 @@ I assume that the U.S. nuclear power capacity is kept at
 100GWe, and new reactors are deployed to make up for the
 decommissioned capacity.
 
-\subsection{\gls{MSR} Design and Availability}
+\subsection{\gls{MSR} design and availability}
 
 \gls{MSR} designs can be categorized depending on their operating
 neutron spectrum (e.g. fast, thermal), fuel cycle (e.g. Th-$^{233}U$, U-Pu),
@@ -299,7 +299,15 @@ output two streams - reprocess waste and end-of-life salt - which are both dispo
 \section{Scenario specification}
 
 The scenario specifications for the U.S. transition scenario are listed
-in table \ref{tab:us_sim_specs}.
+in table \ref{tab:us_sim_specs}. The simulation end date is set to 2160
+so that second generation of large \gls{MSR} deployment is included in the
+simulation. \gls{MSR} fuel production begins 20 years prior to \gls{MSR}
+deployment to reduce reprocessing and fabrication burden. \gls{LWR} \gls{UNF}
+is cooled for a minimum of 8.5 years so that the \gls{TRU} vector is similar
+to the \gls{TRU} vector of REBUS-3700 initial fuel (see figure \ref{fig:trutru}).
+The reprocessing plant separates all \gls{TRU}, and mixes the separated \gls{TRU}
+elements into \gls{MSR} fuel. 
+
 
 \begin{table}[h]
 	\centering
@@ -326,11 +334,12 @@ in table \ref{tab:us_sim_specs}.
 \section{Reactor specifications}
 
 Two major reactors are used in the simulation, \gls{PWR} and \gls{MSR}.
-
 For \glspl{PWR}, I use a linear core size model to capture varying reactor capacity
 (explained in section \ref{sec:writeinput}). The reactors deployed after 2020 are
-modeled after the AP-1000 reactor \cite{sutharshan_ap1000tm_2011}. The reactor
-specifications are shown in \ref{tab:us-reactor-specs}.
+modeled after the AP-1000 reactor \cite{sutharshan_ap1000tm_2011}, and I
+assume a \gls{PWR} lifetime of 80 years. The reactor
+specifications are shown in \ref{tab:us-reactor-specs}. The \gls{MSR} does not
+have a refueling outage and runs continuously. 
 
 \begin{table}[h]
 	\centering
@@ -404,6 +413,15 @@ reactor is shown in table \ref{tab:rebus_init}.
 The database used to model \glspl{MSR} is generated using SaltProc
 with a unit cell model of the REBUS-3700 reactor. The parameters
 used for running SERPENT and SaltProc are shown in table \ref{tab:saltproc-run-params}.
+The parameters are chosen to acquire a reasonably accurate simulation result
+while keeping the simulation time under 48 hours. I chose SERPENT simulation parameters
+so that the eigenvalue ($k_{eff}$) uncertainties for any SERPENT run does not
+exceed 42 ppm. The fuel salt density and power density is obtained from
+values in the literature \cite{mourogov_potentialities_2006}. I derived
+the fuel salt mass by dividing the core fuel mass by the core volume.
+\[\rho_{fuel} = \frac{M_{core}}{V_{core}} = \frac{133.3 t}{368,587 l} = 3.6 \frac{g}{cm^3} \]
+I chose SaltProc simulation parameters so that the number of
+SERPENT runs do not exceed 800. 
 
 \begin{table}[h]
 	\centering
