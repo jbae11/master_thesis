@@ -1,10 +1,10 @@
-The United States has been the forerunner of nuclear energy, with a currently 
+The United States has been the forerunner in nuclear energy, with a currently 
 installed nuclear capacity of 99,221 \gls{MWe} \cite{iaea_nuclear_2017}.
 With its large capacity and long history of nuclear
-energy, the United States has accumulated about $70,000$ \gls{MTHM} of \gls{UNF}.
+energy, the United States has accumulated over $70,000$ \gls{MTHM} of \gls{UNF}.
 
-The complication with modeling the U.S. transition scenario is that the U.S. does not have
-a defined advanced reactor design, whereas France has a central plan to transition into \gls{ASTRID} reactors \cite{boullis_french_2015, varaine_pre-conceptual_2012}.
+The challenge with modeling the U.S. transition scenario is that the U.S. does not have
+a single nationwide advanced reactor vision, whereas France has a central plan to transition into \gls{ASTRID} reactors \cite{boullis_french_2015, varaine_pre-conceptual_2012}.
 Previous analyses of the United States \cite{worrall_utilization_2013, sunny_transition_2015}
  \gls{NFC} transition scenario
 assumed transition to fast-spectrum \glspl{SFR}.
@@ -29,9 +29,12 @@ However, this is unnecessary for the U.S. scenario because a detailed
 database exists that describes the U.S. \gls{UNF} inventory up to May of 2013.
 The \gls{UNF-STANDARDS} is a comprehensive,
 controlled source of \gls{UNF} information, including dry cask attributes, assembly
-data, and economic attributes \cite{peterson_unf-st&dards_2017}. This database
-allows the transition scenario simulation to start from 2013. The \gls{UNF} inventory mass and composition in 2013
-is imported from \gls{UNF-STANDARDS} and is `initiated' in the simulation
+data, and economic attributes \cite{peterson_unf-st&dards_2017}. The assembly
+compositions are calculated using ORIGEN \cite{parks_overview_1992} using the
+reported fuel assembly burnups, original enrichment, and assembly design. This database
+allows the transition scenario simulation to start from 2013. I imported 
+the \gls{UNF} inventory mass and composition in 2013
+from \gls{UNF-STANDARDS} and `initiated' the inventory in the simulation
 as a \texttt{Source} facility with an inventory of 68,072 MTHM,
 the total mass of the \gls{LWR} \gls{UNF} in the \gls{UNF-STANDARDS}.
 
@@ -59,7 +62,7 @@ of the current U.S. nuclear from 2013 (shown in figure \ref{fig:us_legacy}).
 
 
 \subsection{Energy Demand Prediction}
-The reference for the energy demand prediction is the 
+A reference for the energy demand prediction is the 
 \gls{EIA} Annual Energy Outlook \cite{u.s._eia_annual_2018}.
 The 2018 Annual Energy Outlook report predicts an annual electricity demand growth
 of 0.9\%. The report also predicts that nuclear
@@ -84,7 +87,7 @@ transition analysis.
 The REBUS-3700 \gls{MSR} design offers five principal
 advantages over other \gls{MSR} designs:
 \begin{itemize}
-	\item Fast spectrum - no need for moderator rods 
+	\item Fast spectrum - no need for moderator rods
 	\item U-Pu cycle - requires only depleted uranium for supply after initial fuel salt loading
 	\item Weakly positive breeding gain (0.03)
 	\begin{itemize}
@@ -97,7 +100,7 @@ advantages over other \gls{MSR} designs:
 
 The U.S. has a large inventory of \gls{LWR} \gls{UNF} and tails. The benefits
 of the REBUS-3700 design aligns with the waste management interest
-of the U.S of reducing final geological repository burden, which can be
+of the U.S. Reducing final geological repository burden can be
 accomplished by:
 
 \begin{itemize}
@@ -110,10 +113,10 @@ accomplished by:
 \end{itemize}
 
 Additionally, the REBUS-3700 does not have, at any moment in
-operation, separated fissile streams, like other \gls{MSR} designs
-such as the \gls{MSBR} design \cite{robertson_conceptual_1971} (separated 
-$^{233}U$),
-or the \gls{MCSFR} design \cite{smith_assessment_1974} (separated Pu stream from the blanket region).
+operation, separated fissile streams, like other \gls{MSR} designs.
+Other \gls{MSR} designs such as the
+\gls{MCSFR} design \cite{smith_assessment_1974}
+have separated fissile streams, since it separates the bred plutonium from its blanket salt.
 The REBUS-3700 only takes in depleted uranium and processes out
 fission product groups such as volatile gases and noble metals.
 The detailed reprocessing scheme is shown
@@ -178,12 +181,12 @@ in figure \ref{fig:trutru}).
 \section{U.S. Deployment Schedule}
 
 As shown in figure \ref{fig:us_legacy}, the U.S. will
-undergo a large loss of nuclear capacity from 2030, under the
+undergo a profound loss of nuclear capacity from 2030, under the
 assumption that U.S. reactors have a lifetime of 60 years.
 
 Since it is unlikely that \glspl{MSR} are ready for
 commercial deployment in 2020, I deploy \glspl{LWR} (AP 1000 design \cite{sutharshan_ap1000tm_2011})
-to make up for the decommissioned capacity. After 2050,
+to make up for the decommissioned capacity in the simulation. After 2050,
 REBUS-3700 design \glspl{MSR} are deployed. The deployment of new reactors
 is shown in figure \ref{fig:us_dep}, and the installed
 power capacity of the reactors is shown in \ref{fig:us_pow}.
@@ -280,7 +283,8 @@ the \Cyclus archetypes that were used to model each facility.
 	\label{diag:us_fc}
 \end{figure}
 
-The U.S. transition scenario's material flow is similar to that of France,
+The U.S. transition scenario's material flow is similar to that of the French transition
+in the previous chapter,
 except that all \gls{TRU} is reprocessed from \gls{LWR} \gls{UNF}
 to fabricate fuel salt. Also, the depleted uranium from
 the enrichment plant is stored in a storage facility to be used as a fertile stream for \gls{MSR} facilities.
@@ -441,7 +445,7 @@ $90.34 \frac{kg}{month}$ (figure \ref{fig:rebus_waste}).
 	\begin{center}
 		\includegraphics[scale=0.7]{./images/us/keff.png}
 	\end{center}
-	\caption{Change in $K_{eff}$ value in the REBUS-3700 core. The $K_{eff}$ drops below
+	\caption{Change in $k_{eff}$ value in the REBUS-3700 core. The $k_{eff}$ drops below
 		1.01 after 40 years of operation.}
 	\label{fig:keff}
 \end{figure}
@@ -475,8 +479,9 @@ inventory.
 
 \subsection{\gls{LWR} \gls{UNF} inventory}
 
-Table \ref{tab:us_lwr_unf} lists the U.S. \gls{LWR} \gls{UNF} inventory.
-Since major deployment of \glspl{MSR} do not begin until 2110,
+Table \ref{tab:us_lwr_unf} lists the U.S. \gls{LWR} \gls{UNF} inventory
+results in the simulation.
+Since major deployment of \glspl{MSR} does not begin until 2110,
 the U.S. has a long time to prepare and accumulate the \glspl{TRU}
 required for \gls{MSR} fuel salt fabrication. The U.S. accumulates
 an additional $196,976$ \gls{MTHM} of \gls{LWR} \gls{UNF}
@@ -560,8 +565,8 @@ jump in demand of fuel salt is mediated by reprocessing the \gls{LWR} \gls{UNF} 
 
 \subsection{Waste inventory and resource usage}
 
-Table \ref{tab:us_waste} shows the mass of various nuclear waste
-inventory at the end of the simulation. Large quantities of \gls{LWR}
+Table \ref{tab:us_waste} shows the masses of various nuclear waste
+inventories at the end of the simulation. Large quantities of \gls{LWR}
 \gls{UNF} ($132,094$ MTHM) and depleted uranium ($~1.1$ million tons)
 remain unused, meaning that more \glspl{MSR} could have been deployed.
 The tails usage from the \glspl{MSR} is not significant compared to
@@ -616,14 +621,15 @@ scheme used in the simulation, the U.S. will have sufficient
 time to prepare the fuel salt necessary for major \gls{MSR} deployment
 beginning in 2110. Supporting the \gls{MSR} fleet requires an average
 \gls{LWR} \gls{UNF} reprocessing capacity of $94.15$ MTHM per month, and an average fuel salt
-fabrication capacity of $13.26$ MTHM per month. 
+fabrication capacity of $13.26$ MTHM per month. The reprocessing capacity demand is similar to the
+current capacity of the La Hague plant in France (91.6 MTHM per month) \cite{schneider_spent_2008}.
 
 The deployment of the REBUS-3700 \gls{MSR} design allows a reduction
 in final repository burden, by transmuting the \gls{TRU} and reducing depleted uranium inventory.
 However, \gls{TRU} extraction requires more advanced reprocessing methods than the currently
 widely-deployed PUREX method. Resource utilization can be improved if depleted
-uranium is used instead of natural uranium to fabricated initial fuel, since
-there is still more than a million tons of depleted uranium available at the
+uranium is used instead of natural uranium to fabricate initial fuel, since
+there is still more than one million tons of depleted uranium available at the
 end of the simulation. This would require a higher \gls{TRU} concentration
 in the fuel, which is plausible since $132,094$ MTHM of \gls{LWR} \gls{UNF}
 are still available for reprocessing.
@@ -631,7 +637,9 @@ are still available for reprocessing.
 In reality, however, complications with \gls{TRU} vectors and changes in \gls{MSR}
 performance will occur, due to variations in \gls{LWR} \gls{UNF}
 cooling (decay) time and discharge burnup. This would require careful fabrication of the initial fuel salt
-so that the desired reactor parameters - multiplication factor, power density - are achieved.
+so that the desired reactor parameters - multiplication factor, power density - are achieved. Another
+challenge of this transition scenario is the aggressive build rates, which is not
+considered in this work.
 
 In conclusion, the U.S. can reduce its waste inventory by transitioning into
 burner \glspl{MSR}. Choosing a U-Pu cycle instead of a Th-$^{233}U$ cycle
