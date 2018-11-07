@@ -4,7 +4,6 @@ capabilities to model and simulate real-world nuclear fuel cycle
 transition scenarios involving advanced reactor technologies.
 
 
-
 \section{Background}
 Increasing climate change concerns have directed attention
 to nuclear energy, which produces reliable baseload energy
@@ -76,6 +75,12 @@ This study identified 40 fuel cycle groups, categorized by the extent of recycli
 (e.g. thorium-U233, uranium-plutonium), and the type of reactors (fast/thermal critical
 reactors, sub-critical \gls{EDS}).
 
+Fuel Cycles can be mainly categorized by their treatment of \gls{UNF}. A
+fuel cycle that disposes all \gls{UNF} generated is a once-through fuel cycle.
+If the \gls{UNF} is reprocessed, a fuel cycle is categorized either as a
+closed fuel cycle, or a fuel cycle with limited recycling, depending on
+the cycles fuel might undergo transmutation. 
+
 \subsubsection{Once-through fuel cycle}
 
 In a once-through cycle, nuclear fuel is used once and then sent to
@@ -83,7 +88,7 @@ storage without further reprocessing \cite{tsoulfanidis_nuclear_2013}.
 This cycle is often called the open fuel cycle, and is the current cycle for
 most nations with nuclear energy (e.g. U.S., Korea, Finland, Sweden).
 
-This fuel cycle begins with mining of uranium ore, which is extracted from the
+This fuel cycle begins with mining of uranium or thorium ore, which is extracted from the
 ground. The mined ore is milled to form yellowcake ($U_3O_8$).
 The yellowcake is then either converted to $UF_6$ and enriched, or converted
 to $UO_2$ directly. This is because some reactor designs (e.g. \gls{CANDU} designs\cite{torgerson_candu_2006})
@@ -98,15 +103,14 @@ for permanent disposal.
 
 \subsubsection{Closed fuel cycle}
 In a closed fuel cycle, the \gls{UNF} is recycled to be reused
-in a nuclear reactor. Recycling is not adopted worldwide due to
-concerns of high cost and proliferation, but has two major
+in a nuclear reactor. Recycling has two major
 benefits: increased fuel utilization and reduction of repository
 burden.
 
-\gls{UNF} discharged from a typical \gls{LWR} has an approximate
-composition: 95\% uranium, 0.9\% plutonium, 0.1\%
+A typical composition of \gls{UNF} discharged from an \gls{LWR}
+is approximately 95\% uranium, 0.9\% plutonium, 0.1\%
 minor actinides, and 4\% fission products \cite{feiveson_spent_2011}.
-The uranium, plutonium, and the minor actinides have the capability
+The uranium, plutonium, and minor actinides have the capability
 to produce power through fission. Thus, every group except the
 fission products can be separated to create new fuel for other reactors.
 
@@ -114,9 +118,9 @@ Additionally, repository capacity is constrained mostly by decay heat
 load and radioactivity, meaning that removal of the high-activity
 isotopes leads to a more efficient utilization of the repository
 capacity. Short-lived fission products (e.g. cesium, strontium) contribute
-to a large heat load and radioactivity in the first 100 years of \gls{UNF} disposal,
-and minor actinides (americium, plutonium), with their long half-lives,
-contribute to longer-term heat and radioactivity in the repository \cite{wigeland_separations_2006},
+to significant heat and radioactivity in the first 100 years of \gls{UNF} disposal,
+and long-lived minor actinides (americium, plutonium),
+contribute to longer-term heat and radioactivity \cite{wigeland_separations_2006},
 as shown in figure \ref{fig:decay_heat}.
 
 \begin{figure}[htbp!]
@@ -156,32 +160,31 @@ goal of the deploying institution.
 \subsubsection{Fuel cycle with limited recycling}
 Fuel cycle with limited recycling is defined by the recycling of \gls{UNF}
 for a limited number of times. 
-The purposes for recycling the irradiated fuel include
-reusing the separated material in a nuclear reactor, or 
+The goals for recycling the irradiated fuel include
+reusing the separated material in a nuclear reactor and 
 separating long-lived highly radioactive elements
 for repository burden reduction \cite{wigeland_nuclear_2014}.
 The difference
 between limited recycling and `closed' fuel cycles (continuous
-recycling) is that continuous recycling always reprocesses
-irradiated fuel and only disposes \gls{HLW}, while limited
-recycling fuel cycles dispose some irradiated fuel.
+recycling) is the number of cycles fuel might undergo transmutation.
+In `closed' fuel cycle, the fuel undergoes many to an infinite number
+of cycles, through constant reprocessing.
 
 
 \subsection{Fuel cycle transition scenarios}
-Fuel cycle transition scenarios are defined by an initial
-fleet of technologies and corresponding fuel cycle strategies
-dynamically evolving into a different final state \cite{oecd_nuclear_2009}.
+In a fuel cycle transition, an initial fleet of technology and corresponding
+fuel cycle strategies dynamically evolve into a different final state \cite{oecd_nuclear_2009}.
 In this work, I focus on the transition from
 once-through fuel cycles to closed fuel
 cycles through the progressive replacement of previous technology
 (i.e. \glspl{LWR}) with an advanced technology (i.e. reprocessing
 and fast-spectrum reactors). Other transition scenarios include
 a general transition into a different fuel cycle (evaluation group
-defined by Wigeland et al.), or to a mixture of fuel cycles, or
+defined by Wigeland et al.), to a mixture of fuel cycles, or
 a complete nuclear energy phaseout.
 
 In this work, I analyze the material feasibility of fuel
-cycle transition scenarios, which is governed by whether
+cycle transition scenarios, which is characterized by whether
 all nuclear reactors received fuel on time.
 
 The fuel demand is determined by two factors - nuclear energy demand
@@ -191,35 +194,35 @@ and operation
 schedule of new reactors, and the fuel demand is
 calculated accordingly.
 Fuel cycle strategies determine the isotopic
-requirement of the fuel cycle transition scenario. For example,
+requirements of the fuel cycle transition scenario. For example,
 if the transition drives toward a U-Pu \gls{MOX} fuel cycle,
 plutonium inventory dominates the timescale and feasibility of transition.
 
 Once the expected fuel demand is calculated,
 the initial condition - current fissile material inventory
-and reactors (and their remaining lifetimes) - determines
+and number of reactors (and their remaining lifetimes) - determines
 the material feasibility and timescale of a transition scenario.
-If a transition scenario is infeasible (i.e. fissile source is lacking),
+If a transition scenario is infeasible (i.e. fissile source is lacking) or delayed,
 the transition can be `loosened', by delaying deployment
-of advanced reactors. The energy demand is instead met by additional
+of advanced reactors. The energy demand can instead be met by additional
 deployment of previous reactor technology (e.g. \glspl{LWR}),
 thereby increasing transition timescale but reducing the
 intensity of fissile material demand.
 
-Since fuel cycles involve multiple facilities at play,
-analyses of transition scenarios require
-deliberate and dynamic tracking of materials and facilities,
-in order to calculate available nuclear material
+Since fuel cycles involve multiple facilities,
+transition scenario analyses require
+dynamic tracking of materials and facilities.
+The dynamic tracking will calculate available nuclear material
 inventory as well as the demand for the nuclear
 material.
 
 \subsection{Real-world fuel cycle simulation}
 Real-world fuel cycle simulation captures the non-uniformity of
 reactor facilities in the real world. Most work on fuel cycle
-simulation assumes a uniform fleet of reactors with the same
-parameters, such as core size and power capacity. This assumption
-does not reflect the current state of nuclear operation, with
-reactors with varying power capacity and core size, leading
+simulation assumes a uniform fleet of reactors with identical
+parameters, such as core size and power capacity. This simplification
+does not reflect the current state of nuclear operation, in which
+reactors vary in power capacity and core size, leading
 to errors in \gls{UNF} inventory and power demand calculations.
 Capturing the real-world nuclear fleet requires discrete
 modeling of facilities, with unique parameters for each facility
@@ -231,29 +234,26 @@ decommission) modeling.
 
 This thesis demonstrates and extends the real-world \gls{NFC} transition
 scenario modeling capabilities in Cyclus. 
-The goal is to
+The goal of this thesis to
 develop tools that leverage Cyclus' modularity to
 add capabilities required for modeling real-world
-fuel cycle transition scenarios, and demonstrate Cyclus'
-capabilities by using the developed tools to perform
-\gls{NFC} transition scenarios relevant to France and the United
+fuel cycle transition scenarios. The added capabilities are then
+demonstrated through \gls{NFC} transition scenarios relevant to France and the United
 States.
 
 \section{Motivation}
 
 There are two major motivations for accurately simulating
 real-world \gls{NFC} transition scenarios.
-First, \gls{NFC} transitions require strategized reactors
+First, \gls{NFC} transitions require strategized reactor
 and fuel cycle deployment to meet fuel demand for advanced systems.
-Material availability and fuel cycle facility
-throughput need to be strategized 
-to assure fuel availability for future advanced systems.
-An accurate simulation can calculate the material
-and facility throughput requirement of a transition scenario.
+A simulation tool must be able to calculate the material
+and facility throughput requirements of the transition scenario.
 Second, \gls{NFC} transition scenarios need to optimize
-existing investment and technology. For example, with a \gls{NFCS},
+existing investment and technology. For example, with an \gls{NFCS},
 analysts can determine the best reactor technology
 to leverage current \gls{LWR} \gls{UNF} inventory in a nation.
+
 
 
 \section{Methods}
@@ -264,7 +264,8 @@ submitted for publication in Annals of Nuclear Energy.}
 Second, I identified and developed the tools and methods necessary
 for modeling and simulating real-world transition scenarios.
 Finally, I constructed and ran fuel cycle transition scenarios
-relevant to France and the United States.
+relevant to France and the United States to demonstrate
+and verify the capability.
 
 \subsection{Benchmark study}
 A previous study by Feng et al. \cite{feng_standardized_2016} validates existing 
@@ -286,24 +287,11 @@ In order to model real-world transition into an advanced
 fuel cycle, I developed two major tools. First, I developed a python package \texttt{cyclus-input-gen},
 which includes the submodule \texttt{from\_pris}
 that automates extraction from the curated \gls{IAEA} \gls{PRIS} database
-\cite{iaea_nuclear_2018}. The database lists each nuclear reactor's
-country, name, type, net capacity (\gls{MWe}), status, operator, construction
-date, first criticality date, first grid date, commercial date, and shutdown
-date (if applicable). \texttt{from\_pris} extracts the information from this file
-to generate a Cyclus compatible input file, which lists the individual
-reactor units as agents. Second, I developed \texttt{SaltProc\_Reactor}that models \glspl{MSR}
+\cite{iaea_nuclear_2018}. Second, I developed \texttt{SaltProc\_Reactor}that models \glspl{MSR}
 in Cyclus using a database generated from a high-fidelity \gls{MSR} depletion calculation.
-The database is an output of SaltProc \cite{rykhlevskii_arfc/saltproc:_2018}, a python
-module that drives
-SERPENT 2 \cite{leppanen_serpentcontinuous-energy_2013} to model online reprocessing in an \gls{MSR}.
-The database contains the historic compositions of each stream in and out of the reactor,
-composition history inside the reactor, and $k_{eff}$ values. \texttt{SaltProc\_Reactor} then
-reads the database to mimic \gls{MSR} behavior by requesting and offering
-feed and waste material to the Cyclus framework. The database is in HDF5
-format, a hierarchical data format designed to store and organize
-large amounts of data \cite{the_hdf_group_hierarchical_1997}.
 
-Finally, I constructed the fuel cycle transition scenario for France and the United States.
+\subsection{Real-world fuel cycle transition scenario simulation}
+I constructed the fuel cycle transition scenario for France and the United States.
 I made different assumptions for the two scenarios to account for each nation's different goals,
 initial conditions (i.e. currently existing fleet, \gls{UNF} inventory), and their potential reactor
 technology. I used \texttt{from\_pris} to construct the initial Cyclus input file,
@@ -335,10 +323,10 @@ processes, respectively, in the computational workflow.}
 The structure of this thesis is as follows. In chapter 2, I review other fuel cycle simulation
 tools and their gaps, and explain the unique capability Cyclus
 has for transition scenario simulation.
-Chapter 3 shows the design and
+Chapter 3 discusses the design and
 development of capabilities needed for \gls{NFC} transition simulation.
-Chapter 4 shows the results from the benchmark study, in which Cyclus results are compared
+Chapter 4 describes the results from the benchmark study, in which Cyclus results are compared
 to results from other fuel cycle simulation tools.
-Chapter 5 and 6 show the results from the France and United States fuel cycle
-transition scenario.
-
+Chapter 5 and 6 details the results from the France and United States fuel cycle
+transition scenarios, in which each nation's \gls{LWR} fleet transitions into
+a fast reactor fleet with continuous reprocessing.
