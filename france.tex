@@ -4,18 +4,20 @@ transition to \glspl{SFR} \cite{cne2_reports_2015}. However, the current invento
 is insufficient to fuel that transition without building new \glspl{LWR} \cite{carre_overview_2009}.
 
 If instead, France accepted 
-\gls{UNF} from other \gls{EU} nations and used it to produce \gls{MOX} for new \glspl{SFR},
+\gls{UNF} from other \gls{EU} nations and used that \gls{UNF} to produce \gls{MOX} for new \glspl{SFR},
 the \gls{MOX} created will fuel a French transition to an \gls{SFR} fleet
 and allow France to avoid building additional \glspl{LWR}.
 
 To simulate this cooperative scenario, I simulated the entire \gls{EU} region
 and all its nuclear reactor operating history and \gls{UNF} accumulation up to the
-nearest foreseeable future. Then, France takes as much \gls{UNF} it needs
+nearest foreseeable future. Then, using \Cyclus and the tools developed in this work, I
+calculated the amount of \gls{UNF} France needs
 to transition into a fully \gls{SFR} fleet without building additional \glspl{LWR}.
 
-This chapter includes the results from a French \gls{NFC} transition
-scenario from a \gls{LWR} fleet to a fully \gls{SFR} fleet by
-taking other \gls{EU} nations' \gls{UNF}.
+This chapter details that French \gls{NFC} transition
+scenario from an \gls{LWR} fleet to a fully \gls{SFR} fleet.
+I show that if France accepts \gls{UNF} from other \gls{EU} nations,
+it will reach its desired \gls{SFR} end-goal more rapidly.
 
 
 \section{\gls{EU} deployment schedule}
@@ -220,7 +222,7 @@ The effect of \gls{LWR} lifetime extension is discussed in Section \ref{sec:life
 	\end{center}
 	\caption{The transition to \glspl{ASTRID}
 		becomes more gradual if the
-		French \glspl{LWR} lifetime extensions are sampled from a 
+		French \gls{LWR} lifetime extensions are sampled from a 
 		uniform distribution $\in [0, 25]$ years.}
 	\label{fig:sfr_num_norm}
 \end{figure}
@@ -242,7 +244,7 @@ This analysis establishes a multi-national material flow and demonstrates that, 
 \section{Material flow}
 
 The fuel cycle is represented by a series of facility agents whose material 
-flow is illustrated in figure \ref{diag:fc}, along with
+flows are illustrated in figure \ref{diag:fc}, along with
 the \Cyclus archetypes that were used to model each facility.
 In this diagram, \gls{MOX} Reactors include both French \glspl{PWR} and 
 \glspl{SFR}.
@@ -350,7 +352,7 @@ French La Hague and MELOX sites \cite{schneider_spent_2008, hugelmann_melox_1999
 \begin{table}[h]
     \centering
     \caption{Simulation Specifications}
-    \begin{tabularx}{\linewidth}{bqq}
+    \begin{tabularx}{\linewidth}{bRR}
         \hline
         \textbf{Specification} &\textbf{Value} & \textbf{Units}\\
         \hline
@@ -422,7 +424,7 @@ most French \glspl{LWR} have lifetime extensions.
 \section{Material definitions}
 Depletion of the nuclear fuel is modeled with pre-calculated spent fuel recipes, such that a fresh 
 and used fuel recipe are defined for each reactor type.
-An ORIGEN reference calculation provides the composition of the used fuel.(see table \ref{tab:eu_comp}).
+An ORIGEN reference calculation provides the composition of the used fuel (see table \ref{tab:eu_comp}).
 ORIGEN calculates buildup, decay, and processing of radioactive materials
 \cite{parks_overview_1992}. This recipe has also been used for repository performance modeling \cite{wilson_adoption_2009}.
 
@@ -437,7 +439,7 @@ ORIGEN calculates buildup, decay, and processing of radioactive materials
             \hline
             Fresh \gls{UOX} Fuel & 4.29 & 95.71 & 0.0   \\ 
             Fresh \gls{LWR} \gls{MOX} Fuel & 0.2 & 90.7 & 9.1 \\ 
-            Fresh \gls{ASTRID} Fuel & 0.3 & 77.7 & 22 \\
+            Fresh \gls{ASTRID} Fuel & 0.3 & 77.7 & 22.0 \\
             \hline
         \end{tabular}
         
@@ -667,11 +669,11 @@ I explored the impact of two key variables, the lifetime of French
 of these parameters (table \ref{tab:sen_par}) sought to capture the full
 span of their uncertainty.
 
-Note that the breeding ratios of the \glspl{ASTRID} are arbitrarily increased
+Note that the breeding ratios of the \glspl{ASTRID} are artificially increased
 by editing the output fuel composition in the \glspl{ASTRID}. We did not 
 take into account the other reactor parameters (e.g. core size, initial
 fuel composition, fuel residence time, etc.)
-that might be changed to achieve a higher breeding ratio. More detailed analyses
+that must be changed to achieve these higher breeding ratios. More detailed analyses
 of the reactor physics and their effect on this transition scenario are future work.
 
 \begin{table}[h]
@@ -726,7 +728,7 @@ in achieving a high breeding ratio.
 The differences between varying breeding ratios are
 shown in table \ref{tab:br_diff}. The difference were calculated
 using the following equation:
-\[ \epsilon = \frac{(x - x_{base})}{x_base} * 100 \]
+\[ \epsilon = \frac{(x - x_{base})}{x_{base}} \cdot 100 \]
 \begin{table}[h]
 	\centering
 	\caption{Percent difference of total \gls{LWR} \gls{UNF} reprocessed
