@@ -4,7 +4,7 @@ transition scenarios. \Cyclus has a novel framework that is
 modular and expandable, that allows addition of functionalities
 without editing \Cyclus itself.
 
-I developed \texttt{cyclus_input_gen}
+I developed \texttt{cyclus\_input\_gen}
 to integrate historical nuclear operations by generating
 a \Cyclus input file from a \gls{PRIS} database. I also
 developed an \gls{MSR} module in \Cyclus that uses a database
@@ -27,7 +27,14 @@ excellent agreement, except for disagreement caused
 by differences in reactor depletion
 behavior at the end of reactor lifetime, and
 whether fuel discharge is discrete or continuous.
-
+The \Cyclus simulation's \gls{SFR} core size was
+$1.08\%$ because \Cyclus can only have integer
+number batches, while the benchmark had 3.96
+batches, which is unrealistic. This difference
+causes the unused \gls{TRU} inventory in the \Cyclus
+simulation to be smaller initially, since more
+\gls{TRU} is used for the initial loading of the \gls{SFR}
+cores. 
 
 I simulated the French \gls{NFC} transition simulation scenario
 to demonstrate
@@ -68,7 +75,7 @@ fuel depletion resolution in reactors. The currently used method for
 depleted composition is used for the entire batch, while in reality,
 assemblies in a batch do not have the same burnup.
 
-Third, improvements on the \gls{MSR} model can be made so that it
+Third, improvements to the \gls{MSR} model can be made so that it
 takes into account the varying initial fuel composition. Due to delays
 in reprocessing, fuel fabrication, and deployment of \glspl{MSR}, \gls{MSR}
 initial fuels contain varying \gls{TRU} vectors. This should be taken into
@@ -78,14 +85,14 @@ depletion module can be developed (if computational resources allow).
 
 
 \section{Closing remarks}
-The \gls{ANS} chose closing the \gls{NFC} as its grand challenge. \gls{ANS}
-proposes to do so by ``firmly establish the pathway that leads to closing
+The \gls{ANS} chose closing the \gls{NFC} as one of its grand challenges. \gls{ANS}
+defined the challenge to be solved by firmly establishing the pathway that leads to closing
 the nuclear fuel cycle to support the demonstration and deployment of
 advanced fission reactors, accelerators, and material recycling technologies
 to obtain maximum value while minimizing environmental impact 
-from using nuclear fuel.'' The research and development of such technologies
+from using nuclear fuel. The research and development of such technologies
 need to be deliberate. \gls{NFC} transition scenario simulation and 
 analysis is the first step in identifying technological needs
-and goals.  As demonstrated by this thesis, \Cyclus, with its
-modular structure and expandable nature, is essential in that effort.
+and goals. The identified technological needs will drive national
+policy and \gls{RD} funding. As demonstrated by this thesis, \Cyclus, with its modular structure and expandable nature, is essential in that effort.
 
