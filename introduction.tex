@@ -21,10 +21,11 @@ nuclear energy and its sustainability.
 
 Advanced fuel cycles that recycle nuclear fuel 
 provide an opportunity for solving those concerns while
-meeting energy demand. Towards the effort to transition
+meeting energy demand. For the collective goal of transitioning
 into advanced fuel cycles, the \gls{ANS} \gls{FCWMD} has identified
 three grand challenges \cite{huff_message_2017}, listed below. The grand
-challenges are technical goals that need to be resolved by
+challenges are identified challenges that members of the
+society collectively agree need to be resolved by
 2030 in order to help solve some of the economic, sociological,
 or political issues that the nuclear society face \cite{american_nuclear_society_ans_2017}.
 
@@ -63,7 +64,7 @@ weapons material production or repository burden reduction through transmutation
 The discharge \gls{UNF} from the reactors is eventually sent back to facilities for
 either recycling or disposal.
 
-In 2011, the \gls{DOE} commissioned a report based on the national priorities
+In 2011, the \gls{DOE} commissioned a report
 in order to plan the U.S. nuclear future.
 The report by Wigeland et al. identified potential fuel cycle groups and compared them
 to find the most `promising' fuel cycle \cite{wigeland_nuclear_2014}.
@@ -79,7 +80,8 @@ Fuel Cycles can be mainly categorized by their treatment of \gls{UNF}. A
 fuel cycle that disposes all \gls{UNF} generated is a once-through fuel cycle.
 If the \gls{UNF} is reprocessed, a fuel cycle is categorized either as a
 closed fuel cycle, or a fuel cycle with limited recycling, depending on
-the cycles fuel might undergo transmutation. 
+the number of time the fuel passes through a reactor.
+
 
 \subsubsection{Once-through fuel cycle}
 
@@ -491,8 +493,8 @@ on \glspl{MSR} have been done. For example,
 Oak Ridge National Laboratory researchers developed
 ChemTriton \cite{powers_new_2013}, a python script that drives SCALE,
 to perform semi-continuous reprocessing of the fuel \cite{powers_inventory_2014, betzler_fuel_2018}.
-However, modeling \glspl{MSR} in a \gls{NFCS} is a challenge
-due to the large computational burden associated with frequent depletion calculations.
+However, modeling \glspl{MSR} in an \gls{NFCS} is a challenge
+due to the significant computational burden associated with frequent depletion calculations.
 
 This challenge of large computational time in an \gls{NFCS} can be overcome by `outsourcing' the computationally
 heavy work to the higher-fidelity reactor physics and depletion codes. 
@@ -536,7 +538,7 @@ In order to model real-world transition into an advanced
 fuel cycle, I developed two major tools. First, I developed a python package \texttt{cyclus-input-gen},
 which includes the submodule \texttt{from\_pris}
 that automates extraction from the curated \gls{IAEA} \gls{PRIS} database
-\cite{iaea_nuclear_2018}. Second, I developed \texttt{SaltProc\_Reactor}that models \glspl{MSR}
+\cite{iaea_nuclear_2018}. Second, I developed \texttt{saltproc\_Reactor}that models \glspl{MSR}
 in \Cyclus using a database generated from a high-fidelity \gls{MSR} depletion calculation.
 
 \subsection{Real-world fuel cycle transition scenario simulation}

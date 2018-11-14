@@ -4,9 +4,10 @@
 \cite{huff_fundamental_2016}, meaning
 that each reactor and fuel cycle facility is modeled as a discrete and independent
 player in the simulation.
-A \Cyclus simulation contains prototypes, which are fuel cycle facil1ty models (archetypes) with
-user-defined parameters, that are deployed in the simulation as \texttt{Facility} agents.
-Encapsulating the \texttt{Facility} agents are the \texttt{Institution} and \texttt{Region}.
+A \Cyclus agent archetype defines the logic that governs the behavior
+of an agent. In this simulation, the user defines the archetype's
+parameters. The archetypes with user-defined parameters are then deployed
+as agent prototypes.  Encapsulating the \texttt{Facility} agents are the \texttt{Institution} and \texttt{Region}.
 A \texttt{Region} agent holds a set of \texttt{Institution}s. 
 An \texttt{Institution} agent can deploy or decommission \texttt{Facility} agents.
 
