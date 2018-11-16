@@ -69,19 +69,17 @@ such as refueling time and cycle time can be better described by sampling
 from a distribution (e.g. gaussian) rather than the current static
 value.
 
-Second, better depletion calculation models can be implemented to increase
-fuel depletion resolution in reactors. The currently used method for
-\glspl{LWR} and \glspl{SFR} are batch-wise, meaning that an average
-depleted composition is used for the entire batch, while in reality,
-assemblies in a batch do not have the same burnup.
-
-Third, improvements to the \gls{MSR} model can be made so that it
-takes into account the varying initial fuel composition. Due to delays
-in reprocessing, fuel fabrication, and deployment of \glspl{MSR}, \gls{MSR}
-initial fuels contain varying \gls{TRU} vectors. This should be taken into
-account by having a database that contains lifetime depletion calculations
-of varying initial fuel compositions. Alternatively, an in-simulator
-depletion module can be developed (if computational resources allow).
+Second, I can increase nuclear material inventory accuracy by
+implementing reactor archetypes that perform depletion calculations.
+The reactor archetypes used in this work use a depleted recipe
+prepared outside of the simulation for fuel depletion, meaning
+that there are no depletion calculations performed in the simulation.
+While using a recipe to obtain depleted fuel composition is quick,
+it does not take into account the variations in input fuel composition.
+Implementing reactor archetypes that perform depletion calculations will
+increase computational burden, but will increase accuracy for depleted
+fuel composition, especially for fuels that undergo multiple recycle
+stages (e.g. \gls{SFR} \gls{MOX} fuel).
 
 
 \section{Closing remarks}
