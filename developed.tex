@@ -217,35 +217,15 @@ m_t = \text{mass of isotope in one SaltProc timestep}
 \label{sec:limit}
 The limitations of this database approach are that it does not
 take into account the changing incoming fuel compositions due to decay.
-The separated \gls{TRU} composition may vary depending on the time
+The separated \gls{TRU} composition may vary depending on the duration
 an \gls{LWR} \gls{UNF} assembly has been cooled, thus affecting the performance
 of the \gls{MSR}. The database approach assumes a fixed input salt
 composition, which is not the case in this simulation, because reprocessed
 \gls{TRU} has varying decay times from discharge when it is fabricated and
 put in the \gls{MSR}.
 
-This limitation is similar to that of batch-wise recipe reactors, in which the 
-pre-generated recipe already results in a depleted fuel composition that is agnostic to the incoming
-fuel composition in the simulation. For example, a batch-wise recipe reactor
-depleting a \gls{MOX} fuel would deplete the \gls{MOX} fuel to the same
-composition regardless of its fresh plutonium content. This is mediated by using
-a fuel fabrication facility that modifies the plutonium enrichment to
-meet a certain fissile value (in \Cyclus, the Cycamore \texttt{FuelFab} archetype).
-
-The same method can be applied such that, instead of using a fixed mass ratio
-to fabricate fuel for \glspl{MSR}, the fuel fabrication is done by modifying
-the \gls{TRU} enrichment to match a certain fissile value. 
-
-Another way to overcome this limitation is to use a set of databases 
-that contain multiple SaltProc simulation results with varying initial \gls{TRU}
-vectors. When the reactor archetype receives the fuel, it will find the
-SaltProc simulation result with the initial fuel composition closest to that
-of the received fuel salt, minimizing error stemming from varying
-\gls{TRU} compositions.
-
-The best solution is to have a built-in depletion calculation model. However,
-as mentioned before, this requires too much computational burden for a fuel cycle simulation,
-in which there are multiple reactors `at play' at any given time. Another
-possible method is to implement a reduced-order-model of \gls{MSR} depletion
-behavior created by training from a large dataset of \gls{MSR} depletion
-calculations.
+This limitation is similar to that of recipe reactors, in which the
+fuel is transmuted to a pre-generated recipe regardless of the
+incoming fuel composition. For example, a recipe reactor
+depleting a \gls{MOX} fuel would deplete the \gls{MOX} fuel
+to the same composition regardless of its fresh fuel composition.
