@@ -69,21 +69,23 @@ such as refueling time and cycle time can be better described by sampling
 from a distribution (e.g. gaussian) rather than the current static
 value.
 
-Second, I can increase nuclear material inventory accuracy by
-implementing reactor archetypes that perform depletion calculations.
-The reactor archetypes used in this work use a depleted recipe
-prepared outside of the simulation for fuel depletion, meaning
-that there are no depletion calculations performed in the simulation.
+Second, implementing reactor archetypes that directly
+preform depletion calculations could increase material
+inventory accuracy.
+The reactor archetypes used in this work use spent fuel
+recipes depleted outside of \Cyclus by higher fidelity tools,
+meaning that there are no depletion calculations performed by
+\Cyclus during runtime.
 While using a recipe to obtain depleted fuel composition is quick,
 it does not take into account the variations in input fuel composition.
-Implementing reactor archetypes that perform depletion calculations will
-increase computational burden, but will increase accuracy for depleted
-fuel composition, especially for fuels that undergo multiple recycle
-stages (e.g. \gls{SFR} \gls{MOX} fuel). However, uncertainties
-of fuel cycle modeling (e.g. separation efficiency, constant reactor
-cycle time) is so large, error from
-approximations in fuel transmutation will be relatively small.
-
+Unfortunately, conducting unique depletion calculations for each reactor
+discharge represents a significant computational burden.
+Additionally, imprecision
+introduced through simplifying assumptions inherent in fuel
+cycle modeling (e.g. deployment schedules, separation efficiency,
+constant reactor cycle time) significantly impact fuel cycle metrics.
+These effects typically dwarf precision improvements that higher
+fidelity depletion modeling might enable.
 
 \section{Closing remarks}
 The \gls{ANS} chose closing the \gls{NFC} as one of its grand challenges. \gls{ANS}
