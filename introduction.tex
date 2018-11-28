@@ -45,14 +45,42 @@ or political issues that the nuclear society face \cite{american_nuclear_society
 
 The three grand challenges can be summarized as a need to
 identify and plan for a ``most promising'' fuel cycle, while
-accurately calculating its impacts. 
-A simulation tool capable of accurately calculating the metrics
-of a fuel cycle transition scenario is essential for solving these challenges.
+accurately calculating its impacts.
+In 2011, the \gls{DOE} commissioned a report
+in order to plan the U.S. nuclear future.
+The report by Wigeland et al. identified potential fuel cycle groups and compared them
+to find the most `promising' fuel cycles \cite{wigeland_nuclear_2014}.
+The objective of the evaluation was to provide information about the
+potential benefits and challenges of nuclear fuel cycle options, in order to
+guide the \gls{DOE} \gls{FCRD} program.
 
-This work will demonstrate capabilities of a system-level
-analysis tool, \Cyclus. The modeling capabilities of \Cyclus 
-will aid in the effort of solving
-the grand challenges mentioned above.
+However, this study evaluated fuel cycle statically, such that the
+material flow and reactor deployment were evaluated at equilibrium.
+Therefore, the study did not take into account the dynamic
+changes in fuel demand and reactor deployment or the
+previously existing fleet. Static fuel cycle analyses
+fail to capture the utilization of previously existing inventory.
+Thus, for a more comprehensive
+and realistic
+evaluation of a fuel cycle, fuel cycle analyses
+must include the transition from a previous fleet to
+the intended fuel cycle. Analysis of fuel
+cycle transition scenarios
+can more accurately calculate the dynamic material demands
+in a transition into a new fuel cycle, thus helps outline
+fuel cycle \gls{RD} and facility deployment roadmap.
+
+Given this gap, a simulation tool capable of accurately
+calculating the metrics of a fuel cycle transition scenario
+is essential for solving these grand challenges. This work
+will demonstrate capabilities of a system-level analysis
+tool, \Cyclus. I developed \texttt{cyclus-input-gen} to
+ease \Cyclus input generation of historic nuclear operation.
+I also developed \texttt{saltproc\_reactor} to model
+\glspl{MSR} in \Cyclus. These added capabilities will streamline
+modeling of transition scenarios as well as allow
+\Cyclus to model fuel cycles involving \glspl{MSR}.
+
 
 \subsection{The nuclear fuel cycle}
 The nuclear fuel cycle is the complete nuclear energy
@@ -317,92 +345,108 @@ cycle facilities, front-end facility models, separations and material
 recycle facilities, reactor facilities, back-end features, starting
 the new fuel cycle, materials queuing and prioritization under
 capacity limitations, and energy demand algorithms. Brown et al.
-categorize each functionality into three tiers - basic, integral,
-and exemplary. The functionalities, features, and their hierarchies
+categorize each feature into three tiers - \textbf{basic}, \textbf{integral},
+and \textbf{exemplary}. \textbf{Basic} features are essential in modeling a fuel
+cycle, such as conservation of mass in composition changes,
+facility deployment and retirement, and modeling of front-end
+facilities like an enrichment facility.
+\textbf{Integral} features are
+needed to bind the basic functionalities to process
+transition scenarios. Examples of \textbf{integral} features are
+demand-driven deployment of fuel cycle facilities and
+material prioritization.
+Finally, \textbf{exemplary} features enable exploration
+of various sensitivities and technology choices, and are
+not essential. \textbf{Exemplary} features include discrete isotope
+tracking and radioactive decay.
+
+
+The functionalities, features, and their hierarchies
 are organized in table \ref{tab:ffh}.
-
+\renewcommand{\arraystretch}{1.5}
 \begin{table}[h]
-	\centering
-	\caption {Nine common functionalities identified for \gls{NFCS} to perform
-		fuel cycle transition scenarios. Reproduced from Brown et al. \cite{brown_identification_2016}}
-	\label{tab:ffh}
-	\begin{tabularx}{\textwidth}{lXl}
-		\hline
-		\textbf{Functionality}&\textbf{Feature} &\textbf{Hierarchy} \\
-		\hline
-		\multirow{6}{*}{\shortstack{Composition \\ Features}} & Modeling of implicit consideration of fuel materials including primary fissile and fertile actinide isotopes & Basic \\
-		& Fuel's initial heavy metal mass modeled as lumped masses  of the remaining actinides and fission products to conserve mass & Basic \\
-		& Isotopic decay of materials in storage & Exemplary \\
-		& Modeling of intermediate isotopes (e.g. Pa-233) & Exemplary \\
-		& Tracking of fission products beyond a simple lumped sum & Exemplary \\
-		& Modeling of compounding materials in fuels and waste forms & Exemplary\\
-		
-		\hline
-		
-		\multirow{3}{*}{\shortstack{Fuel Cycle \\ Facility \\ Deployment}} & Facility deployment and retirement & Basic \\
-		& Construction time delays & Basic \\
-		& Strategic deployment to meet demand &Integral \\
-		
-		\hline
-		
-		\multirow{6}{*}{\shortstack{Front-end \\ Facilities}} & Source (mining and milling) & Basic \\
-		& Details of mines and mills including annual and total quantities available & Exemplary \\
-		& Conversion and enrichment facilities & Basic \\
-		& Timing and capacity of recycle facilities & Basic \\
-		& Fuel fabrication & Basic \\
-		& Time delays and losses in separations and fabrication & Basic \\
-		
-		\hline
-		
-		\multirow{4}{*}{\shortstack{Separations \\ and \\ Material \\ Recycling}} & Separations facilities may be required for \gls{UNF} & Basic \\
-		& Cooling time & Basic \\
-		& Losses in separations & Basic \\
-		& Material selection from the \gls{UNF} supply & Basic \\
-		
-		\hline
-		
-		\multirow{6}{*}{\shortstack{Reactor \\ Facility}} & Fueling: number of batches, cycle length and fuel per batch & Basic \\
-		& Multiple fuel types in reactor facility (driver, blanket) & Basic \\
-		& Pre-generated charge and discharge isotopic compositions & Basic \\
-		& Real time calculations based on reactor physics models & Exemplary \\
-		& Reactor facility lifetime, construction time, and decommissioning time & Basic \\
-		& Initial charge for first core and discharge for final core & Basic \\
-		
-		\hline
-	\end{tabularx}
-\end{table}
-\pagebreak
-\begin{table}[h]
-	\centering
-	\begin{tabularx}{\textwidth}{lXl}
-		\hline
-		\multirow{2}{*}{Back-end} & Cooling of used fuel & Basic \\
-		& \shortstack{Conservation of mass - consistency with\\ charged mass and generated power} & Basic \\
-		
-		\hline
-		
-		\multirow{3}{*}{\shortstack{Fuel Cycle \\ Startup}} & External source of fissile material & Basic \\
-		& Startup on recycled fuel from other facilities &Integral \\
-		& Primary and back-up fuel types & Exemplary \\
-		
-		\hline
-		
-		\multirow{3}{*}{\shortstack{Material \\ Prioritization}} & Material accumulation & Basic \\
-		& Material prioritization &Integral \\
-		& Radioactive decay & Exemplary \\
-		
-		\hline
-		
-		\multirow{2}{*}{\shortstack{Energy Demand \\ Algorithm}} & Technology allocation accounting for availability &Integral \\
-		& Ordering and deployment of multiple reactor technologies &Integral \\
-		\hline
-	\end{tabularx}
-\end{table}
+    \centering
+    \caption {Nine common functionalities identified for \gls{NFCS} to perform
+                fuel cycle transition scenarios. Reproduced from Brown et al. \cite{brown_identification_2016}}
+    \label{tab:ffh}
+    \begin{tabularx}{\textwidth}{lXl}
+        \hline
+        \textbf{Functionality}&\textbf{Feature} &\textbf{Hierarchy} \\
+        \hline
+        \multirow{6}{*}{\shortstack{Composition \\ Features}} & Explicit modeling of fuel materials including primary fissile and fertile actinide isotopes & Basic \\
+            & Fuel's initial heavy metal mass modeled as lumped masses  of the remaining actinides and fission products to conserve mass & Basic \\
+            & Isotopic decay of materials in storage & Exemplary \\
+            & Modeling of intermediate isotopes (e.g. $^{233}Pa$) & Exemplary \\
+            & Tracking of fission products beyond a simple lumped sum & Exemplary \\
+            & Modeling of compounding materials in fuels and waste forms & Exemplary\\
 
+        \hline
+
+        \multirow{3}{*}{\shortstack{Fuel Cycle \\ Facility \\ Deployment}} & Facility deployment and retirement & Basic \\
+            & Construction time delays & Basic \\
+            & Strategic deployment to meet demand &Integral \\
+
+        \hline
+
+        \multirow{6}{*}{\shortstack{Front-end \\ Facilities}} & Source (mining and milling) & Basic \\
+            & Details of mines and mills including annual and total quantities available & Exemplary \\
+            & Conversion and enrichment facilities & Basic \\
+            & Timing and capacity of recycle facilities & Basic \\
+            & Fuel fabrication & Basic \\
+            & Time delays and losses in separations and fabrication & Basic \\
+
+        \hline
+
+        \multirow{4}{*}{\shortstack{Separations \\ and \\ Material \\ Recycling}} & Separations facilities may be required for \gls{UNF} & Basic \\
+            & Cooling time & Basic \\
+            & Losses in separations & Basic \\
+            & Material selection from the \gls{UNF} supply & Basic \\
+
+        \hline
+
+    \end{tabularx}
+  \end{table}
+        \pagebreak
+\begin{table}[h]
+    \centering
+    \begin{tabularx}{\textwidth}{lXl}
+
+        \hline
+        \multirow{6}{*}{\shortstack{Reactor \\ Facility}} & Fueling: number of batches, cycle length and fuel per batch & Basic \\
+            & Multiple fuel types in reactor facility (driver, blanket) & Basic \\
+            & Pre-generated charge and discharge isotopic compositions & Basic \\
+            & Real time calculations based on reactor physics models & Exemplary \\
+            & Reactor facility lifetime, construction time, and decommissioning time & Basic \\
+            & Initial charge for first core and discharge for final core & Basic \\
+
+        \hline
+         \multirow{2}{*}{Back-end} & Cooling of used fuel & Basic \\
+            & \shortstack{Conservation of mass - consistency with\\ charged mass and generated power} & Basic \\
+
+        \hline
+
+        \multirow{3}{*}{\shortstack{Fuel Cycle \\ Startup}} & External source of fissile material & Basic \\
+            & Startup on recycled fuel from other facilities &Integral \\
+            & Primary and back-up fuel types & Exemplary \\
+
+        \hline
+
+        \multirow{3}{*}{\shortstack{Material \\ Prioritization}} & Material accumulation & Basic \\
+            & Material prioritization &Integral \\
+            & Radioactive decay & Exemplary \\
+
+        \hline
+
+        \multirow{2}{*}{\shortstack{Energy Demand \\ Algorithm}} & Technology allocation accounting for availability &Integral \\
+            & Ordering and deployment of multiple reactor technologies &Integral \\
+        \hline
+    \end{tabularx}
+\end{table}
+\renewcommand{\arraystretch}{1.0}
 \FloatBarrier
 
 \subsection{Additional capabilities identified for real-world fuel cycle transition scenarios}
-I have identified three additional functionalities beyond the ones identified by Brown et al \cite{brown_identification_2016}
+I have identified three additional functionalities beyond those identified by Brown et al. \cite{brown_identification_2016}
 for modeling real-world \gls{NFC} transition scenario -
 integrating historical data, modeling discrete facilities and events, and modeling liquid-fueled
 reactors with continuous reprocessing.

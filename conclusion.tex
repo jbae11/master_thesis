@@ -69,20 +69,23 @@ such as refueling time and cycle time can be better described by sampling
 from a distribution (e.g. gaussian) rather than the current static
 value.
 
-Second, better depletion calculation models can be implemented to increase
-fuel depletion resolution in reactors. The currently used method for
-\glspl{LWR} and \glspl{SFR} are batch-wise, meaning that an average
-depleted composition is used for the entire batch, while in reality,
-assemblies in a batch do not have the same burnup.
-
-Third, improvements to the \gls{MSR} model can be made so that it
-takes into account the varying initial fuel composition. Due to delays
-in reprocessing, fuel fabrication, and deployment of \glspl{MSR}, \gls{MSR}
-initial fuels contain varying \gls{TRU} vectors. This should be taken into
-account by having a database that contains lifetime depletion calculations
-of varying initial fuel compositions. Alternatively, an in-simulator
-depletion module can be developed (if computational resources allow).
-
+Second, implementing reactor archetypes that directly
+preform depletion calculations could increase material
+inventory accuracy.
+The reactor archetypes used in this work use spent fuel
+recipes depleted outside of \Cyclus by higher fidelity tools,
+meaning that there are no depletion calculations performed by
+\Cyclus during runtime.
+While using a recipe to obtain depleted fuel composition is quick,
+it does not take into account the variations in input fuel composition.
+Unfortunately, conducting unique depletion calculations for each reactor
+discharge represents a significant computational burden.
+Additionally, imprecision
+introduced through simplifying assumptions inherent in fuel
+cycle modeling (e.g. deployment schedules, separation efficiency,
+constant reactor cycle time) significantly impact fuel cycle metrics.
+These effects typically dwarf precision improvements that higher
+fidelity depletion modeling might enable.
 
 \section{Closing remarks}
 The \gls{ANS} chose closing the \gls{NFC} as one of its grand challenges. \gls{ANS}

@@ -121,7 +121,6 @@ P = \text{power capacity of reactor}
 \end {table}
 
 
-
 \section{saltproc\_reactor}
 The SaltProc reactor is a \Cyclus facility archetype designed to 
 model \gls{MSR} behavior using a database. It roughly couples ``SaltProc'' \cite{rykhlevskii_online_2017}
@@ -213,39 +212,101 @@ m_t = \text{mass of isotope in one SaltProc timestep}
 \]
 
 
-\section{Limitations of the database approach}
+\section{Limitation of the database approach}
 \label{sec:limit}
-The limitations of this database approach are that it does not
+The limitation of this database approach is that it does not
 take into account the changing incoming fuel compositions due to decay.
-The separated \gls{TRU} composition may vary depending on the time
+The separated \gls{TRU} composition may vary depending on the duration
 an \gls{LWR} \gls{UNF} assembly has been cooled, thus affecting the performance
 of the \gls{MSR}. The database approach assumes a fixed input salt
 composition, which is not the case in this simulation, because reprocessed
 \gls{TRU} has varying decay times from discharge when it is fabricated and
 put in the \gls{MSR}.
 
-This limitation is similar to that of batch-wise recipe reactors, in which the 
-pre-generated recipe already results in a depleted fuel composition that is agnostic to the incoming
-fuel composition in the simulation. For example, a batch-wise recipe reactor
-depleting a \gls{MOX} fuel would deplete the \gls{MOX} fuel to the same
-composition regardless of its fresh plutonium content. This is mediated by using
-a fuel fabrication facility that modifies the plutonium enrichment to
-meet a certain fissile value (in \Cyclus, the Cycamore \texttt{FuelFab} archetype).
+This limitation is similar to that of recipe reactors, in which the
+fuel is transmuted to a pre-generated recipe regardless of the
+incoming fuel composition. For example, a recipe reactor
+depleting a \gls{MOX} fuel would deplete the \gls{MOX} fuel
+to the same composition regardless of its fresh fuel composition.
 
-The same method can be applied such that, instead of using a fixed mass ratio
-to fabricate fuel for \glspl{MSR}, the fuel fabrication is done by modifying
-the \gls{TRU} enrichment to match a certain fissile value. 
+There are three alternative to the database approach that can
+improve the accuracy of \gls{MSR} depletion modeling:
+\begin{enumerate}
+    \item Use collection of databases to cover varying incoming fuel composition
+    \item Perform depletion calculations in \Cyclus via coupling with SaltProc
+    \item Perform depletion calculations in \Cyclus using \glspl{ROM} of depletion codes
+\end{enumerate}
 
-Another way to overcome this limitation is to use a set of databases 
-that contain multiple SaltProc simulation results with varying initial \gls{TRU}
-vectors. When the reactor archetype receives the fuel, it will find the
-SaltProc simulation result with the initial fuel composition closest to that
-of the received fuel salt, minimizing error stemming from varying
-\gls{TRU} compositions.
+The first method can take into
+account the varying incoming fuel compositions by implementing
+multiple SaltProc outputs instead of one. In this method,
+upon receiving initial fuel, \Cyclus would identify the SaltProc output with 
+the initial fuel composition closest to that of the received fuel,
+which will be more accurate than having only one database that 
+represents one initial composition.
+However, this method will be difficult
+to be effective due to the large range of variations that the \gls{MSR}
+initial fuel composition can have.
 
-The best solution is to have a built-in depletion calculation model. However,
-as mentioned before, this requires too much computational burden for a fuel cycle simulation,
-in which there are multiple reactors `at play' at any given time. Another
-possible method is to implement a reduced-order-model of \gls{MSR} depletion
-behavior created by training from a large dataset of \gls{MSR} depletion
-calculations.
+The second method to couple \Cyclus with SaltProc can improve
+the inaccuracy from varying input fuel compositions, since
+the exact composition of the fuel received by the reactor facility
+is depleted in SaltProc, rather than assuming an initial
+composition. However,
+since fuel cycle analyses model multiple facilities simultaneously,
+the computational burden required to run multiple SaltProc
+simulations simultaneously inside a \Cyclus simulation
+will outweigh its benefits. Because fuel cycle
+analyses aim to obtain a `good-enough' approximation of a large
+system, coupling \Cyclus with a high-fidelity model and
+largely increasing the computational burden and simulation
+time is not preferred.
+
+A compromise of the two previously mentioned methods
+is implementing a \gls{ROM} of a high-fidelity
+depletion model in \Cyclus. 
+A \gls{ROM} is a statistically trained algorithm that
+defines a feature space (input parameters) and a
+target space (output values).
+The benefit of a \gls{ROM} is the reduction in computational
+burden. A \gls{ROM} can be trained by training from a set of
+SERPENT depletion results, where the feature space is the
+input of the simulation, and output is the depleted fuel
+composition (shown in figure \ref{diag:rom_flow}. 
+The difficulty of creating a \gls{ROM} for depletion calculations
+is that the feature space and the target space is very large, since
+the feature and target space comprise of the composition of
+every isotope.
+
+
+\begin{figure}
+    \centering
+    \begin{tikzpicture}[node distance=3.5cm and 2cm, on grid, auto, text width=2cm]
+    \node (incomp) [object] {Input composition ($\approx$ 1,000 isotopes)};
+    \node (t) [object, below of=incomp] {depletion time};
+    \node (powdens) [object, below of=t] {power density};
+    
+    \node (serpent) [process, right of=t] {SERPENT (ROM)};
+
+    \node (outcomp) [objectr, right of=serpent] {Output composition ($\approx$ 1,000 isotopes)};
+
+    \draw [arrow] (incomp) -- (serpent); 
+    \draw [arrow] (t) -- (serpent); 
+    \draw [arrow] (powdens) -- (serpent);
+    \draw [arrow] (serpent) -- (outcomp);
+
+    \end{tikzpicture}
+    \caption{Example of a \gls{ROM} generated from SERPENT
+             results. The green objects represent the feature
+             space, and the red objects represent the
+             target space. This example assumes that the
+             geometry (and any other parameter) is the same for all SERPENT simulations.}
+    \label{diag:rom_flow}
+\end{figure}
+
+In conclusion, each method for modeling \gls{MSR} depletion
+in a large scale fuel cycle simulation has unique
+benefits and drawbacks. The currently implemented method
+of using a database generated from a high-fidelity depletion
+tool has its limitations, but is adequate for a fuel cycle simulation,
+due to its low computational burden and medium fidelity.
