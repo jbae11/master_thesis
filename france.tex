@@ -1,18 +1,34 @@
 
 The stated long term plan for nuclear deployment in France targets a technology 
-transition to \glspl{SFR} \cite{cne2_reports_2015}. However, the current inventory of French \gls{UNF} 
-is insufficient to fuel that transition without building new \glspl{LWR} \cite{carre_overview_2009}.
+transition to \glspl{SFR}\cite{cne2_reports_2015}. However, the current inventory of French \gls{UNF} 
+is insufficient to fuel that transition without building new \glspl{LWR}.
 
 If instead, France accepted 
-\gls{UNF} from other \gls{EU} nations and used that \gls{UNF} to produce \gls{MOX} for new \glspl{SFR},
+\gls{UNF} from other \gls{EU} nations and used it to produce \gls{MOX} for new \glspl{SFR},
 the \gls{MOX} created will fuel a French transition to an \gls{SFR} fleet
 and allow France to avoid building additional \glspl{LWR}.
 
-To simulate this cooperative scenario, I simulated the entire \gls{EU} region
-and all its nuclear reactor operating history and \gls{UNF} accumulation up to the
-nearest foreseeable future. Then, using \Cyclus and the tools developed in this work, I
-calculated the amount of \gls{UNF} France needs
-to transition into a fully \gls{SFR} fleet without building additional \glspl{LWR}.
+I used \Cyclus to simulate
+ \gls{EU} spent nuclear material inventory accumulation and to model the 
+ proposed French 
+ technology transition from \glspl{LWR} to
+ \glspl{SFR}. I calculated the used fuel
+inventory in \gls{EU} member states and propose a potential collaborative
+strategy of used fuel management.
+
+Past research focuses solely on France and typically assumes that additional \glspl{LWR},
+namely \glspl{EPR}, supply the \gls{UNF} required to produce \gls{MOX} 
+\cite{carre_overview_2009, martin_symbiotic_2017, freynet_multiobjective_2016, merino_rodriguez_analysis_2014}.
+The strategies in these works estimate full \gls{SFR} transition in 2100.
+Other recent work in the literature investigates partitioning and transmutation
+in a European context, with \glspl{ADS} and Gen-IV reactors \cite{fazio_study_2013,
+alvarez-velarde_analysis_2008},
+to reduce radiotoxicity for disposal.
+However, little recent work considers synergistic international spent fuel arrangements.
+This work finds that a collaborative strategy can reduce the
+need to construct additional \glspl{LWR} in France, if 
+the \glspl{SFR} are as commercially competitive as recent work
+suggests they may be \cite{zhao_improving_2009}.
 
 This chapter details that French \gls{NFC} transition
 scenario from an \gls{LWR} fleet to a fully \gls{SFR} fleet.
@@ -44,7 +60,7 @@ without delay or failure and reach a lifetime of 60 years.
     \label{tab:eu_deployment}
     \begin{tabular}{ccccr}
         \hline
-        \textbf{Exp. Operational }&\textbf{Country} &\textbf{Reactor} & \textbf{Type} & \textbf{Gross \gls{MWe}}\\
+        \textbf{Exp. Operational }&\textbf{Country} &\textbf{Reactor} & \textbf{Type} & \textbf{Gross MWe}\\
         \hline
         2018 & Slovakia  & Mochovce 3 & PWR & 440\\
         2018 & Slovakia & Mochovce 4 & PWR & 440 \\
@@ -72,11 +88,11 @@ without delay or failure and reach a lifetime of 60 years.
               in the simulation.}
 \FloatBarrier
 
-For each \gls{EU} nation, we categorize the growth trajectory from
+For each \gls{EU} nation, I categorized the growth trajectory from
 ``Aggressive Growth'' to ``Aggressive Shutdown''. ``Aggressive growth'' is
 characterized by a rigorous expansion of nuclear power, while
 ``Aggressive Shutdown'' is characterized as a transition to rapidly
-de-nuclearize the nation's electric grid. We categorize each nation's growth 
+de-nuclearize the nation's electric grid. I categorized each nation's growth 
 trajectory into five degrees depending on G, the growth trajectory metric:
 
  \[
@@ -154,7 +170,7 @@ shows
 the French transition to \glspl{SFR} modeled in this simulation.
 Historically aggressive growth of nuclear in the 1980s leads to a substantial 
 shutdown of nuclear in the 2040s, which, in the simulation, are replaced by new 
-\glspl{SFR}. The net capacity is kept constant at 66 GWe.
+\glspl{SFR}. The net capacity is kept constant at 64.7 GWe.
 
 \begin{figure}[htbp!]
         \begin{center}
@@ -167,11 +183,13 @@ shutdown of nuclear in the 2040s, which, in the simulation, are replaced by new
 \end{figure}
 
 Figure \ref{fig:french_dep} shows the deployment strategy required to support the transition in 
-figure \ref{fig:sfr_num}. France must build four reactors per year, on average, to 
-make up for the end-of-license decommissioning of power plants built in the 1980s and 1990s.  The second period of aggressive building occurs when the first generation of \glspl{SFR} decommission after 80 years. Starting in 2040, France deploys 600-\gls{MWe} \glspl{SFR} to make up for 
+figure \ref{fig:sfr_num}. France must build 1.78 \glspl{ASTRID} per year, on average, to 
+make up for the end-of-license decommissioning of power plants built in the 1980s and 1990s.
+The second period of aggressive building occurs when the first generation of \glspl{SFR} decommission after 80 years.
+Starting in 2040, France deploys 600-\gls{MWe} \glspl{SFR} to make up for 
 decommissioned French \gls{LWR} capacity. This results in an installed 
 \gls{SFR} 
-capacity of 66,000 \gls{MWe} by 2078 when the final \gls{LWR} is 
+capacity of 64,700 \gls{MWe} by 2078 when the final \gls{LWR} is 
 decommissioned. 
 
 
@@ -186,7 +204,7 @@ decommissioned.
 \end{figure}
 
 
-Finally, figure \ref{fig:tot_dep} shows the total deployment scheme we simulated.  
+Finally, figure \ref{fig:tot_dep} shows the total deployment scheme I simulated.  
 The French transition to \glspl{SFR} couples with the historical and projected 
 operation of \gls{EU} reactors.  The steep transition from 2040 to 2060 
 reflects the scheduled decommissioning of reactors built in the 1975-2000 era 
@@ -386,9 +404,6 @@ The \gls{PWR} and \gls{BWR} specifications are determined using the linear core 
 as explained in section \ref{sec:writeinput}. The ASTRID-type \gls{SFR} specification
 is obtained from Varaine et al \cite{varaine_pre-conceptual_2012}.
 The \gls{ASTRID} design's target lifetime is 60 years \cite{gauche_generation_2012}.
-However, we assume \glspl{ASTRID} will have lifetime extensions of 20 years,
-to a total lifetime of 80 years. This assumption is based on the fact that
-most French \glspl{LWR} have lifetime extensions.
 
 \begin{table}[h]
     \centering
@@ -398,7 +413,7 @@ most French \glspl{LWR} have lifetime extensions.
         \textbf{Specification} & \textbf{\gls{PWR} \cite{sutharshan_ap1000tm_2011}} & \textbf{\gls{BWR} \cite{hinds_next-generation_2006}} & \textbf{\gls{SFR}} \cite{varaine_pre-conceptual_2012}\\
         \hline
                 Lifetime \tablefootnote{The simulated reactor lifetime reaches the licensed lifetime unless 
-        the reactor is shut down prematurely.} [y]  & 60 & 60 & 80 \\
+        the reactor is shut down prematurely.} [y]  & 60 & 60 & 60 \\
                 Cycle Time [mos.]& 18 & 18 & 12\\ 
                 Refueling Outage [mos.]& 2 & 2  & 2\\
                 Rated Power [\gls{MWe}] & 1110 & 1000 & 600\\
@@ -452,7 +467,7 @@ This section describes the simulation results if France utilized
 \gls{UNF} from other \gls{EU} nations to fuel the transition into a fully
 \gls{ASTRID} fleet.
 
-First, we confirm that France does not have enough
+First, I confirm that France does not have enough
 \gls{LWR} \gls{UNF} to transition into a fully \gls{SFR}
 fleet. As shown in figure \ref{fig:only_france}, France
 cannot meet the \gls{ASTRID} fuel demand without receiving
@@ -490,17 +505,17 @@ stored \gls{UNF} from the \gls{UNF} reprocessed to create \gls{MOX}.
             \hline
                         \textbf{Category} & \textbf{Value} & Specifics \\
                                           & \textbf{[MTHM]} & \\ \hline
-                        UOX Loaded  & 162,154 & UOX used in EU reactors 1970-2050\\ 
-            MOX Loaded  & 6,685  & MOX used in French reactors 1970-2050\\
-                        Available used UOX (EU)  & 95,193  & Used EU (minus France) 
+                        UOX Loaded  & 152,271 & UOX used in EU reactors 1970-2050\\ 
+            MOX Loaded  & 6,463  & MOX used in French reactors 1970-2050\\
+                        Available used UOX (EU)  & 85,111  & Used EU (minus France) 
                                 UOX in storage for future ASTRID MOX 
                                 production\\
                         Available used UOX (France) & 
-                                12,494  & Used French UOX stored for 
+                                12,582  & Used French UOX stored for 
                                 future ASTRID MOX production. \\
-                                Reprocessed UOX (France) & 51,382 & Used French UOX already reprocessed for the production of LWR MOX \\
-            Tails  & 1,409,630  & (Tails generated) $-$ (Tails used for production of LWR MOX) \\ 
-            Natural U Used  & 1,578,651  & \\ \hline
+                                Reprocessed UOX (France) & 51,511 & Used French UOX already reprocessed for the production of LWR MOX \\
+            Tails  & 1,330,165  & (Tails generated) $-$ (Tails used for production of LWR MOX) \\ 
+            Natural U Used  & 1,482,436  & \\ \hline
         \end{tabularx}
         
         \label{tab:sim_result1}
@@ -508,18 +523,20 @@ stored \gls{UNF} from the \gls{UNF} reprocessed to create \gls{MOX}.
 \FloatBarrier
 
 
+
 Figures \ref{fig:eu_tail} and \ref{fig:eu_snf} show the 
 accumulation of tails and used fuel over time in the \gls{EU}.
-Tails accumulate as a by-product of uranium enrichment.
+Tails accumulate as a by-product of uranium enrichment. 
 Spent fuel is discharged from reactors every refueling period.
 The entire core is discharged when the reactor decommissions.
-A total of about $1,400,000$ MTHM of tails and $100,000$ MTHM of
+A total of $1,330,165$ MTHM of tails and $85,111$ MTHM of
 \gls{UNF} have accumulated by 2050.
 Figure \ref{fig:eu_fuel} shows the amount of fuel used in the \gls{EU}. The 
 tails mass accumulation rate is fairly steady, with peaks occurring when new 
 reactors are deployed.
 In figure \ref{fig:eu_snf}, the peaks are caused by reactor decommissioning which 
 triggers all the batches in the final reactor core to be sent to the repository.
+
 
 \begin{figure}[htbp!]
     \begin{center}
@@ -543,7 +560,8 @@ triggers all the batches in the final reactor core to be sent to the repository.
             \includegraphics[scale=0.7]{./images/eu_future/snf_discharge.png}
     \end{center}
         \caption{Simulated \gls{EU} \gls{UNF} accumulation and discharge is 
-shown as a function of time.}
+shown as a function of time. The large peak near 2025 is due to the planned German
+nuclear pahse-out, in which all German reactors will have been decommissioned by 2022.}
     \label{fig:eu_snf}
 \end{figure}
 
@@ -552,7 +570,7 @@ shown as a function of time.}
 
 
 Reprocessing the \gls{UNF} collected from all EU nations can provide 
-approximately 983 tons of plutonium. Table \ref{tab:pu} lists the 
+approximately 913 tons of plutonium. Table \ref{tab:pu} lists the 
 isotope, mass fraction, and quantity of plutonium that can be obtained from the 
 2050 \gls{UNF} inventory.  With the \gls{SFR} breeding ratio above one, France 
 can transition into a fully \gls{SFR} fleet without extra construction of 
@@ -564,12 +582,12 @@ can transition into a fully \gls{SFR} fleet without extra construction of
     \begin{tabular}{lSS}
         \hline
         \textbf{Isotope} & \textbf{Mass Fraction in Used Fuel [\%]} & \textbf{Quantity [t]} \\ \hline
-        Pu238 & 0.011 & 10.52 \\ 
-        Pu239 & 0.518 & 545.05 \\ 
-        Pu240 & 0.232 & 244.11 \\ 
-        Pu241 & 0.126 & 132.58 \\ 
-        Pu242 & 0.048 & 51.24 \\ \hline
-        \bfseries Total & 0.935 & 983.52 \\ \hline
+        Pu238 & 0.011 & 9.76 \\ 
+        Pu239 & 0.518 & 506.05 \\ 
+        Pu240 & 0.232 & 226.64 \\ 
+        Pu241 & 0.126 & 123.09 \\ 
+        Pu242 & 0.048 & 47.57 \\ \hline
+        \bfseries Total & 0.935 & 913.14 \\ \hline
     \end{tabular}
     
     \label{tab:pu}
@@ -605,8 +623,14 @@ within its dynamic resource exchange algorithm \cite{gidden_methodology_2016}.
     \label{fig:fuel}
 \end{figure}
 
-\Cref{fig:pu_no_cum} shows the separated plutonium discharge per month from the reprocessing plant. The plutonium outflux does not precisely follow the fuel demand because \Cyclus agents have material buffers that store commodity fuel for later usage. The reprocessed plutonium from legacy \gls{UNF} is stored for the initial loading of \glspl{SFR}.  Plutonium separated from legacy \gls{UNF} meets plutonium demans sufficiently to reduce the reprocessing demand for the first aggressive deployment of \glspl{SFR}.  The plutonium from reprocessing legacy fuel is a flat rectangle because the reprocessing throughput was set to 183.2 $\frac{\gls{MTHM}}{month}$ to avoid reprocessing all the legacy in one timestep. This value is assuming that France doubles its current
-reprocessing capacity.
+\Cref{fig:pu_no_cum} shows the separated plutonium discharge per month from the reprocessing plant.
+The plutonium outflux does not precisely follow the fuel demand because \Cyclus agents have material
+buffers that store commodity fuel for later usage. The reprocessed plutonium from legacy \gls{UNF} is
+stored for the initial loading of \glspl{SFR}.  Plutonium separated from legacy \gls{UNF} meets
+plutonium demans sufficiently to reduce the reprocessing demand for the first aggressive deployment
+of \glspl{SFR}.  The plutonium from reprocessing legacy fuel is a flat rectangle because the reprocessing
+throughput was set to 183.2 $\frac{\gls{MTHM}}{month}$ to avoid reprocessing all the legacy in one timestep.
+This value is assuming that France doubles its current reprocessing capacity.
  
 
 \begin{figure}[htbp!]
@@ -614,7 +638,8 @@ reprocessing capacity.
         \includegraphics[scale=0.7]{./images/french-transition/pu.png}
     \end{center}
     \caption{The separated plutonium discharge from the reprocessing plant 
-        in $\frac{\mbox{MTHM}}{\mbox{month}}$.}
+        in $\frac{\mbox{MTHM}}{\mbox{month}}$. The plutonium from \gls{LWR} \gls{UNF}
+        is created after the demand is gone,  due to material buffers in \Cyclus.}
     \label{fig:pu_no_cum}
 \end{figure}
 
@@ -635,18 +660,18 @@ Table \ref{tab:sfr_sim_result} lists French reprocessing and
         \begin{tabular}{llS}
             \hline
             \textbf{Category} & \textbf{Unit} & \textbf{Value}  \\ \hline
-            Total \gls{ASTRID} MOX used & MTHM & 63,452  \\ 
-            \textbf{Average UOX Reprocessing} & MTHM/month & \bfseries 124.6 \\
-            \textbf{Average Total Reprocessing} & MTHM/month & \bfseries 63.23 \\
-            \textbf{Average Fuel Fabrication} & MTHM/month & \bfseries 45.32 \\
-            Total \glspl{SFR} Deployed & & 220 \\ 
-            Total Plutonium Reprocessed & MTHM & 14,620 \\ 
-            Total \gls{ASTRID} fuel from UOX Waste & MTHM & 2,856  \\ 
-            Total \gls{ASTRID} fuel from MOX Waste & MTHM  & 60,596 \\ 
-            Total Tails used & MTHM & 49,492 \\ 
-            \textbf{Total legacy UNF reprocessed} & MTHM & 52,874 \\ 
-            Total Reprocessed Uranium Stockpile & MTHM & 148,620 \\ 
-            Total Raffinate & MTHM & 17,901 \\ \hline
+            Total \gls{ASTRID} MOX used & MTHM & 62,144  \\ 
+            \textbf{Average UOX Reprocessing} & MTHM/month & \bfseries 144.29 \\
+            \textbf{Average Total Reprocessing} & MTHM/month & \bfseries 61.3 \\
+            \textbf{Average Fuel Fabrication} & MTHM/month & \bfseries 36.9 \\
+            Total \glspl{SFR} Deployed & & 214 \\ 
+            Total Plutonium Reprocessed & MTHM & 13,671 \\ 
+            Total \gls{ASTRID} fuel from UOX Waste & MTHM & 3,001  \\ 
+            Total \gls{ASTRID} fuel from MOX Waste & MTHM  & 59,143 \\ 
+            Total Tails used & MTHM & 48,472 \\ 
+            \textbf{Total legacy UNF reprocessed} & MTHM & 55,553 \\ 
+            Total Reprocessed Uranium Stockpile & MTHM & 194,186 \\ 
+            Total Raffinate & MTHM & 12,123 \\ \hline
         \end{tabular}}
         
         \label{tab:sfr_sim_result}
@@ -658,9 +683,7 @@ These results demonstrate that despite the large amount of initial plutonium tha
 prior to \gls{ASTRID} deployment, the 20 years (2020-2040) of 
 \gls{ASTRID} fuel preparation
 allows a reasonable level of average
-\gls{UOX} reprocessing capacity demand. \gls{UOX} reprocessing continues 
-until 2057, when the \gls{ASTRID} spent fuel can supply the plutonium
-for its own fuel.
+\gls{UOX} reprocessing capacity demand.
 
 \section{Sensitivity analysis}
 
@@ -670,7 +693,7 @@ of these parameters (table \ref{tab:sen_par}) sought to capture the full
 span of their uncertainty.
 
 Note that the breeding ratios of the \glspl{ASTRID} are artificially increased
-by editing the output fuel composition in the \glspl{ASTRID}. We did not 
+by editing the output fuel composition in the \glspl{ASTRID}. I did not 
 take into account the other reactor parameters (e.g. core size, initial
 fuel composition, fuel residence time, etc.)
 that must be changed to achieve these higher breeding ratios. More detailed analyses
@@ -691,65 +714,73 @@ of the reactor physics and their effect on this transition scenario are future w
     \label{tab:sen_par}
 \end{table}
 
-\subsection{Breeding ratio}
+\subsection{Breeding Ratio}
+
 
 Increase in the breeding ratio of \gls{ASTRID} reactors
-decreases the total reprocessing demand, as shown in 
-figure \ref{fig:br_rep}.
-The demand previous to 2050 is unaffected by the 
-breeding ratio because only \gls{UOX} \gls{UNF} is reprocessed. 
+decreases the total reprocessing demand, since less
+\gls{UNF} must be reprocessed to extract the same amount of
+plutonium. Additionally,
+\glspl{ASTRID} become independent more quickly due to
+higher breeding of plutonium.
 
-\begin{figure}[htbp!]
-    \begin{center}
-        \includegraphics[scale=0.7]{./images/sensitivity/br_tot_rep.png}
-    \end{center}
-    \caption{Increasing the breeding ratio decreases the monthly reprocessing 
-    demand.}
-    \label{fig:br_rep}
-\end{figure}
-
-
-The sensitivity analysis also shows, as demonstrated in figure \ref{fig:br_uox} that 
-increasing the breeding ratio decreases the mass of \gls{UOX} \gls{UNF} 
-required for the transition. The \glspl{ASTRID} produce more plutonium, reducing the plutonium demand from reprocessed \gls{UOX}. However, since \gls{LWR} \gls{UNF} is not
-the limiting factor, increasing the breeding ratio does not play a significant
+Figure \ref{fig:br_fuel} shows the relationship between breeding ratio and fuel loading in \glspl{ASTRID}.
+The \glspl{ASTRID} produce 
+more plutonium, reducing the plutonium demand from 
+reprocessed \gls{UOX}. However, since \gls{LWR} \gls{UNF} is not
+the limiting factor for this transition scenario,
+increasing the breeding ratio does not play a significant
 role in the transition scenario, especially considering the technical difficulty
 in achieving a high breeding ratio.
 
+\begin{figure}[!ht]
+	\centering
+	\subfloat{\includegraphics[width=.45\textwidth]{./images/sensitivity/108br.png}}\quad
+	\subfloat{\includegraphics[width=.45\textwidth]{./images/sensitivity/111br.png}}\\
+	\subfloat{\includegraphics[width=.45\textwidth]{./images/sensitivity/115br.png}}\quad
+	\subfloat{\includegraphics[width=.45\textwidth]{./images/sensitivity/118br.png}}
+	\caption{\gls{ASTRID} fuel loading patters are altered by changes in \gls{ASTRID} 
+		breeding ratio. Less \gls{ASTRID} fuel comes from reprocessed \gls{LWR} \gls{UNF}
+		because \glspl{ASTRID} generate more plutonium.}
+	\label{fig:br_fuel}
+\end{figure}
+
+The sensitivity analysis also shows, as demonstrated in figure \ref{fig:br_uox} that 
+increasing the breeding ratio decreases the mass of \gls{LWR} \gls{UNF} 
+required for the transition.
+
 \begin{figure}[htbp!]
     \begin{center}
-        \includegraphics[scale=0.7]{./images/sensitivity/br_uox_unf_cum.png}
+        \includegraphics[scale=0.6]{./images/sensitivity/br_uox_unf_cum.png}
     \end{center}
     \caption{Sensitivity analysis demonstrates that increasing the breeding 
     ratio decreases the required \gls{UOX} \gls{UNF}. }
     \label{fig:br_uox}
 \end{figure}
 
-The differences between varying breeding ratios are
-shown in table \ref{tab:br_diff}. The difference were calculated
+The differential impacts of varying the breeding ratios are
+shown in table \ref{tab:br_diff}. The differences were calculated
 using the following equation:
-\[ \epsilon = \frac{(x - x_{base})}{x_{base}} \cdot 100 \]
+
+\[ \epsilon = \frac{(x - x_{base})}{x_{base}} * 100 \]
+
 \begin{table}[h]
 	\centering
-	\caption{Percent difference of total \gls{LWR} \gls{UNF} reprocessed
-		for transition and total reprocessing demand for the simulation.}
+        \caption{Breeding ratio impact on reprocessing requirements.}
 	\begin{tabular}{lrrrr}
 		\hline
-		\multirow{2}{*}{\textbf{Parameter}} & \multicolumn{4}{c}{\% Difference} \\
-		& \textbf{1.08}& \textbf{1.11} & \textbf{1.15} & \textbf{1.18} \\
+                & \multicolumn{4}{c}{\% Difference} \\
+		\textbf{Breeding Ratio $\longrightarrow$}& \textbf{1.08}& \textbf{1.11} & \textbf{1.15} & \textbf{1.18} \\
 		\hline
-		Total reprocessing demand & 0.0 & -1.8 & -2.6 & -3.4 \\ 
-		\gls{LWR} \gls{UNF} reprocessed & 0.0  & -4.9 & -8.0 & -9.7 \\
+		Total reprocessing demand & 0.0 & -5.3 & -7.8 & -10.3 \\ 
+		\gls{LWR} \gls{UNF} reprocessed & 0.0  & -4.8 & -7.2 & -9.6 \\
 		\hline
 	\end{tabular}
 	\label{tab:br_diff}
 \end{table}
 
 
-\FloatBarrier
-
-\subsection{Lifetime extension of French \glspl{LWR}}
-\label{sec:life}
+\subsection{Lifetime Extension of French \glspl{LWR}}\label{sec:life}
 Extending the lifetime of French \glspl{LWR} lowers the average
 monthly \gls{UOX} reprocessing demand, since the \gls{ASTRID} deployment becomes 
 delayed (shown in figure \ref{fig:pow_diff}). The plutonium demand is delayed,
@@ -764,57 +795,58 @@ delayed (shown in figure \ref{fig:pow_diff}). The plutonium demand is delayed,
     \label{fig:pow_diff}
 \end{figure}
 
-Figure \ref{fig:ext_uox} shows the decrease in the average monthly
-\gls{UOX} reprocessing burden with increased \gls{LWR} lifetimes.
-However, the duration of \gls{LWR} \gls{UNF} reprocessing increases,
-due to a delay in \gls{SFR} \gls{UNF} generation, which increases
-the total amount of \gls{LWR} \gls{UNF} reprocessed (shown in table
-\ref{tab:ext_diff}).
 
+Figure \ref{fig:ext_fuel} shows the change in \gls{ASTRID} fuel loading with
+\gls{LWR} lifetime extension. The \gls{ASTRID} fuel loaded with plutonium
+from \gls{LWR} \gls{UNF} conveys the corresponding \gls{LWR} \gls{UNF} reprocessing demand.
+The change in \gls{ASTRID} deployment alters \gls{ASTRID} fuel loading patterns.
+However, increasing the \gls{LWR} lifetimes
+does not increase the \gls{LWR} \gls{UNF} demand significantly (less than 1\%
+for the 20-year extension case),
+because \glspl{ASTRID} become self-sustaining at similar times after the first
+\gls{ASTRID} deployment.
 
-\begin{figure}[htbp!]
-    \begin{center}
-    	\includegraphics[scale=0.7]{./images/sensitivity/ext_uox_rep.png}
-    \end{center}
-    \caption{Increasing the lifetime of French \glspl{LWR} decreases the monthly
-    	\gls{UOX} reprocessing demand, but increases the duration of \gls{LWR} \gls{UNF}
-    	reprocessing, thereby increasing the total amount of \gls{LWR} \gls{UNF} reprocessed.}
-    \label{fig:ext_uox}
+\begin{figure}[!ht]
+	\centering
+	\subfloat{\includegraphics[width=.45\textwidth]{./images/sensitivity/base.png}}\quad
+	\subfloat{\includegraphics[width=.45\textwidth]{./images/sensitivity/5yr.png}}\\
+	\subfloat{\includegraphics[width=.45\textwidth]{./images/sensitivity/10yr.png}}\quad
+	\subfloat{\includegraphics[width=.45\textwidth]{./images/sensitivity/20yr.png}}
+	\caption{\gls{ASTRID} fuel loading patterns are altered by changes in \gls{ASTRID} deployment
+			 caused by the lifetime extension of \glspl{LWR}.}
+	\label{fig:ext_fuel}
 \end{figure}
 
-Figure \ref{fig:ext_all} shows that lifetime extension has little
-effect on the average total monthly reprocessing demand, because
-the amount of plutonium in the \gls{ASTRID} used fuel remains the same.
-The delay of \gls{ASTRID} deployment simply provides more time for
-France to prepare the fuel. 
-The longer lifetimes of \glspl{LWR} delay transition, and gives France
-time to accumulate \gls{LWR} \gls{UNF}. However, it does not reduce
-the total reprocessing capacity required for transition.
-
-\begin{figure}[htbp!]
-    \begin{center}
-        \includegraphics[scale=0.7]{./images/sensitivity/ext_tot_rep.png}
-    \end{center}
-    \caption{Increasing the lifetime of French \glspl{LWR} simply delays the
-             reprocessing demand and has little impact on the total 
-     reprocessing capacity required.}
-    \label{fig:ext_all}
-\end{figure}
+The quantitative effects of
+\gls{LWR} lifetime extensions are shown in table \ref{tab:ext_met}.
+The differences were calculated using the same equation used for the
+breeding ratio study. 
+Since \gls{LWR} lifetime extensions shorten the span of \gls{ASTRID} operations, less \gls{ASTRID} fuel is needed when \gls{LWR} lifetimes are extended.
+Therefore, it is not fair to compare the mass of total \gls{UNF} reprocessed,
+since less plutonium is extracted from \gls{UNF}. Instead, I compared the
+average reprocessing values and the total amount of \gls{LWR} \gls{UNF} reprocessed.
+There is not a significant difference (less than $1\%$ for the 20-year extension case)
+in the amount of \gls{LWR}
+\gls{UNF} reprocessed. The delay in \gls{ASTRID} deployment
+spreads out the \gls{LWR} \gls{UNF} reprocessing demand,
+thereby dramatically reducing ($39\%$ for the 20-year extension case)
+the average monthly \gls{LWR} \gls{UNF} reprocessing demand.
 
 \begin{table}[h]
 	\centering
-	\caption{Percent difference of total \gls{LWR} \gls{UNF} reprocessed
-		for transition and total reprocessing demand for the simulation.}
+	\caption{\gls{LWR} lifetime extension impact on reprocessing requirements.}
 	\begin{tabular}{lrrrr}
 		\hline
-		\multirow{2}{*}{\textbf{Parameter}} & \multicolumn{4}{c}{\% Difference} \\
-		& \textbf{base}& \textbf{5 years} & \textbf{10 years} & \textbf{20 years} \\
+		& \multicolumn{4}{c}{\% Difference} \\
+		\textbf{\gls{LWR} lifetime extension $\longrightarrow$}& \textbf{0 years}& \textbf{5 years} & \textbf{10 years} & \textbf{20 years} \\
 		\hline
-		Total reprocessing demand & 0.0 & -5.9 & -3.3 & 3.1 \\
-		\gls{LWR} \gls{UNF} reprocessed & 0.0  & 4.2 & 8.6 & 17.8 \\
+		Total \gls{ASTRID} fuel produced & 0.0 & -3.9 & -8.0 & -16.3 \\
+		\gls{LWR} \gls{UNF} reprocessed & 0.0  & -0.7 & -0.7 & -0.7 \\
+		Average \gls{LWR} \gls{UNF} reprocessed & 0.0 & -16.0 & -25.7 & -39.8 \\
+		Average \gls{UNF} reprocessed & 0.0 & -2.3 & -4.2 & -8.3 \\
 		\hline
 	\end{tabular}
-	\label{tab:ext_diff}
+	\label{tab:ext_met}
 \end{table}
 
 
@@ -823,20 +855,20 @@ the total reprocessing capacity required for transition.
 \section{Conclusion}
 
 France can transition into
-a fully \gls{SFR} fleet with installed capacity of 66,000 \gls{MWe} without
+a fully \gls{SFR} fleet with installed capacity of 64,700 \gls{MWe} without
 building additional \glspl{LWR}
 if France receives \gls{UNF} from other \gls{EU} nations.
 Supporting the \gls{SFR} fleet requires an average 
-reprocessing capacity of 63.23 \gls{MTHM} per month,
-and an average fabrication capacity of 45.32 \gls{MTHM} per month.
+reprocessing capacity of 61.3 \gls{MTHM} per month,
+and an average fabrication capacity of 36.9 \gls{MTHM} per month.
 
 The sensitivity study explored the effect of increased \gls{SFR} breeding
 ratio and existing \gls{LWR} lifetime extension. Increasing the breeding
 ratio reduced the amount of \gls{LWR} \gls{UNF} required to transition
-up to $9.7\%$ and decreased the total reprocessing demand up to $3.4\%$.
+up to $9.6\%$ and decreased the total reprocessing demand up to $10.3\%$.
 Increasing the lifetime of existing \glspl{LWR} was not significant
-in reducing reprocessing demand, but provided the benefit of delayed
-transition.
+in reducing the \gls{LWR} \gls{UNF} required to transition, but provided the benefit of
+decreased average reprocessing demand due to delayed \gls{ASTRID} transition.
 
 Since most \gls{EU} nations do not have an operating \gls{UNF}
 repository or a management plan, they have a strong incentive
@@ -848,16 +880,18 @@ other nations will allow France to meet their MOX demand
 without new construction of \glspl{LWR}.
 
 Table \ref{tab:which_send} lists \gls{EU} nations and their \gls{UNF} inventory
-in 2050. We analyzed a strategy in which 
+in 2050. I analyzed a strategy in which 
 the nations reducing their nuclear fleet send their \gls{UNF} to France.
-The sum of \gls{UNF} from Italy, Slovenia, Belgium, Spain and Germany
-provides enough \gls{UNF} for the simulated transition ($\approx 53,000$ MTHM). 
+The sum of \gls{UNF} from Bulgaria, Poland, Czech Republic, Italy, Slovenia,
+Belgium, Spain and Germany
+provides enough \gls{UNF} for the simulated transition ($\approx 55,500$ MTHM). 
 These nations are shown in bold in table \ref{tab:which_send}.
-Sweden is not considered because of its concrete waste management plan.
+Sweden and Finland are not considered because they have established
+national nuclear waste management plans.
 
 If France receives \gls{LWR} \gls{UNF} from all \gls{EU} nations,
 except Sweden and Finland,
-it will have a surplus of $30,648$ MTHM of \gls{LWR} \gls{UNF}. This
+it will have a surplus of $20,516$ MTHM of \gls{LWR} \gls{UNF}. This
 inventory can be leveraged to increase nuclear power capacity as
 the transition takes place. However, pragmatic limitations such
 as new reactor construction, reprocessing throughput, and
@@ -865,36 +899,47 @@ political concerns remain.
 
 
 \begin{table}[h]
+
+\begin{threeparttable}
     \centering
     \caption {\gls{EU} nations and their respective \gls{UNF} inventory.} 
-                \begin{tabular}{llr}
+                \begin{tabularx}{\textwidth}{llr}
                     \hline 
                     \textbf{Nation} & \textbf{Growth Trajectory} & \small{\textbf{UNF in 2050 [MTHM] }}\\
                     \hline
-                    Poland & Aggressive Growth & 1,807\\
+                    \textbf{Poland} & \textbf{Aggressive Growth} & \textbf{1,807}\\
                     Hungary & Aggressive Growth & 3,119 \\ 
-                    UK & Aggressive Growth & 13,268\\
-                    Slovakia & Modest Growth & 2,746\\
-                    Bulgaria & Modest Growth & 3,237 \\
-                    Czech Rep. & Modest Growth & 4,413\\
-                    Finland & Modest Growth &  5,713\\
+                    UK & Aggressive Growth & 13,157\\
+                    Slovakia & Modest Growth & 2,744\\
+                    \textbf{Bulgaria} & \textbf{Modest Growth} & \textbf{2,965} \\
+                    \textbf{Czech Rep.} & \textbf{Modest Growth} & \textbf{4,143}\\
+                    Finland & Modest Growth &  5,604\\
                     Netherlands & Modest Reduction & 539\\
-                    \textbf{Italy} & \textbf{Modest Reduction} & \textbf{583}\\
+                    \textbf{Italy} & \textbf{Modest Reduction} & \textbf{577}\\
                     \textbf{Slovenia} & \textbf{Modest Reduction} & \textbf{765}\\
-                    Lithuania & Modest Reduction & 2,644 \\
-                    \textbf{Belgium} & \textbf{Aggressive Reduction} & \textbf{6,644}\\
-                    \textbf{Spain} & \textbf{Modest Reduction} &  \textbf{9,771} \\
-                    \textbf{France} & \textbf{Modest Reduction} & \textbf{12,494} \\
-                    Sweden & Aggressive Reduction & 16,035\\
-                    \textbf{Germany} & \textbf{Aggressive Reduction} & \textbf{23,868}\\
+                    Lithuania & Modest Reduction & 1,051 \\
+                    Romania \tnote{1}  & Modest Growth & 7,495 \\
+                    \textbf{Belgium} & \textbf{Aggressive Reduction} & \textbf{4,799}\\
+                    \textbf{Spain} & \textbf{Modest Reduction} &  \textbf{9,725} \\
+                    \textbf{France} & \textbf{Modest Reduction} & \textbf{12,582} \\
+                    Sweden & Aggressive Reduction & 16,014\\
+                    \textbf{Germany} & \textbf{Aggressive Reduction} & \textbf{18,096}\\
                     \hline
-                \end{tabular}
-    
+                \end{tabularx}
+    \begin{tablenotes}
+    \item[1] Romania only has \glspl{PHWR}. The used \gls{PHWR} fuels are note
+             considered for reprocessing.
+    \end{tablenotes}
+
     \label{tab:which_send}
+
+\end{threeparttable}
 
 \end{table}
 
-On the other hand, in these simulations, some complex political and economic factors were not incorporated and various assumptions were present in this scenario. For
+
+On the other hand, in these simulations, some complex political and economic
+factors were not incorporated and various assumptions were present in this scenario. For
 example, Germany's current policy is to not reprocess its \gls{LWR} fuel
 \cite{topfer_germanys_2011}, and this policy would create a shortage
 in the supply of \gls{LWR} \gls{UNF} for \gls{ASTRID} \gls{MOX} production.
@@ -905,4 +950,6 @@ agree to take in Germany's \gls{UNF} for direct disposal. The analysis
 method described herein could readily be adapted to account for such possibilities. 
 The collaborative option explored here may hold value for the \gls{EU} nuclear community,
 and may enable France to advance more rapidly into a closed fuel cycle. 
+\FloatBarrier
+
 \FloatBarrier
