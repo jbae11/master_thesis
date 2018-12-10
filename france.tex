@@ -657,14 +657,13 @@ Table \ref{tab:sfr_sim_result} lists French reprocessing and
                                   %KDH note: What does this mean?
                                   %thought there was only one simulation. . . 
                           }
-    \scalebox{1}{
-        \begin{tabular}{llS}
+        \begin{tabular}{llr}
             \hline
             \textbf{Category} & \textbf{Unit} & \textbf{Value}  \\ \hline
             Total \gls{ASTRID} MOX used & MTHM & 62,144  \\ 
-            \textbf{Average UOX Reprocessing} & MTHM/month & \bfseries 144.29 \\
-            \textbf{Average Total Reprocessing} & MTHM/month & \bfseries 61.3 \\
-            \textbf{Average Fuel Fabrication} & MTHM/month & \bfseries 36.9 \\
+            \textbf{Average UOX Reprocessing} & MTHM/month & \textbf{144.29} \\
+            \textbf{Average Total Reprocessing} & MTHM/month & \textbf{61.3} \\
+            \textbf{Average Fuel Fabrication} & MTHM/month & \textbf{36.9} \\
             Total \glspl{SFR} Deployed & & 214 \\ 
             Total Plutonium Reprocessed & MTHM & 13,671 \\ 
             Total \gls{ASTRID} fuel from UOX Waste & MTHM & 3,001  \\ 
@@ -673,7 +672,7 @@ Table \ref{tab:sfr_sim_result} lists French reprocessing and
             \textbf{Total legacy UNF reprocessed} & MTHM & 55,553 \\ 
             Total Reprocessed Uranium Stockpile & MTHM & 194,186 \\ 
             Total Raffinate & MTHM & 12,123 \\ \hline
-        \end{tabular}}
+        \end{tabular}
         
         \label{tab:sfr_sim_result}
 \end {table}
@@ -704,14 +703,14 @@ of the reactor physics and their effect on this transition scenario are future w
     \centering
     \caption{Both \gls{LWR} lifetime and \gls{ASTRID} breeding ratio impact 
     transitional reprocessing demand.}
-    \begin{tabularx}{0.8\textwidth}{lrr}
+    \begin{tabular}{lrr}
         \hline
         \textbf{Parameter} & \textbf{Default} & \textbf{Values} \\
         \hline
         Breeding Ratio of \glspl{ASTRID} & 1.08 & 1.11, 1.15, 1.18 \\ 
         Lifetime of French \glspl{LWR} [years] & 60  & 65, 70, 80 \\
         \hline
-    \end{tabularx}
+    \end{tabular}
     \label{tab:sen_par}
 \end{table}
 
@@ -928,7 +927,7 @@ political concerns remain.
                     \hline
                 \end{tabular}
     \begin{tablenotes}
-    \item[1] Romania only has \glspl{PHWR}. The used \gls{PHWR} fuels are note
+    \item[1] Romania only has \glspl{PHWR}. The used \gls{PHWR} fuels are not
              considered for reprocessing.
     \end{tablenotes}
 
