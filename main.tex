@@ -1,30 +1,32 @@
-
 %% Package and Class "uiucthesis2014" for use with LaTeX2e.
-\documentclass{report}
+\documentclass[edeposit,fullpage]{uiucthesis2014}
+
 
 \usepackage[acronym,toc]{glossaries}
 \include{acros}
+
+\usepackage{xspace}
+\usepackage{graphics}
+\newcommand{\Cycamore}{\textsc{Cycamore}\xspace}
+\newcommand{\Cyclus}{\textsc{Cyclus}\xspace}
+
+
 \usepackage{placeins}
 \usepackage{booktabs} % nice rules (thick lines) for tables
 \usepackage{microtype} % improves typography for PDF
-\usepackage{xspace}
+
 \usepackage[hyphens]{url}
 \usepackage{hyperref}
-%\usepackage[hidelinks]{hyperref}
-\usepackage{xspace}
-\usepackage{setspace}
 \usepackage{subfig}
 \usepackage{hhline}
 \usepackage{amsmath}
 \usepackage{color}
-
 \usepackage{multirow}
 \usepackage{siunitx}
 \sisetup{
-	input-decimal-markers = .,input-ignore = {,},table-number-alignment = right,
-	group-separator={,}, group-four-digits = true
+    input-decimal-markers = .,input-ignore = {,},table-number-alignment = right,
+    group-separator={,}, group-four-digits = true
 }
-
 \usepackage{fourier}
 \usepackage{booktabs}
 \newcommand\tab[1][1cm]{\hspace*{#1}}
@@ -39,7 +41,7 @@
   \def\tikz@width{#1}%
   \def\tikzscale{1}\begin{lrbox}{\measure@tikzpicture}%
   \BODY
-  \end{lrbox}%
+  \end{lrbox}
   \pgfmathparse{#1/\wd\measure@tikzpicture}%
   \edef\tikzscale{\pgfmathresult}%
   \BODY
@@ -48,24 +50,17 @@
 \usepackage{tabularx}
 \newcolumntype{b}{>{\hsize=1.0\hsize}X}
 \newcolumntype{q}{>{\hsize=0.5\hsize}X}
-
 \newcolumntype{R}{>{\raggedleft\arraybackslash\hsize=0.5\hsize}X}
 \newcolumntype{z}{>{\hsize=0.75\hsize}X}
 \newcolumntype{s}{>{\hsize=.5\hsize}X}
 \newcolumntype{m}{>{\hsize=.75\hsize}X}
-\usepackage{graphics}
-\newcommand{\Cycamore}{\textsc{Cycamore}\xspace}%
-\newcommand{\Cyclus}{\textsc{Cyclus}\xspace}%
-\newcommand{\uthree}{\xspace $^{233}_{92}U$ \xspace}
-\newcommand{\ufive}{\xspace $^{235}_{92}U$\xspace}%%
-\newcommand{\utwo}{\xspace $^{232}_{92}U$\xspace}
-\newcommand{\ueight}{\xspace $^{238}_{92}U$\xspace}
-\newcommand{\pu}{\xspace$^{239}_{94}Pu$\xspace}
-\newcommand{\thor}{\xspace $^{232}_{90}Th$\xspace}
-\graphicspath{ {images/} }
-\usepackage[affil-it]{authblk}
+
+\usepackage{cleveref}
+\usepackage{datatool}
 \usepackage[numbers]{natbib}
 \usepackage{notoccite}
+
+
 \usepackage{tikz}
 \usetikzlibrary{positioning, arrows, decorations, shapes}
 
@@ -77,23 +72,21 @@
 
 \tikzstyle{empty} =  [rectangle, rounded corners, minimum width=2.5cm, minimum height=0.7cm,text centered, draw=black, fill=white!30]
 \tikzstyle{arrow} = [thick,->,>=stealth]
-\usepackage{cleveref}
-\usepackage{datatool}
 
+
+\title{Fuel cycle transition simulation capabilities in Cyclus}
+\author{Jin Whan Bae}
+\department{Department of Nuclear, Plasma, Radiological Engineering}
+\schools{B.S., University of Illinois - Urbana Champaign, 2017}
+\msthesis
+\advisor{Kathryn D. Huff}
+\degreeyear{2018}
+\committee{Professor James F. Stubbins}
+
+\frontmatter
 
 \begin{document}
-
-\title{Fuel cycle transition simulation capabilities in \Cyclus}
-
-\author{Jin Whan Bae}
-%\department{Department of Nuclear, Plasma, Radiological Engineering}
-%\schools{B.S., University of Illinois - Urbana Champaign, 2017}
-%\msthesis
-%\advisor{Kathryn Huff}
-%\degreeyear{2018}
-%\committee{Professor Rizwan Uddin \\ Professor Clifford Singer}
 \maketitle
-
 
 %% Create an abstract that can also be used for the ProQuest abstract.
 %% Note that ProQuest truncates their abstracts at 350 words.
@@ -178,6 +171,7 @@ Christine Song, Gyum Hurr and Jae Man Jung.
 %% is 0.7 inch wide and centered
 
 \pagebreak
+\mainmatter
 
 \chapter{Introduction}
 \input{introduction}
@@ -206,12 +200,12 @@ Christine Song, Gyum Hurr and Jae Man Jung.
 \chapter{Conclusion and future work}
 \input{conclusion}
 
-\chapter{Appendix}
+\chapter*{Appendix}
 \input{appendix}
 
+\backmatter
 
-
-\bibliographystyle{unsrtnat}
+\bibliographystyle{apalike}
 \bibliography{bibliography}
 
 \end{document}
