@@ -314,7 +314,7 @@ perform the superset of analysis types.
 
 This thesis demonstrates and extends the real-world \gls{NFC} transition
 scenario modeling capabilities in \Cyclus. 
-The goal of this thesis to
+The goal of this thesis is to
 develop tools that leverage \Cyclus' modularity to
 add capabilities required for modeling real-world
 fuel cycle transition scenarios. The added capabilities are then
@@ -579,17 +579,17 @@ from the model solutions.
 
 \subsection{Tool development}
 In order to model real-world transition into an advanced
-fuel cycle, I developed two major tools. First, I developed a python package \texttt{cyclus-input-gen},
+fuel cycle, two major tools were developed. First, I developed a python package \texttt{cyclus-input-gen},
 which includes the submodule \texttt{from\_pris}
 that automates extraction from the curated \gls{IAEA} \gls{PRIS} database
 \cite{iaea_nuclear_2018}. Second, I developed \texttt{saltproc\_Reactor}that models \glspl{MSR}
 in \Cyclus using a database generated from a high-fidelity \gls{MSR} depletion calculation.
 
 \subsection{Real-world fuel cycle transition scenario simulation}
-I constructed the fuel cycle transition scenario for France and the United States.
+Fuel cycle transition scenarios for France and the United States were constructed.
 I made different assumptions for the two scenarios to account for each nation's different goals,
 initial conditions (i.e. currently existing fleet, \gls{UNF} inventory), and their potential reactor
-technology. I used \texttt{from\_pris} to construct the initial \Cyclus input file,
+technology. The python package \texttt{from\_pris} was used to construct the initial \Cyclus input file,
 followed by iterations to account for new reactor deployment. The workflow driving the analyses is shown in diagram \ref{diag:workflow}.
 
 
